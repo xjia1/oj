@@ -39,4 +39,12 @@ class Util
   {
     fURL::redirect(SITE_BASE . $path);
   }
+  
+  public static function getReferer()
+  {
+    if (empty($_SERVER['HTTP_REFERER'])) {
+      return SITE_BASE;
+    }
+    return $_SERVER['HTTP_REFERER'];
+  }
 }

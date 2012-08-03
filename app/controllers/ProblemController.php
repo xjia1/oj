@@ -19,6 +19,16 @@ class ProblemController extends ApplicationController
   
   public function show($id)
   {
-    //
+    try {
+      $this->problem = new Problem($id);
+      $view_any = User::can('view-any-problem');
+      if (!$view_any and $this->problem->isSecretNow()) {
+        throw new fValidationException('Problem is secret.');
+      }
+      $this->render('problem/show');
+    } catch (fExpectedException $e) {
+      fMessaging::create('warning', $e->getMessage());
+      fURL::redirect(Util::getReferer());
+    }
   }
 }

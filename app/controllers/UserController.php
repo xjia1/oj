@@ -19,13 +19,13 @@ class UserController extends ApplicationController
       if ($user->getPassword() == $password_hash) {
         fAuthorization::setUserToken($user->getUsername());
         fMessaging::create('success', 'Logged in successfully.');
-        fURL::redirect(fAuthorization::getRequestedURL(TRUE, $_SERVER["HTTP_REFERER"]));
+        fURL::redirect(fAuthorization::getRequestedURL(TRUE, Util::getReferer()));
       } else {
         throw new fValidationException('Password mismatch.');
       }
     } catch (fExpectedException $e) {
       fMessaging::create('error', $e->getMessage());
-      fURL::redirect(fAuthorization::getRequestedURL(TRUE, $_SERVER["HTTP_REFERER"]));
+      fURL::redirect(fAuthorization::getRequestedURL(TRUE, Util::getReferer()));
     }
   }
   
@@ -33,7 +33,7 @@ class UserController extends ApplicationController
   {
     fAuthorization::destroyUserInfo();
     fMessaging::create('success', 'Logged out successfully.');
-    fURL::redirect(fAuthorization::getRequestedURL(TRUE, $_SERVER["HTTP_REFERER"]));
+    fURL::redirect(fAuthorization::getRequestedURL(TRUE, Util::getReferer()));
   }
   
   public function changePassword()

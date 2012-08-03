@@ -77,4 +77,9 @@ class Problem extends fActiveRecord
     $accept = $this->getAcceptCount();
     return round(100 * $accept / $submit);
   }
+  
+  public function isSecretNow()
+  {
+    return Util::currentTime() < $this->getSecretBefore();
+  }
 }
