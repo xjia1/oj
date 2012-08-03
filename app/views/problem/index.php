@@ -25,7 +25,12 @@ include(__DIR__ . '/../layout/header.php');
   <tbody>
     <?php foreach ($this->problems as $p): ?>
       <tr>
-        <td><?php echo $p->getId(); ?></td>
+        <td>
+          <?php echo $p->getId(); ?>
+          <?php if (User::hasAccepted($p)): ?>
+            <i class="icon-ok"></i>
+          <?php endif; ?>
+        </td>
         <td><a href="<?php echo SITE_BASE; ?>/problem/<?php echo $p->getId(); ?>"><?php echo fHTML::encode($p->getTitle()); ?></a></td>
         <td><?php echo fHTML::encode($p->getAuthor()); ?></td>
         <td><?php echo $p->getRatio(); ?>% (<?php echo $p->getAcceptCount(); ?>/<?php echo $p->getSubmitCount(); ?>)</td>
