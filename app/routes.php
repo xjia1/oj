@@ -43,6 +43,11 @@ $app->get('/sets', function () {
   $controller->showProblemSets();
 });
 
+$app->get('/page/:name', function ($name) {
+  $controller = new HomeController();
+  $controller->showPage($name);
+});
+
 $app->get('/problems', function () {
   $controller = new ProblemController();
   $controller->index();

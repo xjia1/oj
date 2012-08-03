@@ -16,4 +16,11 @@ class HomeController extends ApplicationController
     $this->page_content = Variable::getString('problem-sets');
     $this->render('home/show_page');
   }
+  
+  public function showPage($name)
+  {
+    $this->page_title = Variable::getString("page-title-${name}");
+    $this->page_content = Variable::getString("page-content-${name}");
+    $this->render('home/show_page');
+  }
 }
