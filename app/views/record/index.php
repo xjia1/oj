@@ -56,19 +56,19 @@ include(__DIR__ . '/../layout/header.php');
   </tbody>
 </table>
 <style type="text/css">
-.recordPending             { color: #36393D; }
-.recordWaiting             { color: #00FF00; }
-.recordRunning             { color: #8B4513; }
-.recordAccepted            { color: #FF0000; }
-.recordPresentationError   { color: #3333FF; }
-.recordTimeLimitExceeded   { color: #FF7400; }
-.recordMemoryLimitExceeded { color: #73880A; }
-.recordWrongAnswer         { color: #3333FF; }
-.recordRuntimeError        { color: #FF108C; }
-.recordOutputLimitExceeded { color: #006020; }
-.recordCompileError        { color: #008C00; }
-.recordSystemError         { color: #356AA0; }
-.recordValidatorError      { color: #355AB0; }
+.recordPending             { color: #36393D !important; }
+.recordWaiting             { color: #00FF00 !important; }
+.recordRunning             { color: #8B4513 !important; }
+.recordAccepted            { color: #FF0000 !important; }
+.recordPresentationError   { color: #3333FF !important; }
+.recordTimeLimitExceeded   { color: #FF7400 !important; }
+.recordMemoryLimitExceeded { color: #73880A !important; }
+.recordWrongAnswer         { color: #3333FF !important; }
+.recordRuntimeError        { color: #FF108C !important; }
+.recordOutputLimitExceeded { color: #006020 !important; }
+.recordCompileError        { color: #008C00 !important; }
+.recordSystemError         { color: #356AA0 !important; }
+.recordValidatorError      { color: #355AB0 !important; }
 </style>
 <?php
 include(__DIR__ . '/../layout/footer.php');
