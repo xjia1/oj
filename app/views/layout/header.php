@@ -58,7 +58,9 @@
           <li class="nav-status"><a href="<?php echo SITE_BASE; ?>/status">Status</a></li>
           <?php if (fAuthorization::checkLoggedIn()): ?>
             <li class="nav-reports"><a href="<?php echo SITE_BASE; ?>/reports">Reports</a></li>
-            <li class="nav-dashboard"><a href="<?php echo SITE_BASE; ?>/dashboard">Dashboard</a></li>
+            <?php if (User::can('manage-site')): ?>
+              <li class="nav-dashboard"><a href="<?php echo SITE_BASE; ?>/dashboard">Dashboard</a></li>
+            <?php endif; ?>
           <?php endif; ?>
         </ul>
       </div><!--/.nav-collapse -->
