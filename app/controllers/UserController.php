@@ -16,7 +16,7 @@ class UserController extends ApplicationController
     $password_hash = '{SHA}' . base64_encode(sha1($password, TRUE));
     try {
       $user = new User($username);
-      if ($user->getPassword() === $password_hash) {
+      if ($user->getPassword() == $password_hash) {
         fAuthorization::setUserToken($user->getUsername());
         fMessaging::create('success', 'Logged in successfully.');
         fURL::redirect(fAuthorization::getRequestedURL(TRUE, $_SERVER["HTTP_REFERER"]));

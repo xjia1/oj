@@ -38,6 +38,5 @@ class Util
   public static function redirect($path)
   {
     fURL::redirect(SITE_BASE . $path);
-    exit();
   }
 }

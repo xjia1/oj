@@ -42,8 +42,8 @@
         </div>
       <?php else: ?>
         <form action="<?php echo SITE_BASE; ?>/login" method="POST" class="form-inline pull-right" style="margin: 0">
-          <input type="text" class="input-small" placeholder="Username" name="username" max-length="80">
-          <input type="password" class="input-small" placeholder="Password" name="password" max-length="80">
+          <input type="text" class="input-small" placeholder="Username" name="username" maxlength="80">
+          <input type="password" class="input-small" placeholder="Password" name="password" maxlength="80">
           <button type="submit" class="btn">Sign In</button>
         </form>
       <?php endif; ?>
