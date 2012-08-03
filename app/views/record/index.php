@@ -5,7 +5,7 @@ include(__DIR__ . '/../layout/header.php');
 <form method="GET" action="<?php echo SITE_BASE; ?>/status" class="pull-right form-search">
   <input type="text" class="input-small search-query" placeholder="Who" name="owner" maxlength="100" value="<?php echo $this->owner; ?>">
   <input type="number" class="input-small search-query" placeholder="What" name="problem" maxlength="10" value="<?php echo $this->problem_id; ?>">
-  <!-- TODO -->
+  TODO filter more
   <button type="submit" class="btn btn-primary">Filter</button>
   <?php if (strlen($this->owner) or strlen($this->problem_id)): ?>
     <a class="btn" href="<?php echo SITE_BASE; ?>/status">Cancel</a>
