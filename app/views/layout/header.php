@@ -13,11 +13,12 @@
     }
   </style>
   <link href="<?php echo SITE_BASE; ?>/css/bootstrap-responsive.min.css" rel="stylesheet">
+  <link href="<?php echo SITE_BASE; ?>/css/prettify.css" media="screen" rel="stylesheet">
   <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
 </head>
-<body>
+<body onload="prettyPrint()">
 <div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container">

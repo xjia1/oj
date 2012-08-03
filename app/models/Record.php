@@ -58,4 +58,9 @@ class Record extends fActiveRecord
     }
     return JudgeStatus::$NAMES[$this->getJudgeStatus()];
   }
+  
+  public function isReadable()
+  {
+    return fAuthorization::getUserToken() == $this->getOwner() or User::can('view-any-record');
+  }
 }

@@ -17,6 +17,15 @@ class RecordController extends ApplicationController
   
   public function show($id)
   {
-    //
+    try {
+      $this->record = new Record($id);
+      if (!$this->record->isReadable()) {
+        throw new fValidationException('You are not allowed to read this record.');
+      }
+      $this->render('record/show');
+    } catch (fExpectedException $e) {
+      fMessaging::create('warning', $e->getMessage());
+      fURL::redirect(Util::getReferer());
+    }
   }
 }

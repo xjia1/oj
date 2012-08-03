@@ -5,4 +5,14 @@ class Profile extends fActiveRecord
   {
     //
   }
+  
+  public static function fetchRealName($username)
+  {
+    try {
+      $profile = new Profile($username);
+      return $profile->getRealname();
+    } catch (fNotFoundException $e) {
+      return '';
+    }
+  }
 }
