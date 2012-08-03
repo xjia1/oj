@@ -1,0 +1,25 @@
+EDIT@2011/10/01: variable "ftp-base-path" is changed to "data-base-path" (currently using git)
+
+oj
+  problems
+    1000
+      data
+        1.in
+        1.out
+        2.in
+        2.out
+      problem.conf
+      problem.text
+      solution.cpp
+
+题目编号从1000开始，A+B Problem是第一道题，然后这样排下去，每个题目一个目录
+
+每道题的标程至少要有solution.cpp，愿意写solution.c或者solution.java也可以
+
+problem.text里用Markdown语法书写，格式是自由的，把题目叙述清楚即可，Markdown的语法和使用参考下面三个链接：
+http://daringfireball.net/projects/markdown/basics
+http://daringfireball.net/projects/markdown/syntax
+http://michelf.com/projects/php-markdown/
+
+另外，如果题目需要添加图片的，就直接放在和problem.text同一个目录下即可，图片都保存为png格式
+TODO: 提供从git repository里读取图片的Servlet

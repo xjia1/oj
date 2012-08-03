@@ -1,0 +1,32 @@
+Page Name Rules for ACM Online Judge
+====================================
+
+/home               Home
+/sets               Problem Sets (just render variable `problem-sets' as Markdown)
+/problems           All Problems
+    ?page=          > 页数从1开始，每页显示题目数目为 Variable[problems-per-page]
+    &author=        > 如果不为空则按该作者过滤（注意不是owner）
+/submit             Submit
+	?problem=
+/status             Status
+	?top=           > 列出从该号码开始的records，每页显示数目为 Variable[records-per-page]
+	&owner=
+	&problem=
+	&language=      > 按语言过滤，比如 c cpp java
+	&verdict=       > 按结果过滤，比如 ac  wa  ce，URL的query里放的是数字
+/reports            Reports
+/dashboard          Dashboard
+/problem            Read Problem
+	?id=
+/record             View Record
+	?id=
+/report             View Report
+	?id=
+/new/report         Create Report
+/remove/report      Remove Report
+/show/problem       Show Problem (Enable)
+/hide/problem       Hide Problem (Disable)
+/rejudge            Rejudge Record
+/add/permission     Add Permission
+/remove/permission  Remove Permission
+/set/variable       Set Variable
