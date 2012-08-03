@@ -15,7 +15,7 @@ $app->post('/login', function () {
   $controller->login();
 });
 
-$app->post('/logout', function () {
+$app->get('/logout', function () {
   fAuthorization::requireLoggedIn();
   $controller = new UserController();
   $controller->logout();

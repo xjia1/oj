@@ -37,7 +37,7 @@ class Util
   
   public static function redirect($path)
   {
-    header('Location: ' . SITE_BASE . $path, true);
+    fURL::redirect(SITE_BASE . $path);
     exit();
   }
 }
