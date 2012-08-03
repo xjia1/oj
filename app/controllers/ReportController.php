@@ -3,7 +3,11 @@ class ReportController extends ApplicationController
 {
   public function index()
   {
-    $this->reports = fRecordSet::build('Report', array(), array('id' => 'desc'));
+    $conditions = array();
+    if (!User::can('view-any-report')) {
+      $conditions['visible='] = TRUE;
+    }
+    $this->reports = fRecordSet::build('Report', $conditions, array('id' => 'desc'));
     $this->nav_class = 'reports';
     $this->render('report/index');
   }

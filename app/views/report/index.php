@@ -7,7 +7,9 @@ include(__DIR__ . '/../layout/header.php');
   <thead>
     <tr>
       <th>ID</th>
-      <th>Visible</th>
+      <?php if (User::can('view-any-report')): ?>
+        <th>Visible</th>
+      <?php endif; ?>
       <th>Title</th>
       <th>Start Time</th>
       <th>End Time</th>
@@ -18,12 +20,14 @@ include(__DIR__ . '/../layout/header.php');
     <?php foreach ($this->reports as $r): ?>
       <tr>
         <td><?php echo $r->getId(); ?></td>
-        <td>
-          <?php if ($r->getVisible()): ?>
-            <i class="icon-ok"></i>
-          <?php endif; ?>
-        </td>
-        <td><?php echo fHTML::prepare($r->getTitle()); ?></td>
+        <?php if (User::can('view-any-report')): ?>
+          <td>
+            <?php if ($r->getVisible()): ?>
+              <i class="icon-ok"></i>
+            <?php endif; ?>
+          </td>
+        <?php endif; ?>
+        <td><a href="<?php echo SITE_BASE; ?>/report/<?php echo $r->getId(); ?>"><?php echo fHTML::prepare($r->getTitle()); ?></a></td>
         <td><?php echo $r->getStartDatetime(); ?></td>
         <td><?php echo $r->getEndDatetime(); ?></td>
         <td><?php echo $r->getStartDatetime()->getFuzzyDifference($r->getEndDatetime(), TRUE); ?></td>
