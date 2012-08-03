@@ -26,7 +26,7 @@ include(__DIR__ . '/../layout/header.php');
     <div class="control-group">
       <label class="control-label" for="code">Code</label>
       <div class="controls">
-        <textarea style="width: 860px; font-family: Monaco, Lucida Console, Courier New, Free Monospaced;" id="code" name="code" rows="20"><?php echo $this->code; ?></textarea>
+        <textarea style="width: 860px; font-family: Monaco, Lucida Console, Courier New, Free Monospaced;" id="code" name="code" rows="20"><?php echo fHTML::encode($this->code); ?></textarea>
       </div>
     </div>
     <div class="form-actions">

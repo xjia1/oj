@@ -44,7 +44,7 @@ include(__DIR__ . '/../layout/header.php');
     <?php foreach ($this->records as $r): ?>
       <tr>
         <td><a href="<?php echo $this->top_url; ?><?php echo $r->getId(); ?>"><?php echo $r->getId(); ?></a></td>
-        <td><?php echo $r->getOwner(); ?></td>
+        <td><?php echo fHTML::encode($r->getOwner()); ?></td>
         <td><a href="<?php echo SITE_BASE; ?>/problem/<?php echo $r->getProblemId(); ?>"><?php echo $r->getProblemId(); ?></a></td>
         <td>
           <?php if ($r->isReadable()): ?>
@@ -56,7 +56,7 @@ include(__DIR__ . '/../layout/header.php');
         </td>
         <td><?php echo $r->getTimeCost(); ?></td>
         <td><?php echo $r->getMemoryCost(); ?></td>
-        <td><?php echo $r->getLanguageName(); ?></td>
+        <td><?php echo fHTML::encode($r->getLanguageName()); ?></td>
         <td><?php echo $r->getSubmitDatetime(); ?></td>
       </tr>
     <?php endforeach; ?>

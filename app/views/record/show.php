@@ -13,8 +13,8 @@ include(__DIR__ . '/../layout/header.php');
   <ul class="span3">
     <li>
       Owner:
-      <?php echo $this->record->getOwner(); ?>
-      <?php echo Profile::fetchRealName($this->record->getOwner()); ?>
+      <?php echo fHTML::encode($this->record->getOwner()); ?>
+      <?php echo fHTML::encode(Profile::fetchRealName($this->record->getOwner())); ?>
     </li>
     <li>
       Problem:
@@ -22,7 +22,7 @@ include(__DIR__ . '/../layout/header.php');
         <?php echo $this->record->getProblemId(); ?></a>
       (<a href="<?php echo SITE_BASE; ?>/submit?problem=<?php echo $this->record->getProblemId(); ?>">submit</a>)
     </li>
-    <li>Language: <?php echo $this->record->getLanguageName(); ?></li>
+    <li>Language: <?php echo fHTML::encode($this->record->getLanguageName()); ?></li>
     <li>Submit Time: <?php echo $this->record->getSubmitDatetime(); ?></li>
   </ul>
 </div>
