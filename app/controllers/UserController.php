@@ -3,7 +3,7 @@ class UserController extends ApplicationController
 {
   public function showLoginPage()
   {
-    //
+    $this->render('user/login');
   }
   
   public function login()
