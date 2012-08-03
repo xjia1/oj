@@ -18,10 +18,10 @@ class Record extends fActiveRecord
     if (strlen($problem_id)) {
       $conditions['problem_id='] = $problem_id;
     }
-    if (strlen($language)) {
-      $conditions['code_language='] = $language;
+    if (!empty($language)) {
+      $conditions['code_language='] = $language - 1;
     }
-    if (strlen($verdict)) {
+    if (!empty($verdict)) {
       $conditions['verdict='] = $verdict;
     }
 		$limit = Variable::getInteger('records-per-page', 50);
