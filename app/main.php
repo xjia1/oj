@@ -24,5 +24,6 @@ require_once(__DIR__ . '/controllers/UserController.php');
 
 require_once(__DIR__ . '/helpers/Util.php');
 require_once(__DIR__ . '/helpers/Verdict.php');
+require_once(__DIR__ . '/helpers/JudgeStatus.php');
 
 require_once(__DIR__ . '/routes.php');

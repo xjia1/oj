@@ -37,7 +37,8 @@ class Problem extends fActiveRecord
   {
     $db = fORMDatabase::retrieve();
     if (self::$accept_count_cache == null) {
-      $result = $db->translatedQuery('SELECT problem_id, COUNT(1) AS count FROM records WHERE verdict=1 GROUP BY problem_id');
+      $result = $db->translatedQuery(
+        'SELECT problem_id, COUNT(1) AS count FROM records WHERE verdict=' . Verdict::AC . ' GROUP BY problem_id');
       $result->unescape(array('problem_id' => 'integer', 'count' => 'integer'));
       static::populateCountCache(self::$accept_count_cache, $result);
     }

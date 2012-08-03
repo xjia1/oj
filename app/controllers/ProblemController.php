@@ -21,9 +21,10 @@ class ProblemController extends ApplicationController
   {
     try {
       $this->problem = new Problem($id);
-      $view_any = User::can('view-any-problem');
-      if (!$view_any and $this->problem->isSecretNow()) {
-        throw new fValidationException('Problem is secret.');
+      if ($this->problem->isSecretNow()) {
+        if (!User::can('view-any-problem')) {
+          throw new fValidationException('Problem is secret now.');
+        }
       }
       $this->render('problem/show');
     } catch (fExpectedException $e) {
