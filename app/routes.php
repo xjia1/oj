@@ -13,7 +13,7 @@ $app->get('/home', function () {
 $app->get('/sets', function () {
   $controller = new HomeController();
   $controller->showProblemSets();
-})
+});
 
 $app->get('/problems', function () {
   $controller = new ProblemController();
@@ -25,14 +25,15 @@ $app->get('/submit', function () {
   $controller->index();
 });
 
-$app->get('/status', function () {
-  Util::redirect('/records');
+$app->post('/submit', function () {
+  $controller = new SubmitController();
+  $controller->submit(fRequest::get('problem', 'integer'));
 });
 
-$app->get('/records', function () {
+$app->get('/status', function () {
   $controller = new RecordController();
   $controller->index();
-})
+});
 
 $app->get('/reports', function () {
   $controller = new ReportController();
@@ -40,8 +41,8 @@ $app->get('/reports', function () {
 });
 
 $app->get('/dashboard', function () {
-  $controller = new HomeController();
-  $controller->dashboard();
+  $controller = new DashboardController();
+  $controller->index();
 });
 
 $app->get('/problem', function () {
