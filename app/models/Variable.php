@@ -5,4 +5,14 @@ class Variable extends fActiveRecord
   {
     //
   }
+  
+  public static function getString($name)
+  {
+    try {
+      $var = new Variable($name);
+      return $var->getValue();
+    } catch (fNotFoundException $e) {
+      return '';
+    }
+  }
 }
