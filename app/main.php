@@ -5,7 +5,13 @@ require_once(__DIR__ . '/vendor/markdown.php');
 
 require_once(__DIR__ . '/init.php');
 
-//require_once(__DIR__ . '/models/Something.php');
+require_once(__DIR__ . '/models/Permission.php');
+require_once(__DIR__ . '/models/Problem.php');
+require_once(__DIR__ . '/models/Profile.php');
+require_once(__DIR__ . '/models/Record.php');
+require_once(__DIR__ . '/models/Report.php');
+require_once(__DIR__ . '/models/User.php');
+require_once(__DIR__ . '/models/Variable.php');
 
 require_once(__DIR__ . '/controllers/ApplicationController.php');
 require_once(__DIR__ . '/controllers/HomeController.php');
