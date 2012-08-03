@@ -46,7 +46,14 @@ include(__DIR__ . '/../layout/header.php');
         <td><a href="<?php echo $this->top_url; ?><?php echo $r->getId(); ?>"><?php echo $r->getId(); ?></a></td>
         <td><?php echo $r->getOwner(); ?></td>
         <td><a href="<?php echo SITE_BASE; ?>/problem/<?php echo $r->getProblemId(); ?>"><?php echo $r->getProblemId(); ?></a></td>
-        <td><a class="record<?php echo str_replace(' ', '', $r->getResult()); ?>" href="<?php echo SITE_BASE; ?>/record/<?php echo $r->getId(); ?>"><?php echo $r->getResult(); ?></a></td>
+        <td>
+          <?php if (User::can('view-any-record') or fAuthorization::getUserToken() == $r->getOwner()): ?>
+            <a class="record<?php echo str_replace(' ', '', $r->getResult()); ?>" 
+               href="<?php echo SITE_BASE; ?>/record/<?php echo $r->getId(); ?>"><?php echo $r->getResult(); ?></a>
+          <?php else: ?>
+            <span class="record<?php echo str_replace(' ', '', $r->getResult()); ?>"><?php echo $r->getResult(); ?></span>
+          <?php endif; ?>
+        </td>
         <td><?php echo $r->getTimeCost(); ?></td>
         <td><?php echo $r->getMemoryCost(); ?></td>
         <td><?php echo $r->getLanguageName(); ?></td>
