@@ -7,7 +7,7 @@ include(__DIR__ . '/../layout/header.php');
   <input type="text" class="input-medium search-query" placeholder="Title" name="title" maxlength="100" value="<?php echo $this->title; ?>">
   <input type="text" class="input-medium search-query" placeholder="Author" name="author" maxlength="100" value="<?php echo $this->author; ?>">
   <button type="submit" class="btn btn-primary">Filter</button>
-  <?php if (!empty($this->title) or !empty($this->author)): ?>
+  <?php if (strlen($this->title) or strlen($this->author)): ?>
     <a class="btn" href="<?php echo SITE_BASE; ?>/problems">Cancel</a>
   <?php endif; ?>
 </form>

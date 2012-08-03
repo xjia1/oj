@@ -9,17 +9,18 @@ class SubmitController extends ApplicationController
     } else {
       $this->code = '';
     }
+    $this->nav_class = 'submit';
     $this->render('submit/index');
   }
   
-  public $languages = array('C++', 'C', 'Java');
+  public static $languages = array('C++', 'C', 'Java');
   
   public function submit($problem_id)
   {
     try {
       $problem = new Problem($problem_id);
       $language = fRequest::get('language', 'integer');
-      if (!array_key_exists($language, $this->languages)) {
+      if (!array_key_exists($language, static::$languages)) {
         throw new fValidationException('Invalid language.');
       }
       fSession::set('last_language', $language);
@@ -40,7 +41,7 @@ class SubmitController extends ApplicationController
       $record->setCodeLanguage($language);
       $record->setSubmitDatetime(Util::currentTime());
       $record->setJudgeStatus(JudgeStatus::PENDING);
-      $record->setJudgeMessage('Judging... PROB=' . $problem->getId() . ' LANG=' . $this->languages[$language]);
+      $record->setJudgeMessage('Judging... PROB=' . $problem->getId() . ' LANG=' . static::$languages[$language]);
       $record->setVerdict(Verdict::UNKNOWN);
       $record->store();
       

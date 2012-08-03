@@ -16,7 +16,7 @@ include(__DIR__ . '/../layout/header.php');
       <div class="controls">
         <select class="input-medium" id="language" name="language">
         <?php
-          foreach ($this->languages as $value => $text) {
+          foreach (static::$languages as $value => $text) {
             fHTML::printOption($text, $value, $this->current_language);
           }
         ?>

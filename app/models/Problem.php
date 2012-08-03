@@ -12,10 +12,10 @@ class Problem extends fActiveRecord
 		if (!$view_any) {
 			$conditions['secret_before<='] = Util::currentTime();
 		}
-		if (!empty($title)) {
+		if (strlen($title)) {
 		  $conditions['title~'] = $title;
 		}
-		if (!empty($author)) {
+		if (strlen($author)) {
 			$conditions['author~'] = $author;
 		}
 		$limit = Variable::getInteger('problems-per-page', 10);
