@@ -34,4 +34,10 @@ class Util
     if (self::startsWith($str, $prefix)) return $str;
     return $prefix . $str;
   }
+  
+  public static function redirect($path)
+  {
+    header('Location: ' . SITE_BASE . $path, true);
+    exit();
+  }
 }
