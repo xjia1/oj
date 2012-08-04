@@ -4,7 +4,7 @@ include(__DIR__ . '/../layout/header.php');
 ?>
 <form action="<?php echo SITE_BASE; ?>/login" method="POST" class="form-horizontal">
   <fieldset>
-    <legend>Sign In</legend>
+    <legend>Sign In / Register</legend>
     <div class="control-group">
       <label class="control-label" for="username">Username</label>
       <div class="controls">
@@ -20,8 +20,8 @@ include(__DIR__ . '/../layout/header.php');
       </div>
     </div>
     <div class="form-actions">
-      <button type="submit" class="btn btn-primary">Sign In</button>
-      <a class="btn" href="javascript:history.go(-1);void(0);">Cancel</a>
+      <input type="submit" class="btn btn-primary btn-large" name="action" value="Sign In">
+      <input type="submit" class="btn btn-success btn-large" name="action" value="Register">
     </div>
   </fieldset>
 </form>
