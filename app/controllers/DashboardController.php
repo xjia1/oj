@@ -40,9 +40,116 @@ class DashboardController extends ApplicationController
     $this->render('dashboard/index');
   }
   
-  public function manageProblem($id)
+  private function showProblem($id)
   {
-    //
+    try {
+      $problem = new Problem($id);
+      throw new fValidationException("Problem {$id} already exists.");
+    } catch (fNotFoundException $e) {
+      $data_base_dir = Variable::getString('data-base-path');
+      if (!is_dir($data_base_dir)) {
+        throw new fEnvironmentException("Data base directory {$data_base_dir} does not exist.");
+      }
+      
+      $pwd = getcwd();
+      chdir($data_base_dir);
+      $output = array();
+      exec('git pull origin master 2>&1', $output, $retval);
+      chdir($pwd);
+      if ($retval != 0) {
+        throw new fEnvironmentException("<pre>{$data_base_dir}$ git pull origin master\n" . implode("\n", $output) . '</pre>');
+      }
+      
+      $problem_dir = "{$data_base_dir}/problems/${id}";
+      if (!is_dir($problem_dir)) {
+        throw new fEnvironmentException("Problem directory {$problem_dir} does not exist.");
+      }
+      
+      $problem_conf = "{$problem_dir}/problem.conf";
+      if (!is_file($problem_conf)) {
+        throw new fEnvironmentException("Problem configuration file {$problem_conf} does not exist.");
+      }
+      
+      $problem_text = "{$problem_dir}/problem.text";
+      if (!is_file($problem_text)) {
+        throw new fEnvironmentException("Problem description file {$problem_text} does not exist.");
+      }
+      
+      $data_dir = "{$problem_dir}/data";
+      if (!is_dir($data_dir)) {
+        throw new fEnvironmentException("Problem {$id} does not have a data directory at {$data_dir}");
+      }
+      
+      $properties_content = file_get_contents($problem_conf);
+      $ini_content = str_replace(': ', ' = ', $properties_content);
+      $ini = parse_ini_string($ini_content);
+      if (!array_key_exists('title', $ini) or empty($ini['title'])) {
+        throw new fValidationException('Problem title is not specified in problem.conf');
+      }
+      if (!array_key_exists('author', $ini)) {
+        throw new fValidationException('Problem author is not specified in problem.conf');
+      }
+      if (!array_key_exists('case_count', $ini) or empty($ini['case_count'])) {
+        throw new fValidationException('Problem case count is not specified in problem.conf');
+      }
+      if (!array_key_exists('case_score', $ini) or empty($ini['case_score'])) {
+        throw new fValidationException('Problem case score is not specified in problem.conf');
+      }
+      if (!array_key_exists('time_limit', $ini) or empty($ini['time_limit'])) {
+        throw new fValidationException('Problem time limit is not specified in problem.conf');
+      }
+      if (!array_key_exists('memory_limit', $ini) or empty($ini['memory_limit'])) {
+        throw new fValidationException('Problem memory limit is not specified in problem.conf');
+      }
+      if (!array_key_exists('secret_before', $ini) or empty($ini['secret_before'])) {
+        throw new fValidationException('Problem secret-before time is not specified in problem.conf');
+      }
+      
+      $problem = new Problem();
+      $problem->setId($id);
+      $problem->setTitle($ini['title']);
+      $problem->setDescription(file_get_contents($problem_text));
+      $problem->setAuthor($ini['author']);
+      $problem->setCaseCount($ini['case_count']);
+      $problem->setCaseScore($ini['case_score']);
+      $problem->setTimeLimit($ini['time_limit']);
+      $problem->setMemoryLimit($ini['memory_limit']);
+      $problem->setSecretBefore($ini['secret_before']);
+      $problem->validate();
+      
+      for ($t = 1; $t <= $problem->getCaseCount(); $t++) {
+        $input = "{$data_dir}/$t.in";
+        if (!is_file($input)) {
+          throw new fEnvironmentException("Case input file {$input} is not found in {$data_dir}");
+        }
+        $output = "{$data_dir}/$t.out";
+        if (!is_file($output)) {
+          throw new fEnvironmentException("Case output file {$output} is not found in {$data_dir}");
+        }
+      }
+      
+      $problem->store();
+    }
+  }
+  
+  public function manageProblem($id, $action)
+  {
+    try {
+      if (!User::can('manage-site')) {
+        throw new fAuthorizationException('You are not allowed to manage problems.');
+      }
+      if ($action == 'Show') {
+        $this->showProblem($id);
+        fMessaging::create('success', "Problem {$id} showed successfully.");
+      } else if ($action == 'Hide') {
+        $problem = new Problem($id);
+        $problem->delete();
+        fMessaging::create('success', "Problem {$id} hidden successfully.");
+      }
+    } catch (fException $e) {
+      fMessaging::create('error', $e->getMessage());
+    }
+    fURL::redirect(Util::getReferer());
   }
   
   public function rejudge($id)
@@ -91,6 +198,9 @@ class DashboardController extends ApplicationController
   public function createReport()
   {
     try {
+      if (!User::can('create-report')) {
+        throw new fAuthorizationException('You are not allowed to create reports.');
+      }
       $report = new Report();
       $report->setVisible(fRequest::get('visible', 'integer'));
       $report->setTitle(fRequest::get('title', 'string'));
@@ -116,7 +226,7 @@ class DashboardController extends ApplicationController
           $report->store();
           fMessaging::create('success', "Report {$id} showed successfully.");
         } else {
-          throw new fAuthorization('You are not allowed to show this report.');
+          throw new fAuthorizationException('You are not allowed to show this report.');
         }
       } else if ($action == 'Hide') {
         if (User::can('view-any-report')) {
@@ -124,14 +234,14 @@ class DashboardController extends ApplicationController
           $report->store();
           fMessaging::create('success', "Report {$id} hidden successfully.");
         } else {
-          throw new fAuthorization('You are not allowed to hide this report.');
+          throw new fAuthorizationException('You are not allowed to hide this report.');
         }
       } else if ($action == 'Remove') {
         if (User::can('remove-report')) {
           $report->delete();
           fMessaging::create('success', "Report {$id} removed successfully.");
         } else {
-          throw new fAuthorization('You are not allowed to remove this report.');
+          throw new fAuthorizationException('You are not allowed to remove this report.');
         }
       }
     } catch (fException $e) {
@@ -140,21 +250,29 @@ class DashboardController extends ApplicationController
     fURL::redirect(Util::getReferer());
   }
   
-  public function managePermissions($action)
+  public function managePermission($action)
   {
     try {
       $user_name = fRequest::get('user_name');
       $permission_name = fRequest::get('permission_name');
       if ($action == 'Add') {
-        $permission = new Permission();
-        $permission->setUserName($user_name);
-        $permission->setPermissionName($permission_name);
-        $permission->store();
-        fMessaging::create('success', 'Permission added successfully.');
+        if (User::can('add-permission')) {
+          $permission = new Permission();
+          $permission->setUserName($user_name);
+          $permission->setPermissionName($permission_name);
+          $permission->store();
+          fMessaging::create('success', 'Permission added successfully.');
+        } else {
+          throw new fAuthorizationException('You are not allowed to add permissions.');
+        }
       } else if ($action == 'Remove') {
-        $permission = new Permission(array('user_name' => $user_name, 'permission_name' => $permission_name));
-        $permission->delete();
-        fMessaging::create('success', 'Permission removed successfully.');
+        if (User::can('remove-permission')) {
+          $permission = new Permission(array('user_name' => $user_name, 'permission_name' => $permission_name));
+          $permission->delete();
+          fMessaging::create('success', 'Permission removed successfully.');
+        } else {
+          throw new fAuthorizationException('You are not allowed to remove permissions.');
+        }
       }
     } catch (fException $e) {
       fMessaging::create('error', $e->getMessage());

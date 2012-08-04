@@ -85,7 +85,7 @@ $app->get('/dashboard', function () {
 $app->post('/dashboard/problems', function () {
   fAuthorization::requireLoggedIn();
   $controller = new DashboardController();
-  $controller->manageProblem(fRequest::get('id', 'integer'));
+  $controller->manageProblem(fRequest::get('id', 'integer'), fRequest::get('action', 'string'));
 });
 
 $app->post('/dashboard/rejudge', function () {
@@ -115,7 +115,7 @@ $app->post('/dashboard/reports', function () {
 $app->post('/dashboard/permissions', function () {
   fAuthorization::requireLoggedIn();
   $controller = new DashboardController();
-  $controller->managePermissions(fRequest::get('action', 'string'));
+  $controller->managePermission(fRequest::get('action', 'string'));
 });
 
 $app->post('/set/variable', function () {
