@@ -46,7 +46,7 @@ class SubmitController extends ApplicationController
       $record->store();
       
       Util::redirect('/status');
-    } catch (fExpectedException $e) {
+    } catch (fException $e) {
       fMessaging::create('error', $e->getMessage());
       fMessaging::create('code', '/submit', fRequest::get('code', 'string'));
       Util::redirect("/submit?problem={$problem_id}");

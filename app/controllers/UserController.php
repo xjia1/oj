@@ -25,7 +25,6 @@ class UserController extends ApplicationController
         if ($user->getPassword() == $password_hash) {
           fAuthorization::setUserToken($user->getUsername());
           fMessaging::create('success', 'Logged in successfully.');
-          fURL::redirect(fAuthorization::getRequestedURL(TRUE, Util::getReferer()));
         } else {
           throw new fValidationException('Password mismatch.');
         }
@@ -43,13 +42,12 @@ class UserController extends ApplicationController
           $user->store();
           fAuthorization::setUserToken($user->getUsername());
           fMessaging::create('success', 'Registered successfully.');
-          fURL::redirect(fAuthorization::getRequestedURL(TRUE, Util::getReferer()));
         }
       }
-    } catch (fExpectedException $e) {
+    } catch (fException $e) {
       fMessaging::create('error', $e->getMessage());
-      fURL::redirect(fAuthorization::getRequestedURL(TRUE, Util::getReferer()));
     }
+    fURL::redirect(fAuthorization::getRequestedURL(TRUE, Util::getReferer()));
   }
   
   public function logout()
@@ -89,7 +87,7 @@ class UserController extends ApplicationController
       $user->store();
       fMessaging::create('success', 'Password updated successfully.');
       fURL::redirect(Util::getReferer());
-    } catch (fExpectedException $e) {
+    } catch (fException $e) {
       fMessaging::create('error', $e->getMessage());
       Util::redirect('/change/password');
     }

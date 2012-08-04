@@ -31,6 +31,9 @@ class ProblemController extends ApplicationController
     } catch (fExpectedException $e) {
       fMessaging::create('warning', $e->getMessage());
       fURL::redirect(Util::getReferer());
+    } catch (fUnexpectedException $e) {
+      fMessaging::create('error', $e->getMessage());
+      fURL::redirect(Util::getReferer());
     }
   }
 }
