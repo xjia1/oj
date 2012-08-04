@@ -66,7 +66,7 @@ class DashboardController extends ApplicationController
   {
     try {
       if ($score < 0) {
-        throw new fValidationException('Score can not be negative.');
+        throw new fValidationException('Score cannot be negative.');
       }
       $record = new Record($id);
       $record->manjudge($score);
