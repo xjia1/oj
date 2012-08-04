@@ -43,7 +43,23 @@ class DashboardController extends ApplicationController
   
   public function rejudge($id)
   {
-    //
+    try {
+      $old_record = new Record($id);
+      $new_record = new Record();
+      $new_record->setOwner($old_record->getOwner());
+      $new_record->setProblemId($old_record->getProblemId());
+      $new_record->setSubmitCode($old_record->getSubmitCode());
+      $new_record->setCodeLanguage($old_record->getCodeLanguage());
+      $new_record->setSubmitDatetime($old_record->getSubmitDatetime());
+      $new_record->setJudgeStatus(JudgeStatus::PENDING);
+      $new_record->setJudgeMessage('Rejudging... PROB=' . $old_record->getProblemId() . ' LANG=' . $old_record->getLanguageName());
+      $new_record->setVerdict(Verdict::UNKNOWN);
+      $new_record->store();
+      fMessaging::create('success', "Record {$id} rejudged.");
+    } catch (fException $e) {
+      fMessaging::create('error', $e->getMessage());
+    }
+    fURL::redirect(Util::getReferer());
   }
   
   public function manjudge($id, $score)
