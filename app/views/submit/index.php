@@ -2,9 +2,11 @@
 $title = 'Submit';
 include(__DIR__ . '/../layout/header.php');
 ?>
+<div class="page-header">
+  <h1>Submit Solution</h1>
+</div>
 <form method="POST" action="<?php echo SITE_BASE; ?>/submit" class="form-horizontal">
   <fieldset>
-    <legend>Submit Solution</legend>
     <div class="control-group">
       <label class="control-label" for="problem">Problem ID</label>
       <div class="controls">

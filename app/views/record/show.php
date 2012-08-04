@@ -2,7 +2,9 @@
 $title = 'Record #' . $this->record->getId();
 include(__DIR__ . '/../layout/header.php');
 ?>
-<h1>Record #<?php echo $this->record->getId(); ?></h1>
+<div class="page-header">
+  <h1>Record #<?php echo $this->record->getId(); ?></h1>
+</div>
 <div class="row">
   <div class="span9">
     <h2>Judge Message</h2>

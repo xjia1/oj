@@ -3,31 +3,33 @@ $title = 'Status';
 $stylesheets = array('verdicts');
 include(__DIR__ . '/../layout/header.php');
 ?>
-<form method="GET" action="<?php echo SITE_BASE; ?>/status" class="pull-right form-search">
-  <input type="text" class="input-small search-query" placeholder="Who" name="owner" maxlength="100" value="<?php echo $this->owner; ?>">
-  <input type="number" class="input-small search-query" placeholder="What" name="problem" maxlength="10" value="<?php echo $this->problem_id; ?>">
-  <select name="language" class="input-small search-query">
-  <?php
-    $languages = array('How', 'C++', 'C', 'Java');
-    foreach ($languages as $value => $text) {
-      fHTML::printOption($text, $value, $this->language);
-    }
-  ?>
-  </select>
-  <select name="verdict" class="input-small search-query">
-  <?php
-    $verdicts = array('Verdict', 'AC', 'PE', 'TLE', 'MLE', 'WA', 'RE', 'OLE', 'CE', 'SE', 'VE');
-    foreach ($verdicts as $value => $text) {
-      fHTML::printOption($text, $value, $this->verdict);
-    }
-  ?>
-  </select>
-  <button type="submit" class="btn btn-primary">Filter</button>
-  <?php if (strlen($this->owner) or strlen($this->problem_id) or !empty($this->language) or !empty($this->verdict)): ?>
-    <a class="btn" href="<?php echo SITE_BASE; ?>/status">Cancel</a>
-  <?php endif; ?>
-</form>
-<h1>Problem Status List</h1>
+<div class="page-header">
+  <form method="GET" action="<?php echo SITE_BASE; ?>/status" class="pull-right form-search">
+    <input type="text" class="input-small search-query" placeholder="Who" name="owner" maxlength="100" value="<?php echo $this->owner; ?>">
+    <input type="number" class="input-small search-query" placeholder="What" name="problem" maxlength="10" value="<?php echo $this->problem_id; ?>">
+    <select name="language" class="input-small search-query">
+    <?php
+      $languages = array('How', 'C++', 'C', 'Java');
+      foreach ($languages as $value => $text) {
+        fHTML::printOption($text, $value, $this->language);
+      }
+    ?>
+    </select>
+    <select name="verdict" class="input-small search-query">
+    <?php
+      $verdicts = array('Verdict', 'AC', 'PE', 'TLE', 'MLE', 'WA', 'RE', 'OLE', 'CE', 'SE', 'VE');
+      foreach ($verdicts as $value => $text) {
+        fHTML::printOption($text, $value, $this->verdict);
+      }
+    ?>
+    </select>
+    <button type="submit" class="btn btn-primary">Filter</button>
+    <?php if (strlen($this->owner) or strlen($this->problem_id) or !empty($this->language) or !empty($this->verdict)): ?>
+      <a class="btn" href="<?php echo SITE_BASE; ?>/status">Cancel</a>
+    <?php endif; ?>
+  </form>
+  <h1>Problem Status List</h1>
+</div>
 <table class="table table-bordered table-striped">
   <thead>
     <tr>

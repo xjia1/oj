@@ -2,6 +2,9 @@
 $title = 'Dashboard';
 include(__DIR__ . '/../layout/header.php');
 ?>
+<div class="page-header">
+  <h1>Dashboard</h1>
+</div>
 <form id="problems" class="well form-horizontal" method="POST" action="<?php echo SITE_BASE; ?>/dashboard/problems">
   <fieldset>
     <legend>Show/Hide Problem</legend>

@@ -2,7 +2,9 @@
 $title = 'Reports';
 include(__DIR__ . '/../layout/header.php');
 ?>
-<h1>Reports</h1>
+<div class="page-header">
+  <h1>Reports</h1>
+</div>
 <table class="table table-bordered table-striped">
   <thead>
     <tr>

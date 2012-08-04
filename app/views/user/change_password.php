@@ -2,9 +2,11 @@
 $title = 'Change Password';
 include(__DIR__ . '/../layout/header.php');
 ?>
+<div class="page-header">
+  <h1>Change Password</h1>
+</div>
 <form action="<?php echo SITE_BASE; ?>/change/password" method="POST" class="form-horizontal">
   <fieldset>
-    <legend>Change Password</legend>
     <div class="control-group">
       <label class="control-label" for="old_password">Old Password</label>
       <div class="controls">

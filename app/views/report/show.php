@@ -3,7 +3,9 @@ $title = 'Report: ' . $this->report->getTitle();
 $stylesheets = array('tablesorter');
 include(__DIR__ . '/../layout/header.php');
 ?>
-<h1>Report: <?php echo fHTML::prepare($this->report->getTitle()); ?></h1>
+<div class="page-header">
+  <h1>Report: <?php echo fHTML::prepare($this->report->getTitle()); ?></h1>
+</div>
 <div class="alert alert-info">
   Sort multiple columns simultaneously by 
   holding down the <strong>shift</strong> key and 

@@ -2,9 +2,11 @@
 $title = 'Sign In';
 include(__DIR__ . '/../layout/header.php');
 ?>
+<div class="page-header">
+  <h1>Sign In / Register</h1>
+</div>
 <form action="<?php echo SITE_BASE; ?>/login" method="POST" class="form-horizontal">
   <fieldset>
-    <legend>Sign In / Register</legend>
     <div class="control-group">
       <label class="control-label" for="username">Username</label>
       <div class="controls">
