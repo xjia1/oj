@@ -32,6 +32,7 @@ class DashboardController extends ApplicationController
       }
     }
     
+    $this->nav_class = 'dashboard';
     $this->render('dashboard/index');
   }
 }
