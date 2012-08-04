@@ -60,7 +60,29 @@
           <?php if (fAuthorization::checkLoggedIn()): ?>
             <li class="nav-reports"><a href="<?php echo SITE_BASE; ?>/reports">Reports</a></li>
             <?php if (User::can('manage-site')): ?>
-              <li class="nav-dashboard"><a href="<?php echo SITE_BASE; ?>/dashboard">Dashboard</a></li>
+              <li class="nav-dashboard dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dashboard <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li class="nav-header">Problems</li>
+                  <li><a href="<?php echo SITE_BASE; ?>/dashboard#problems">Show/Hide Problem</a></li>
+                  <li class="divider"></li>
+                  <li class="nav-header">Records</li>
+                  <li><a href="<?php echo SITE_BASE; ?>/dashboard#rejudge">Rejudge Record</a></li>
+                  <li><a href="<?php echo SITE_BASE; ?>/dashboard#manjudge">Manually Judge Record</a></li>
+                  <li class="divider"></li>
+                  <li class="nav-header">Reports</li>
+                  <li><a href="<?php echo SITE_BASE; ?>/dashboard#create_report">Create Report</a></li>
+                  <li><a href="<?php echo SITE_BASE; ?>/dashboard#reports">Show/Hide/Remove Report</a></li>
+                  <li class="divider"></li>
+                  <li class="nav-header">Permissions</li>
+                  <li><a href="<?php echo SITE_BASE; ?>/dashboard#permissions">Add/Remove Permission</a></li>
+                  <li><a href="<?php echo SITE_BASE; ?>/dashboard#assigned_permissions">View Assigned Permissions</a></li>
+                  <li class="divider"></li>
+                  <li class="nav-header">Variables</li>
+                  <li><a href="<?php echo SITE_BASE; ?>/dashboard#set_variable">Set Variable</a></li>
+                  <li><a href="<?php echo SITE_BASE; ?>/dashboard#variables">View All Variables</a></li>
+                </ul>
+              </li>
             <?php endif; ?>
           <?php endif; ?>
         </ul>
