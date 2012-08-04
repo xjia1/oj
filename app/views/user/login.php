@@ -11,14 +11,14 @@ include(__DIR__ . '/../layout/header.php');
       <label class="control-label" for="username">Username</label>
       <div class="controls">
         <input type="text" class="input-xlarge" id="username" name="username" placeholder="Username">
-        <p class="help-block">In addition to freeform text, any HTML5 text-based input appears like so.</p>
+        <p class="help-block">Please enter your username here. Case sensitive.</p>
       </div>
     </div>
     <div class="control-group">
       <label class="control-label" for="password">Password</label>
       <div class="controls">
         <input type="password" class="input-xlarge" id="password" name="password" placeholder="Password">
-        <p class="help-block">In addition to freeform text, any HTML5 text-based input appears like so.</p>
+        <p class="help-block">Please enter your password here. Case sensitive.</p>
       </div>
     </div>
     <div class="form-actions">

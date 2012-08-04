@@ -6,7 +6,7 @@ class HomeController extends ApplicationController
     $this->nav_class = 'home';
     $this->page_title = 'Home';
     $this->page_content = Variable::getString('home-markdown');
-    $this->render('home/show_page');
+    $this->render('home/index');
   }
   
   public function showProblemSets()
