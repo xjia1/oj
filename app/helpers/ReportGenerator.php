@@ -3,7 +3,7 @@ class ReportGenerator
 {
   private static function totalTime($r, $st)
   {
-    return round(($r->getSubmitDatetime()->format('U') - $st->format('U')) / 60000);
+    return ($r->getSubmitDatetime()->format('U') - $st->format('U')) / 60;
   }
   
   private static function penaltyCount($r)
@@ -90,7 +90,7 @@ class ReportGenerator
           $pe = ($ts[$i][$j] - 1) * 20 + static::totalTime($r[$fac[$i][$j]], $st);
           $tac += 1;
           $tpe += $pe;
-          $cell[$i][$j] = $score[$i][$j] . ' / ' . $pe . ' (+' . $ts[$i][$j] . ')';
+          $cell[$i][$j] = $score[$i][$j] . ' / ' . round($pe) . ' (+' . $ts[$i][$j] . ')';
         } else if ($score[$i][$j] > 0) {
           $cell[$i][$j] = $score[$i][$j];
         } else {
@@ -98,7 +98,7 @@ class ReportGenerator
         }
       }
       $cell[$i][$p_size] = $tac;
-      $cell[$i][$p_size + 1] = $tpe;
+      $cell[$i][$p_size + 1] = round($tpe);
       $cell[$i][$p_size + 2] = $tsc;
     }
     
