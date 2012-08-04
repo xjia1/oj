@@ -26,6 +26,7 @@ class ProblemController extends ApplicationController
           throw new fValidationException('Problem is secret now.');
         }
       }
+      $this->nav_class = 'problems';
       $this->render('problem/show');
     } catch (fExpectedException $e) {
       fMessaging::create('warning', $e->getMessage());

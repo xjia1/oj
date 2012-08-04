@@ -5,4 +5,9 @@ class Report extends fActiveRecord
   {
     //
   }
+  
+  public function isReadable()
+  {
+    return $this->getVisible() or User::can('view-any-report');
+  }
 }

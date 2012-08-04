@@ -22,6 +22,7 @@ class RecordController extends ApplicationController
       if (!$this->record->isReadable()) {
         throw new fValidationException('You are not allowed to read this record.');
       }
+      $this->nav_class = 'status';
       $this->render('record/show');
     } catch (fExpectedException $e) {
       fMessaging::create('warning', $e->getMessage());

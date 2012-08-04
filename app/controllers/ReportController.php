@@ -14,6 +14,16 @@ class ReportController extends ApplicationController
   
   public function show($id)
   {
-    //
+    try {
+      $this->report = new Report($id);
+      if (!$this->report->isReadable()) {
+        throw new fValidationException('You are not allowed to view this report.');
+      }
+      $this->nav_class = 'reports';
+      $this->render('report/show');
+    } catch (fExpectedException $e) {
+      fMessaging::create('warning', $e->getMessage());
+      fURL::redirect(Util::getReferer());
+    }
   }
 }

@@ -17,6 +17,11 @@
   <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
+  <?php if (isset($stylesheets)): ?>
+    <?php foreach ($stylesheets as $stylesheet): ?>
+      <link href="<?php echo SITE_BASE; ?>/css/<?php echo $stylesheet; ?>.css" rel="stylesheet">
+    <?php endforeach; ?>
+  <?php endif; ?>
 </head>
 <body onload="prettyPrint()">
 <div class="navbar navbar-fixed-top">

@@ -1,5 +1,6 @@
 <?php
 $title = 'Status';
+$stylesheets = array('verdicts');
 include(__DIR__ . '/../layout/header.php');
 ?>
 <form method="GET" action="<?php echo SITE_BASE; ?>/status" class="pull-right form-search">
@@ -62,20 +63,5 @@ include(__DIR__ . '/../layout/header.php');
     <?php endforeach; ?>
   </tbody>
 </table>
-<style type="text/css">
-.recordPending             { color: #36393D !important; }
-.recordWaiting             { color: #00FF00 !important; }
-.recordRunning             { color: #8B4513 !important; }
-.recordAccepted            { color: #FF0000 !important; }
-.recordPresentationError   { color: #3333FF !important; }
-.recordTimeLimitExceeded   { color: #FF7400 !important; }
-.recordMemoryLimitExceeded { color: #73880A !important; }
-.recordWrongAnswer         { color: #3333FF !important; }
-.recordRuntimeError        { color: #FF108C !important; }
-.recordOutputLimitExceeded { color: #006020 !important; }
-.recordCompileError        { color: #008C00 !important; }
-.recordSystemError         { color: #356AA0 !important; }
-.recordValidatorError      { color: #355AB0 !important; }
-</style>
 <?php
 include(__DIR__ . '/../layout/footer.php');
