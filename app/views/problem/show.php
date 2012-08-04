@@ -2,6 +2,9 @@
 $title = $this->problem->getTitle();
 include(__DIR__ . '/../layout/header.php');
 ?>
+<div class="page-header">
+  <h1><?php echo $this->problem->getId(); ?>. <?php echo fHTML::encode($this->problem->getTitle()); ?></h1>
+</div>
 <div class="row">
   <article class="span9"><?php echo Markdown($this->problem->getDescription()); ?></article>
   <aside class="span3">
