@@ -116,9 +116,14 @@ include(__DIR__ . '/../layout/header.php');
         <legend>Remove Report</legend>
       <?php endif; ?>
       <div class="control-group">
-        <label class="control-label" for="report_id">Report ID</label>
+        <label class="control-label" for="report_id">Report</label>
         <div class="controls">
-          <input type="number" class="input-small" id="report_id" name="id" placeholder="Report ID">
+          <select id="report_id" name="id">
+            <option value="">Please select ...</option>
+            <?php foreach ($this->reports as $r): ?>
+              <option value="<?php echo $r->getId(); ?>"><?php echo $r->getTitle(); ?></option>
+            <?php endforeach; ?>
+          </select>
           <?php if (User::can('view-any-report')): ?>
             <input type="submit" name="action" value="Show" class="btn btn-primary">
             <input type="submit" name="action" value="Hide" class="btn btn-inverse">

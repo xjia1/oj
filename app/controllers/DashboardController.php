@@ -8,6 +8,10 @@ class DashboardController extends ApplicationController
       fURL::redirect(Util::getReferer());
     }
     
+    if (User::can('view-any-report') or User::can('remove-report')) {
+      $this->reports = fRecordSet::build('report', array(), array('id' => 'desc'));
+    }
+    
     if (User::can('add-permission') and User::can('remove-permission')) {
       $this->permissions = fRecordSet::build('Permission');
     }
@@ -102,9 +106,38 @@ class DashboardController extends ApplicationController
     fURL::redirect(Util::getReferer());
   }
   
-  public function manageReport($id)
+  public function manageReport($id, $action)
   {
-    //
+    try {
+      $report = new Report($id);
+      if ($action == 'Show') {
+        if (User::can('view-any-report')) {
+          $report->setVisible(1);
+          $report->store();
+          fMessaging::create('success', "Report {$id} showed successfully.");
+        } else {
+          throw new fAuthorization('You are not allowed to show this report.');
+        }
+      } else if ($action == 'Hide') {
+        if (User::can('view-any-report')) {
+          $report->setVisible(0);
+          $report->store();
+          fMessaging::create('success', "Report {$id} hidden successfully.");
+        } else {
+          throw new fAuthorization('You are not allowed to hide this report.');
+        }
+      } else if ($action == 'Remove') {
+        if (User::can('remove-report')) {
+          $report->delete();
+          fMessaging::create('success', "Report {$id} removed successfully.");
+        } else {
+          throw new fAuthorization('You are not allowed to remove this report.');
+        }
+      }
+    } catch (fException $e) {
+      fMessaging::create('error', $e->getMessage());
+    }
+    fURL::redirect(Util::getReferer());
   }
   
   public function managePermissions()

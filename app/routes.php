@@ -109,7 +109,7 @@ $app->post('/reports', function () {
 $app->post('/dashboard/reports', function () {
   fAuthorization::requireLoggedIn();
   $controller = new DashboardController();
-  $controller->manageReport(fRequest::get('id', 'integer'));
+  $controller->manageReport(fRequest::get('id', 'integer'), fRequest::get('action', 'string'));
 });
 
 $app->post('/dashboard/permissions', function () {
