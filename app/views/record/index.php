@@ -35,6 +35,7 @@ include(__DIR__ . '/../layout/header.php');
       <th>Who</th>
       <th>What</th>
       <th>Result</th>
+      <th>Score</th>
       <th>Time</th>
       <th>Memory</th>
       <th>How</th>
@@ -55,6 +56,7 @@ include(__DIR__ . '/../layout/header.php');
             <span class="record<?php echo str_replace(' ', '', $r->getResult()); ?>"><?php echo $r->getResult(); ?></span>
           <?php endif; ?>
         </td>
+        <td><?php echo $r->getScore(); ?></td>
         <td><?php echo $r->getTimeCost(); ?></td>
         <td><?php echo $r->getMemoryCost(); ?></td>
         <td><?php echo fHTML::encode($r->getLanguageName()); ?></td>
