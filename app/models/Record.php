@@ -74,6 +74,17 @@ class Record extends fActiveRecord
     return NULL;
   }
   
+  public function manjudge($score)
+  {
+    $append_msg = "Manually judged to {$score} points.";
+    $manjudge_score = $this->getManjudgeScore();
+    if ($manjudge_score == NULL) {
+      $this->setJudgeMessage($this->getJudgeMessage() . "\n{$append_msg}");
+    } else {
+      $this->setJudgeMessage(preg_replace(self::$manjudgePattern, $append_msg, $this->getJudgeMessage()));
+    }
+  }
+  
   public function getScore()
   {
     $manjudge_score = $this->getManjudgeScore();

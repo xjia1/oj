@@ -64,7 +64,18 @@ class DashboardController extends ApplicationController
   
   public function manjudge($id, $score)
   {
-    //
+    try {
+      if ($score < 0) {
+        throw new fValidationException('Score can not be negative.');
+      }
+      $record = new Record($id);
+      $record->manjudge($score);
+      $record->store();
+      fMessaging::create('success', "Record {$id} manually judged.");
+    } catch (fException $e) {
+      fMessaging::create('error', $e->getMessage());
+    }
+    fURL::redirect(Util::getReferer());
   }
   
   public function createReport()
