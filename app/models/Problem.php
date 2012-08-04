@@ -3,7 +3,6 @@ class Problem extends fActiveRecord
 {
   protected function configure()
   {
-    //
   }
   
   public static function find($view_any, $page, $title, $author)

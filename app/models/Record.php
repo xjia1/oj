@@ -3,7 +3,6 @@ class Record extends fActiveRecord
 {
   protected function configure()
   {
-    //
   }
   
   public static function find($top, $owner, $problem_id, $language, $verdict)

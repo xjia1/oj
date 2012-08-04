@@ -3,7 +3,6 @@ class Permission extends fActiveRecord
 {
   protected function configure()
   {
-    //
   }
   
   public static function contains($user_name, $permission_name)

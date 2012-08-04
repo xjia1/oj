@@ -3,7 +3,6 @@ class User extends fActiveRecord
 {
   protected function configure()
   {
-    //
   }
   
   private static $permission_cache = array();

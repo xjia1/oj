@@ -3,7 +3,6 @@ class Variable extends fActiveRecord
 {
   protected function configure()
   {
-    //
   }
   
   public static function getString($name, $default='')

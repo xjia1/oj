@@ -3,7 +3,6 @@ class Report extends fActiveRecord
 {
   protected function configure()
   {
-    //
   }
   
   public function isReadable()

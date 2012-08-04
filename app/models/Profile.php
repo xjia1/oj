@@ -3,7 +3,6 @@ class Profile extends fActiveRecord
 {
   protected function configure()
   {
-    //
   }
   
   public static function fetchRealName($username)
