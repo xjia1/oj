@@ -140,9 +140,26 @@ class DashboardController extends ApplicationController
     fURL::redirect(Util::getReferer());
   }
   
-  public function managePermissions()
+  public function managePermissions($action)
   {
-    //
+    try {
+      $user_name = fRequest::get('user_name');
+      $permission_name = fRequest::get('permission_name');
+      if ($action == 'Add') {
+        $permission = new Permission();
+        $permission->setUserName($user_name);
+        $permission->setPermissionName($permission_name);
+        $permission->store();
+        fMessaging::create('success', 'Permission added successfully.');
+      } else if ($action == 'Remove') {
+        $permission = new Permission(array('user_name' => $user_name, 'permission_name' => $permission_name));
+        $permission->delete();
+        fMessaging::create('success', 'Permission removed successfully.');
+      }
+    } catch (fException $e) {
+      fMessaging::create('error', $e->getMessage());
+    }
+    fURL::redirect(Util::getReferer());
   }
   
   public function setVariable()
