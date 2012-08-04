@@ -20,13 +20,13 @@ class ReportGenerator
   {
     $headers = array();
     $length = count($problem_ids) + 5;
-    $headers[0] = 'Rank';
+    $headers[0] = '#';
     $headers[1] = 'Who';
     for ($i = 0; $i < count($problem_ids); $i++) {
       // start from $headers[0+2]
       $headers[$i + 2] = $problem_ids[$i];
     }
-    $headers[$length - 3] = 'Accepted';
+    $headers[$length - 3] = 'Accepts';
     $headers[$length - 2] = 'Penalty';
     $headers[$length - 1] = 'Score';
     return $headers;
@@ -90,9 +90,9 @@ class ReportGenerator
           $pe = ($ts[$i][$j] - 1) * 20 + static::totalTime($r[$fac[$i][$j]], $st);
           $tac += 1;
           $tpe += $pe;
-          $cell[$i][$j] = $score[$i][$j] . '<br>' . round($pe) . ' (+' . $ts[$i][$j] . ')';
+          $cell[$i][$j] = '<font color="green">' . $score[$i][$j] . '<br>' . round($pe) . ' / +' . $ts[$i][$j] . '</font>';
         } else if ($score[$i][$j] > 0) {
-          $cell[$i][$j] = $score[$i][$j];
+          $cell[$i][$j] = '<font color="red">' . $score[$i][$j] . '</font>';
         } else {
           $cell[$i][$j] = '-';
         }

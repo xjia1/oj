@@ -42,7 +42,7 @@ class Record extends fActiveRecord
     if (preg_match_all(self::$regexPattern, $this->getJudgeMessage(), $matches)) {
       return array_sum($matches['time']) . 'ms';
     }
-    return 'N/A';
+    return '-';
   }
   
   public function getMemoryCost()
@@ -50,7 +50,7 @@ class Record extends fActiveRecord
     if (preg_match_all(self::$regexPattern, $this->getJudgeMessage(), $matches)) {
       return array_sum($matches['memory']) . 'kb';
     }
-    return 'N/A';
+    return '-';
   }
   
   public function getResult()
