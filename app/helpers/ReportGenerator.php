@@ -90,7 +90,7 @@ class ReportGenerator
           $pe = ($ts[$i][$j] - 1) * 20 + static::totalTime($r[$fac[$i][$j]], $st);
           $tac += 1;
           $tpe += $pe;
-          $cell[$i][$j] = $score[$i][$j] . ' / ' . round($pe) . ' (+' . $ts[$i][$j] . ')';
+          $cell[$i][$j] = $score[$i][$j] . '<br>' . round($pe) . ' (+' . $ts[$i][$j] . ')';
         } else if ($score[$i][$j] > 0) {
           $cell[$i][$j] = $score[$i][$j];
         } else {
