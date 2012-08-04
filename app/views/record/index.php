@@ -45,7 +45,7 @@ include(__DIR__ . '/../layout/header.php');
     <?php foreach ($this->records as $r): ?>
       <tr>
         <td><a href="<?php echo $this->top_url; ?><?php echo $r->getId(); ?>"><?php echo $r->getId(); ?></a></td>
-        <td><?php echo fHTML::encode($r->getOwner()); ?> <?php echo Profile::fetchRealName($r->getOwner())?></td>
+        <td><?php echo fHTML::encode($r->getOwner()); ?> <?php echo fHTML::encode(Profile::fetchRealName($r->getOwner())); ?></td>
         <td><a href="<?php echo SITE_BASE; ?>/problem/<?php echo $r->getProblemId(); ?>"><?php echo $r->getProblemId(); ?></a></td>
         <td>
           <?php if ($r->isReadable()): ?>
