@@ -6,9 +6,14 @@ class User extends fActiveRecord
     //
   }
   
+  private static $permission_cache = array();
+  
   public static function can($permission_name)
   {
-    return Permission::contains(fAuthorization::getUserToken(), $permission_name);
+    if (array_key_exists($permission_name, self::$permission_cache)) {
+      return $permission_cache[$permission_name];
+    }
+    return $permission_cache[$permission_name] = Permission::contains(fAuthorization::getUserToken(), $permission_name);
   }
   
   private static $accepted_cache;

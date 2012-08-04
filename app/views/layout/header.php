@@ -65,14 +65,26 @@
                 <ul class="dropdown-menu">
                   <li class="nav-header">Problems</li>
                   <li><a href="<?php echo SITE_BASE; ?>/dashboard#problems">Show/Hide Problem</a></li>
-                  <li class="divider"></li>
-                  <li class="nav-header">Records</li>
-                  <li><a href="<?php echo SITE_BASE; ?>/dashboard#rejudge">Rejudge Record</a></li>
-                  <li><a href="<?php echo SITE_BASE; ?>/dashboard#manjudge">Manually Judge Record</a></li>
-                  <li class="divider"></li>
-                  <li class="nav-header">Reports</li>
-                  <li><a href="<?php echo SITE_BASE; ?>/dashboard#create_report">Create Report</a></li>
-                  <li><a href="<?php echo SITE_BASE; ?>/dashboard#reports">Show/Hide/Remove Report</a></li>
+                  <?php if (User::can('rejudge-record')): ?>
+                    <li class="divider"></li>
+                    <li class="nav-header">Records</li>
+                    <li><a href="<?php echo SITE_BASE; ?>/dashboard#rejudge">Rejudge Record</a></li>
+                    <li><a href="<?php echo SITE_BASE; ?>/dashboard#manjudge">Manually Judge Record</a></li>
+                  <?php endif; ?>
+                  <?php if (User::can('create-report') or User::can('remove-report') or User::can('view-any-report')): ?>
+                    <li class="divider"></li>
+                    <li class="nav-header">Reports</li>
+                    <?php if (User::can('create-report')): ?>
+                      <li><a href="<?php echo SITE_BASE; ?>/dashboard#create_report">Create Report</a></li>
+                    <?php endif; ?>
+                    <?php if (User::can('view-any-report') and User::can('remove-report')): ?>
+                      <li><a href="<?php echo SITE_BASE; ?>/dashboard#reports">Show/Hide/Remove Report</a></li>
+                    <?php elseif (User::can('view-any-report')): ?>
+                      <li><a href="<?php echo SITE_BASE; ?>/dashboard#reports">Show/Hide Report</a></li>
+                    <?php else: ?>
+                      <li><a href="<?php echo SITE_BASE; ?>/dashboard#reports">Remove Report</a></li>
+                    <?php endif; ?>
+                  <?php endif; ?>
                   <li class="divider"></li>
                   <li class="nav-header">Permissions</li>
                   <li><a href="<?php echo SITE_BASE; ?>/dashboard#permissions">Add/Remove Permission</a></li>

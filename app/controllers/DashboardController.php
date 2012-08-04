@@ -3,6 +3,11 @@ class DashboardController extends ApplicationController
 {
   public function index()
   {
+    if (!User::can('manage-site')) {
+      fMessaging::create('error', 'You are not allowed to view the dashboard.');
+      fURL::redirect(Util::getReferer());
+    }
+    
     $this->permissions = fRecordSet::build('Permission');
     $this->variables = fRecordSet::build('Variable');
     

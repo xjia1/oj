@@ -15,103 +15,119 @@ include(__DIR__ . '/../layout/header.php');
     </div>
   </fieldset>
 </form>
-<form id="rejudge" class="well form-horizontal" method="POST" action="">
-  <fieldset>
-    <legend>Rejudge Record</legend>
-    <div class="control-group">
-      <label class="control-label" for="rejudge_record_id">Record ID</label>
-      <div class="controls">
-        <input type="number" class="input-small" id="rejudge_record_id" name="id" placeholder="Record ID">
-        <input type="submit" name="action" value="Rejudge" class="btn btn-danger">
+<?php if (User::can('rejudge-record')): ?>
+  <form id="rejudge" class="well form-horizontal" method="POST" action="">
+    <fieldset>
+      <legend>Rejudge Record</legend>
+      <div class="control-group">
+        <label class="control-label" for="rejudge_record_id">Record ID</label>
+        <div class="controls">
+          <input type="number" class="input-small" id="rejudge_record_id" name="id" placeholder="Record ID">
+          <input type="submit" name="action" value="Rejudge" class="btn btn-danger">
+        </div>
       </div>
-    </div>
-  </fieldset>
-</form>
-<form id="manjudge" class="well form-horizontal" method="POST" action="">
-  <fieldset>
-    <legend>Manually Judge Record</legend>
-    <div class="control-group">
-      <label class="control-label" for="manjudge_record_id">Record ID</label>
-      <div class="controls">
-        <input type="number" class="input-small" id="manjudge_record_id" name="id" placeholder="Record ID">
+    </fieldset>
+  </form>
+  <form id="manjudge" class="well form-horizontal" method="POST" action="">
+    <fieldset>
+      <legend>Manually Judge Record</legend>
+      <div class="control-group">
+        <label class="control-label" for="manjudge_record_id">Record ID</label>
+        <div class="controls">
+          <input type="number" class="input-small" id="manjudge_record_id" name="id" placeholder="Record ID">
+        </div>
       </div>
-    </div>
-    <div class="control-group">
-      <label class="control-label" for="manjudge_score">Score</label>
-      <div class="controls">
-        <input type="number" class="input-small" id="manjudge_score" name="score" placeholder="Score">
+      <div class="control-group">
+        <label class="control-label" for="manjudge_score">Score</label>
+        <div class="controls">
+          <input type="number" class="input-small" id="manjudge_score" name="score" placeholder="Score">
+        </div>
       </div>
-    </div>
-    <div class="control-group">
-      <div class="controls">
-        <input type="submit" name="action" value="Manually Judge" class="btn btn-info">
+      <div class="control-group">
+        <div class="controls">
+          <input type="submit" name="action" value="Manually Judge" class="btn btn-info">
+        </div>
       </div>
-    </div>
-  </fieldset>
-</form>
-<form id="create_report" class="well form-horizontal" method="POST">
-  <fieldset>
-    <legend>Create Report</legend>
-    <div class="control-group">
-      <label class="control-label" for="create_report_title">Title</label>
-      <div class="controls">
-        <input type="text" id="create_report_title" name="title" placeholder="Title">
+    </fieldset>
+  </form>
+<?php endif; ?>
+<?php if (User::can('create-report')): ?>
+  <form id="create_report" class="well form-horizontal" method="POST">
+    <fieldset>
+      <legend>Create Report</legend>
+      <div class="control-group">
+        <label class="control-label" for="create_report_title">Title</label>
+        <div class="controls">
+          <input type="text" id="create_report_title" name="title" placeholder="Title">
+        </div>
       </div>
-    </div>
-    <div class="control-group">
-      <label class="control-label" for="create_report_visible">Visibility</label>
-      <div class="controls">
-        <select id="create_report_visible" name="visible">
-          <option value="0">Private (only to administrators)</option>
-          <option value="1">Public (visible to all users)</option>
-        </select>
+      <div class="control-group">
+        <label class="control-label" for="create_report_visible">Visibility</label>
+        <div class="controls">
+          <select id="create_report_visible" name="visible">
+            <option value="0">Private (only to administrators)</option>
+            <option value="1">Public (visible to all users)</option>
+          </select>
+        </div>
       </div>
-    </div>
-    <div class="control-group">
-      <label class="control-label" for="create_report_start_time">Start Time</label>
-      <div class="controls">
-        <input type="text" id="create_report_start_time" name="start_time" placeholder="YYYY-MM-DD HH:MM:SS">
+      <div class="control-group">
+        <label class="control-label" for="create_report_start_time">Start Time</label>
+        <div class="controls">
+          <input type="text" id="create_report_start_time" name="start_time" placeholder="YYYY-MM-DD HH:MM:SS">
+        </div>
       </div>
-    </div>
-    <div class="control-group">
-      <label class="control-label" for="create_report_end_time">End Time</label>
-      <div class="controls">
-        <input type="text" id="create_report_end_time" name="end_time" placeholder="YYYY-MM-DD HH:MM:SS">
+      <div class="control-group">
+        <label class="control-label" for="create_report_end_time">End Time</label>
+        <div class="controls">
+          <input type="text" id="create_report_end_time" name="end_time" placeholder="YYYY-MM-DD HH:MM:SS">
+        </div>
       </div>
-    </div>
-    <div class="control-group">
-      <label class="control-label" for="create_report_problem_list">Problem List</label>
-      <div class="controls">
-        <textarea id="create_report_problem_list" name="problem_list" rows="5" placeholder="One problem ID per line"></textarea>
+      <div class="control-group">
+        <label class="control-label" for="create_report_problem_list">Problem List</label>
+        <div class="controls">
+          <textarea id="create_report_problem_list" name="problem_list" rows="5" placeholder="One problem ID per line"></textarea>
+        </div>
       </div>
-    </div>
-    <div class="control-group">
-      <label class="control-label" for="create_report_user_list">User List</label>
-      <div class="controls">
-        <textarea id="create_report_user_list" name="user_list" rows="5" placeholder="One username per line"></textarea>
+      <div class="control-group">
+        <label class="control-label" for="create_report_user_list">User List</label>
+        <div class="controls">
+          <textarea id="create_report_user_list" name="user_list" rows="5" placeholder="One username per line"></textarea>
+        </div>
       </div>
-    </div>
-    <div class="control-group">
-      <div class="controls">
-        <button class="btn btn-success">Create Report</button>
+      <div class="control-group">
+        <div class="controls">
+          <button class="btn btn-success">Create Report</button>
+        </div>
       </div>
-    </div>
-  </fieldset>
-</form>
-<form id="reports" class="well form-horizontal" method="POST" action="">
-  <fieldset>
-    <legend>Show/Hide/Remove Report</legend>
-    <div class="control-group">
-      <label class="control-label" for="report_id">Report ID</label>
-      <div class="controls">
-        <input type="number" class="input-small" id="report_id" name="id" placeholder="Report ID">
-        <input type="submit" name="action" value="Show" class="btn btn-primary">
-        <input type="submit" name="action" value="Hide" class="btn btn-inverse">
-        <input type="submit" name="action" value="Remove" class="btn btn-danger">
+    </fieldset>
+  </form>
+<?php endif; ?>
+<?php if (User::can('view-any-report') or User::can('remove-report')): ?>
+  <form id="reports" class="well form-horizontal" method="POST" action="">
+    <fieldset>
+      <?php if (User::can('view-any-report') and User::can('remove-report')): ?>
+        <legend>Show/Hide/Remove Report</legend>
+      <?php elseif (User::can('view-any-report')): ?>
+        <legend>Show/Hide Report</legend>
+      <?php else: ?>
+        <legend>Remove Report</legend>
+      <?php endif; ?>
+      <div class="control-group">
+        <label class="control-label" for="report_id">Report ID</label>
+        <div class="controls">
+          <input type="number" class="input-small" id="report_id" name="id" placeholder="Report ID">
+          <?php if (User::can('view-any-report')): ?>
+            <input type="submit" name="action" value="Show" class="btn btn-primary">
+            <input type="submit" name="action" value="Hide" class="btn btn-inverse">
+          <?php endif; ?>
+          <?php if (User::can('remove-report')): ?>
+            <input type="submit" name="action" value="Remove" class="btn btn-danger">
+          <?php endif; ?>
+        </div>
       </div>
-    </div>
-  </fieldset>
-</form>
+    </fieldset>
+  </form>
+<?php endif; ?>
 <form id="permissions" class="well form-horizontal" method="POST" action="">
   <fieldset>
     <legend>Add/Remove Permission</legend>
