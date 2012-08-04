@@ -82,6 +82,48 @@ $app->get('/dashboard', function () {
   $controller->index();
 });
 
+$app->post('/dashboard/problems', function () {
+  fAuthorization::requireLoggedIn();
+  $controller = new DashboardController();
+  $controller->manageProblem(fRequest::get('id', 'integer'));
+});
+
+$app->post('/dashboard/rejudge', function () {
+  fAuthorization::requireLoggedIn();
+  $controller = new DashboardController();
+  $controller->rejudge(fRequest::get('id', 'integer'));
+});
+
+$app->post('/dashboard/manjudge', function () {
+  fAuthorization::requireLoggedIn();
+  $controller = new DashboardController();
+  $controller->manjudge(fRequest::get('id', 'integer'), fRequest::get('score', 'integer'));
+});
+
+$app->post('/reports', function () {
+  fAuthorization::requireLoggedIn();
+  $controller = new DashboardController();
+  $controller->createReport();
+});
+
+$app->post('/dashboard/reports', function () {
+  fAuthorization::requireLoggedIn();
+  $controller = new DashboardController();
+  $controller->manageReport(fRequest::get('id', 'integer'));
+});
+
+$app->post('/dashboard/permissions', function () {
+  fAuthorization::requireLoggedIn();
+  $controller = new DashboardController();
+  $controller->managePermissions();
+});
+
+$app->post('/set/variable', function () {
+  fAuthorization::requireLoggedIn();
+  $controller = new DashboardController();
+  $controller->setVariable();
+});
+
 $app->get('/problem', function () {
   Util::redirect('/problem/' . fRequest::get('id', 'integer'));
 });

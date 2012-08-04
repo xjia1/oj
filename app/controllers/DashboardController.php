@@ -35,4 +35,39 @@ class DashboardController extends ApplicationController
     $this->nav_class = 'dashboard';
     $this->render('dashboard/index');
   }
+  
+  public function manageProblem($id)
+  {
+    //
+  }
+  
+  public function rejudge($id)
+  {
+    //
+  }
+  
+  public function manjudge($id, $score)
+  {
+    //
+  }
+  
+  public function createReport()
+  {
+    //
+  }
+  
+  public function manageReport($id)
+  {
+    //
+  }
+  
+  public function managePermissions()
+  {
+    //
+  }
+  
+  public function setVariable()
+  {
+    //
+  }
 }

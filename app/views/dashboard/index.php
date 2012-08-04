@@ -2,7 +2,7 @@
 $title = 'Dashboard';
 include(__DIR__ . '/../layout/header.php');
 ?>
-<form id="problems" class="well form-horizontal" method="POST" action="">
+<form id="problems" class="well form-horizontal" method="POST" action="<?php echo SITE_BASE; ?>/dashboard/problems">
   <fieldset>
     <legend>Show/Hide Problem</legend>
     <div class="control-group">
@@ -16,7 +16,7 @@ include(__DIR__ . '/../layout/header.php');
   </fieldset>
 </form>
 <?php if (User::can('rejudge-record')): ?>
-  <form id="rejudge" class="well form-horizontal" method="POST" action="">
+  <form id="rejudge" class="well form-horizontal" method="POST" action="<?php echo SITE_BASE; ?>/dashboard/rejudge">
     <fieldset>
       <legend>Rejudge Record</legend>
       <div class="control-group">
@@ -28,7 +28,7 @@ include(__DIR__ . '/../layout/header.php');
       </div>
     </fieldset>
   </form>
-  <form id="manjudge" class="well form-horizontal" method="POST" action="">
+  <form id="manjudge" class="well form-horizontal" method="POST" action="<?php echo SITE_BASE; ?>/dashboard/manjudge">
     <fieldset>
       <legend>Manually Judge Record</legend>
       <div class="control-group">
@@ -52,7 +52,7 @@ include(__DIR__ . '/../layout/header.php');
   </form>
 <?php endif; ?>
 <?php if (User::can('create-report')): ?>
-  <form id="create_report" class="well form-horizontal" method="POST">
+  <form id="create_report" class="well form-horizontal" method="POST" action="<?php echo SITE_BASE; ?>/reports">
     <fieldset>
       <legend>Create Report</legend>
       <div class="control-group">
@@ -103,7 +103,7 @@ include(__DIR__ . '/../layout/header.php');
   </form>
 <?php endif; ?>
 <?php if (User::can('view-any-report') or User::can('remove-report')): ?>
-  <form id="reports" class="well form-horizontal" method="POST" action="">
+  <form id="reports" class="well form-horizontal" method="POST" action="<?php echo SITE_BASE; ?>/dashboard/reports">
     <fieldset>
       <?php if (User::can('view-any-report') and User::can('remove-report')): ?>
         <legend>Show/Hide/Remove Report</legend>
@@ -129,7 +129,7 @@ include(__DIR__ . '/../layout/header.php');
   </form>
 <?php endif; ?>
 <?php if (User::can('add-permission') or User::can('remove-permission')): ?>
-<form id="permissions" class="well form-horizontal" method="POST" action="">
+<form id="permissions" class="well form-horizontal" method="POST" action="<?php echo SITE_BASE; ?>/dashboard/permissions">
   <fieldset>
     <?php if (User::can('add-permission') and User::can('remove-permission')): ?>
       <legend>Add/Remove Permission</legend>
@@ -200,7 +200,7 @@ include(__DIR__ . '/../layout/header.php');
 </form>
 <?php endif; ?>
 <?php if (User::can('set-variable')): ?>
-<form id="set_variable" class="well form-horizontal" method="POST" action="">
+<form id="set_variable" class="well form-horizontal" method="POST" action="<?php echo SITE_BASE; ?>/set/variable">
   <fieldset>
     <legend>Set Variable</legend>
     <div class="control-group">
