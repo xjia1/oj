@@ -86,7 +86,20 @@ class DashboardController extends ApplicationController
   
   public function createReport()
   {
-    //
+    try {
+      $report = new Report();
+      $report->setVisible(fRequest::get('visible', 'integer'));
+      $report->setTitle(fRequest::get('title', 'string'));
+      $report->setProblemList(fRequest::get('problem_list', 'string'));
+      $report->setUserList(fRequest::get('user_list', 'string'));
+      $report->setStartDatetime(fRequest::get('start_datetime', 'timestamp'));
+      $report->setEndDatetime(fRequest::get('end_datetime', 'timestamp'));
+      $report->store();
+      fMessaging::create('success', 'Report created successfully.');
+    } catch (fException $e) {
+      fMessaging::create('error', $e->getMessage());
+    }
+    fURL::redirect(Util::getReferer());
   }
   
   public function manageReport($id)
