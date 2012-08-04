@@ -21,7 +21,7 @@ class ReportGenerator
     $headers = array();
     $length = count($problem_ids) + 5;
     $headers[0] = 'Rank';
-    $haeders[1] = 'Who';
+    $headers[1] = 'Who';
     for ($i = 0; $i < count($problem_ids); $i++) {
       // start from $headers[0+2]
       $headers[$i + 2] = $problem_ids[$i];
