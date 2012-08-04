@@ -44,6 +44,9 @@ class DashboardController extends ApplicationController
   public function rejudge($id)
   {
     try {
+      if (!User::can('rejudge-record')) {
+        throw new fAuthorizationException('You are not allowed to rejudge records.');
+      }
       $old_record = new Record($id);
       $new_record = new Record();
       $new_record->setOwner($old_record->getOwner());
@@ -65,6 +68,9 @@ class DashboardController extends ApplicationController
   public function manjudge($id, $score)
   {
     try {
+      if (!User::can('rejudge-record')) {
+        throw new fAuthorizationException('You are not allowed to rejudge records.');
+      }
       if ($score < 0) {
         throw new fValidationException('Score cannot be negative.');
       }

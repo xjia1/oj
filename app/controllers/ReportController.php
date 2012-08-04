@@ -17,7 +17,7 @@ class ReportController extends ApplicationController
     try {
       $this->report = new Report($id);
       if (!$this->report->isReadable()) {
-        throw new fValidationException('You are not allowed to view this report.');
+        throw new fAuthorizationException('You are not allowed to view this report.');
       }
       
       $p  = $this->report->getProblems();

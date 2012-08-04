@@ -30,7 +30,7 @@ class SubmitController extends ApplicationController
       }
       if ($problem->isSecretNow()) {
         if (!User::can('view-any-problem')) {
-          throw new fValidationException('Problem is secret now. You are not allowed to submit this problem.');
+          throw new fAuthorizationException('Problem is secret now. You are not allowed to submit this problem.');
         }
       }
       
