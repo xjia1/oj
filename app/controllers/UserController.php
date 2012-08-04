@@ -9,11 +9,16 @@ class UserController extends ApplicationController
   /**
    * @see http://httpd.apache.org/docs/2.2/misc/password_encryptions.html
    */
+  private static function hashPassword($password)
+  {
+    return '{SHA}' . base64_encode(sha1($password, TRUE));
+  }
+  
   public function login()
   {
-    $username = fRequest::get('username', 'string');
+    $username = trim(fRequest::get('username', 'string'));
     $password = fRequest::get('password', 'string');
-    $password_hash = '{SHA}' . base64_encode(sha1($password, TRUE));
+    $password_hash = static::hashPassword($password);
     try {
       if (fRequest::get('action') == 'Sign In') {
         $user = new User($username);
@@ -25,6 +30,9 @@ class UserController extends ApplicationController
           throw new fValidationException('Password mismatch.');
         }
       } else if (fRequest::get('action') == 'Register') {
+        if (strlen($username) < 4) {
+          throw new fValidationException('Username is too short.');
+        }
         try {
           $user = new User($username);
           throw new fValidationException('User already exists.');
@@ -48,16 +56,42 @@ class UserController extends ApplicationController
   {
     fAuthorization::destroyUserInfo();
     fMessaging::create('success', 'Logged out successfully.');
-    fURL::redirect(fAuthorization::getRequestedURL(TRUE, Util::getReferer()));
+    fURL::redirect(Util::getReferer());
   }
   
   public function changePassword()
   {
-    //
+    $this->render('user/change_password');
   }
   
   public function updatePassword()
   {
-    //
+    try {
+      $old_password = fRequest::get('old_password');
+      $new_password = fRequest::get('new_password');
+      $repeat_password = fRequest::get('repeat_password');
+      if (strlen($old_password) < 6) {
+        throw new fValidationException('Old password is too short.');
+      }
+      if (strlen($new_password) < 6) {
+        throw new fValidationException('New password is too short.');
+      }
+      if ($new_password != $repeat_password) {
+        throw new fValidationException('Repeat password mismatch.');
+      }
+      $user = new User(fAuthorization::getUserToken());
+      $old_password_hash = static::hashPassword($old_password);
+      if ($user->getPassword() != $old_password_hash) {
+        throw new fValidationException('Old password mismatch.');
+      }
+      $new_password_hash = static::hashPassword($new_password);
+      $user->setPassword($new_password_hash);
+      $user->store();
+      fMessaging::create('success', 'Password updated successfully.');
+      fURL::redirect(Util::getReferer());
+    } catch (fExpectedException $e) {
+      fMessaging::create('error', $e->getMessage());
+      Util::redirect('/change/password');
+    }
   }
 }
