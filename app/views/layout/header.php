@@ -85,10 +85,18 @@
                       <li><a href="<?php echo SITE_BASE; ?>/dashboard#reports">Remove Report</a></li>
                     <?php endif; ?>
                   <?php endif; ?>
-                  <li class="divider"></li>
-                  <li class="nav-header">Permissions</li>
-                  <li><a href="<?php echo SITE_BASE; ?>/dashboard#permissions">Add/Remove Permission</a></li>
-                  <li><a href="<?php echo SITE_BASE; ?>/dashboard#assigned_permissions">View Assigned Permissions</a></li>
+                  <?php if (User::can('add-permission') or User::can('remove-permission')): ?>
+                    <li class="divider"></li>
+                    <li class="nav-header">Permissions</li>
+                    <?php if (User::can('add-permission') and User::can('remove-permission')): ?>
+                      <li><a href="<?php echo SITE_BASE; ?>/dashboard#permissions">Add/Remove Permission</a></li>
+                      <li><a href="<?php echo SITE_BASE; ?>/dashboard#assigned_permissions">View Assigned Permissions</a></li>
+                    <?php elseif (User::can('add-permission')): ?>
+                      <li><a href="<?php echo SITE_BASE; ?>/dashboard#permissions">Add Permission</a></li>
+                    <?php else: ?>
+                      <li><a href="<?php echo SITE_BASE; ?>/dashboard#permissions">Remove Permission</a></li>
+                    <?php endif; ?>
+                  <?php endif; ?>
                   <li class="divider"></li>
                   <li class="nav-header">Variables</li>
                   <li><a href="<?php echo SITE_BASE; ?>/dashboard#set_variable">Set Variable</a></li>

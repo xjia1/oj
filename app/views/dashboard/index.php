@@ -128,9 +128,16 @@ include(__DIR__ . '/../layout/header.php');
     </fieldset>
   </form>
 <?php endif; ?>
+<?php if (User::can('add-permission') or User::can('remove-permission')): ?>
 <form id="permissions" class="well form-horizontal" method="POST" action="">
   <fieldset>
-    <legend>Add/Remove Permission</legend>
+    <?php if (User::can('add-permission') and User::can('remove-permission')): ?>
+      <legend>Add/Remove Permission</legend>
+    <?php elseif (User::can('add-permission')): ?>
+      <legend>Add Permission</legend>
+    <?php else: ?>
+      <legend>Remove Permission</legend>
+    <?php endif; ?>
     <div class="control-group">
       <label class="control-label" for="user_name">User</label>
       <div class="controls">
@@ -158,12 +165,18 @@ include(__DIR__ . '/../layout/header.php');
     </div>
     <div class="control-group">
       <div class="controls">
-        <input type="submit" name="action" value="Add" class="btn btn-success">
-        <input type="submit" name="action" value="Remove" class="btn btn-danger">
+        <?php if (User::can('add-permission')): ?>
+          <input type="submit" name="action" value="Add" class="btn btn-success">
+        <?php endif; ?>
+        <?php if (User::can('remove-permission')): ?>
+          <input type="submit" name="action" value="Remove" class="btn btn-danger">
+        <?php endif; ?>
       </div>
     </div>
   </fieldset>
 </form>
+<?php endif; ?>
+<?php if (User::can('add-permission') and User::can('remove-permission')): ?>
 <form id="assigned_permissions" class="well form-horizontal">
   <fieldset>
     <legend>Assigned Permissions</legend>
@@ -185,6 +198,8 @@ include(__DIR__ . '/../layout/header.php');
     </table>
   </fieldset>
 </form>
+<?php endif; ?>
+<?php if (User::can('set-variable')): ?>
 <form id="set_variable" class="well form-horizontal" method="POST" action="">
   <fieldset>
     <legend>Set Variable</legend>
@@ -216,6 +231,8 @@ include(__DIR__ . '/../layout/header.php');
     </div>
   </fieldset>
 </form>
+<?php endif; ?>
+<?php if (User::can('list-variables')): ?>
 <form id="variables" class="well form-horizontal">
   <fieldset>
     <legend>All Variables</legend>
@@ -227,11 +244,14 @@ include(__DIR__ . '/../layout/header.php');
     <?php foreach ($this->variables as $v): ?>
       <h3 id="<?php echo fHTML::encode($v->getName()); ?>"><?php echo fHTML::prepare($v->getName()); ?></h3>
       <a href="#variables">[list]</a>
-      <a href="?edit=<?php echo fHTML::encode($v->getName()); ?>#set_variable">[edit]</a>
-      <a href="?remove=<?php echo fHTML::encode($v->getName()); ?>#set_variable">[remove]</a>
+      <?php if (User::can('set-variable')): ?>
+        <a href="?edit=<?php echo fHTML::encode($v->getName()); ?>#set_variable">[edit]</a>
+        <a href="?remove=<?php echo fHTML::encode($v->getName()); ?>#set_variable">[remove]</a>
+      <?php endif; ?>
       <pre><?php echo fHTML::encode($v->getValue()); ?></pre>
     <?php endforeach; ?>
   </fieldset>
 </form>
+<?php endif; ?>
 <?php
 include(__DIR__ . '/../layout/footer.php');
