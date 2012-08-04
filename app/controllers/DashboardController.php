@@ -164,6 +164,25 @@ class DashboardController extends ApplicationController
   
   public function setVariable()
   {
-    //
+    try {
+      if (fRequest::get('remove', 'boolean')) {
+        $variable = new Variable(fRequest::get('name'));
+        $variable->delete();
+        fMessaging::create('success', 'Variable removed successfully.');
+      } else {
+        try {
+          $variable = new Variable(fRequest::get('name'));
+        } catch (fNotFoundException $e) {
+          $variable = new Variable();
+          $variable->setName(fRequest::get('name'));
+        }
+        $variable->setValue(fRequest::get('value'));
+        $variable->store();
+        fMessaging::create('success', 'Variable set successfully.');
+      }
+    } catch (fException $e) {
+      fMessaging::create('error', $e->getMessage());
+    }
+    fURL::redirect(Util::getReferer());
   }
 }
