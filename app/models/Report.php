@@ -29,4 +29,13 @@ class Report extends fActiveRecord
     }
     return $pairs;
   }
+  
+  public function getElapsedRatio()
+  {
+    $st = $this->getStartDatetime()->format('U');
+    $et = $this->getEndDatetime()->format('U');
+    $ts = new fTimestamp();
+    $now = min($ts->format('U'), $et);
+    return round(100 * ($now - $st + 1) / ($et - $st + 1));
+  }
 }

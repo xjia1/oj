@@ -6,10 +6,8 @@ include(__DIR__ . '/../layout/header.php');
 <div class="page-header">
   <h1>Report: <?php echo fHTML::prepare($this->report->getTitle()); ?></h1>
 </div>
-<div class="alert alert-info">
-  Sort multiple columns simultaneously by 
-  holding down the <strong>shift</strong> key and 
-  clicking a second, third or even fourth column header!
+<div class="progress progress-striped active">
+  <div class="bar" style="width: <?php echo $this->report->getElapsedRatio(); ?>%;"></div>
 </div>
 <table id="userscores" class="tablesorter table table-bordered table-striped">
   <thead>
@@ -36,6 +34,11 @@ include(__DIR__ . '/../layout/header.php');
     </tr>
   </tfoot>
 </table>
+<div class="alert alert-info">
+  Sort multiple columns simultaneously by 
+  holding down the <strong>shift</strong> key and 
+  clicking a second, third or even fourth column header!
+</div>
 <?php
 $javascripts = array('jquery.tablesorter.min', 'board');
 include(__DIR__ . '/../layout/footer.php');
