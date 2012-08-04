@@ -47,4 +47,16 @@ class Util
     }
     return $_SERVER['HTTP_REFERER'];
   }
+  
+  public static function allocateArray($n, $m, $v)
+  {
+    $a = array();
+    for ($i = 0; $i < $n; $i++) {
+      $a[$i] = array();
+      for ($j = 0; $j < $m; $j++) {
+        $a[$i][$j] = $v;
+      }
+    }
+    return $a;
+  }
 }

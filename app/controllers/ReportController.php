@@ -19,6 +19,19 @@ class ReportController extends ApplicationController
       if (!$this->report->isReadable()) {
         throw new fValidationException('You are not allowed to view this report.');
       }
+      
+      $p  = $this->report->getProblems();
+      $un = $this->report->getUsernames();
+      $up = $this->report->getUserPairs();
+      
+      $un[] = '';
+      $up[] = array('id' => '', 'name' => 'Average');
+      
+      $st = $this->report->getStartDatetime();
+      $et = $this->report->getEndDatetime();
+      
+      $this->board = new BoardTable(ReportGenerator::headers($p), $up, ReportGenerator::scores($p, $un, $st, $et));
+      
       $this->nav_class = 'reports';
       $this->render('report/show');
     } catch (fExpectedException $e) {

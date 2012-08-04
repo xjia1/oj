@@ -10,6 +10,11 @@
 <script type="text/javascript" src="<?php echo SITE_BASE; ?>/js/jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo SITE_BASE; ?>/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<?php echo SITE_BASE; ?>/js/prettify.js"></script>
+<?php if (isset($javascripts)): ?>
+  <?php foreach ($javascripts as $javascript): ?>
+    <script type="text/javascript" src="<?php echo SITE_BASE; ?>/js/<?php echo $javascript; ?>.js"></script>
+  <?php endforeach; ?>
+<?php endif; ?>
 <?php if (isset($this->nav_class)): ?>
   <script type="text/javascript"> $(function(){ $('.nav-<?php echo $this->nav_class; ?>').addClass('active'); }); </script>
 <?php endif; ?>

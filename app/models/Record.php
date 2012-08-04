@@ -34,6 +34,8 @@ class Record extends fActiveRecord
   }
   
   private static $regexPattern = "/\\w+\\s\\(Time:\\s(?P<time>\\d+)ms,\\sMemory:\\s(?P<memory>\\d+)kb\\)/";
+  private static $acceptPattern = "/Accepted\\s\\(Time:\\s(\\d+)ms,\\sMemory:\\s(\\d+)kb\\)/";
+  private static $manjudgePattern = "/Manually\\s+judged\\s+to\\s+(?P<score>\\d+)\\s+points./";
   
   public function getTimeCost()
   {
@@ -62,5 +64,28 @@ class Record extends fActiveRecord
   public function isReadable()
   {
     return fAuthorization::getUserToken() == $this->getOwner() or User::can('view-any-record');
+  }
+  
+  private function getManjudgeScore()
+  {
+    if (preg_match(self::$manjudgePattern, $this->getJudgeMessage(), $matches)) {
+      return $matches['score'];
+    }
+    return NULL;
+  }
+  
+  public function getScore()
+  {
+    $manjudge_score = $this->getManjudgeScore();
+    if ($manjudge_score != NULL) {
+      return $manjudge_score;
+    }
+    $accept_num = preg_match_all(self::$acceptPattern, $this->getJudgeMessage(), $matches);
+    return $accept_num * $this->getProblem()->getCaseScore();
+  }
+  
+  public function getProblem()
+  {
+    return new Problem($this->getProblemId());
   }
 }
