@@ -56,7 +56,13 @@ include(__DIR__ . '/../layout/header.php');
             <span class="record<?php echo str_replace(' ', '', $r->getResult()); ?>"><?php echo $r->getResult(); ?></span>
           <?php endif; ?>
         </td>
-        <td><?php echo $r->getScore(); ?></td>
+        <td>
+          <?php if ($r->isReadable()): ?>
+            <?php echo $r->getScore(); ?>
+          <?php else: ?>
+            -
+          <?php endif; ?>
+        </td>
         <td><?php echo $r->getTimeCost(); ?></td>
         <td><?php echo $r->getMemoryCost(); ?></td>
         <td><?php echo fHTML::encode($r->getLanguageName()); ?></td>
