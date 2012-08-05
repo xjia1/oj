@@ -12,7 +12,16 @@ class ProblemController extends ApplicationController
     $this->title = trim(fRequest::get('title', 'string'));
     $this->author = trim(fRequest::get('author', 'string'));
     $this->problems = Problem::find($view_any, $this->page, $this->title, $this->author);
-    $this->page_url = SITE_BASE . "/problems?title={$this->title}&author={$this->author}&page=";
+    
+    $this->page_url = SITE_BASE . '/problems?';
+    if (!empty($this->title)) {
+      $this->page_url .= 'title=' . fHTML::encode($this->title) . '&';
+    }
+    if (!empty($this->author)) {
+      $this->page_url .= 'author='. fHTML::encode($this->author) . '&';
+    }
+    $this->page_url .= 'page=';
+    
     $this->nav_class = 'problems';
     $this->render('problem/index');
   }
