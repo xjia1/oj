@@ -11,8 +11,8 @@ define('DB_USER', 'root');
 define('DB_PASS', '');
 define('DB_HOST', 'localhost');
 
-// Judger IP addresses
-define('JUDGER_ADDRESSES', '|0.0.0.0|127.0.0.1|');
+// Judger secret
+define('JUDGER_SECRET', 'secret');
 
 // Misc.
 define('HOST_URL', 'http://localhost');

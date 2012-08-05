@@ -59,13 +59,4 @@ class Util
     }
     return $a;
   }
-  
-  public static function restrictIp($addresses)
-  {
-    $remote = $_SERVER['REMOTE_ADDR'];
-    if (empty($remote) or strstr($addresses, "|{$remote}|") === FALSE) {
-      echo $remote;
-      exit();
-    }
-  }
 }
