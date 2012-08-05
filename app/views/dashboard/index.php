@@ -7,13 +7,17 @@ include(__DIR__ . '/../layout/header.php');
 </div>
 <form id="problems" class="well form-horizontal" method="POST" action="<?php echo SITE_BASE; ?>/dashboard/problems">
   <fieldset>
-    <legend>Show/Hide Problem</legend>
+    <legend>Show/Hide/Refresh Problem</legend>
     <div class="control-group">
       <label class="control-label" for="problem_id">Problem ID</label>
       <div class="controls">
         <input type="number" class="input-small" id="problem_id" name="id" placeholder="Problem ID">
         <input type="submit" name="action" value="Show" class="btn btn-primary">
-        <input type="submit" name="action" value="Hide" class="btn btn-inverse">
+        <input type="submit" name="action" value="Hide" class="btn">
+        <input type="submit" name="action" value="Refresh" class="btn btn-inverse">
+        <?php if (User::can('refresh-all')): ?>
+          <input type="submit" name="action" value="Refresh All" class="btn btn-danger">
+        <?php endif; ?>
       </div>
     </div>
   </fieldset>

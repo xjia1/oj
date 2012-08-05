@@ -44,91 +44,134 @@ class DashboardController extends ApplicationController
   {
     try {
       $problem = new Problem($id);
-      throw new fValidationException("Problem {$id} already exists.");
+      if ($problem->exists()) {
+        throw new fValidationException("Problem {$id} already exists.");
+      }
     } catch (fNotFoundException $e) {
-      $data_base_dir = Variable::getString('data-base-path');
-      if (!is_dir($data_base_dir)) {
-        throw new fValidationException("Data base directory {$data_base_dir} does not exist.");
+      // fall through
+    }
+    
+    $data_base_dir = Variable::getString('data-base-path');
+    if (!is_dir($data_base_dir)) {
+      throw new fValidationException("Data base directory {$data_base_dir} does not exist.");
+    }
+    
+    $pwd = getcwd();
+    chdir($data_base_dir);
+    $output = array();
+    exec('git pull origin master 2>&1', $output, $retval);
+    chdir($pwd);
+    if ($retval != 0) {
+      throw new fValidationException("<pre>{$data_base_dir}$ git pull origin master\n" . implode("\n", $output) . '</pre>');
+    }
+    
+    $problem_dir = "{$data_base_dir}/problems/{$id}";
+    if (!is_dir($problem_dir)) {
+      throw new fValidationException("Problem directory {$problem_dir} does not exist.");
+    }
+    
+    $problem_conf = "{$problem_dir}/problem.conf";
+    if (!is_file($problem_conf)) {
+      throw new fValidationException("Problem configuration file {$problem_conf} does not exist.");
+    }
+    
+    $problem_text = "{$problem_dir}/problem.text";
+    if (!is_file($problem_text)) {
+      throw new fValidationException("Problem description file {$problem_text} does not exist.");
+    }
+    
+    $data_dir = "{$problem_dir}/data";
+    if (!is_dir($data_dir)) {
+      throw new fValidationException("Problem {$id} does not have a data directory at {$data_dir}");
+    }
+    
+    $properties_content = file_get_contents($problem_conf);
+    $ini_content = str_replace(': ', ' = ', $properties_content);
+    $ini = parse_ini_string($ini_content);
+    if (!array_key_exists('title', $ini) or empty($ini['title'])) {
+      throw new fValidationException('Problem title is not specified in problem.conf');
+    }
+    if (!array_key_exists('author', $ini)) {
+      throw new fValidationException('Problem author is not specified in problem.conf');
+    }
+    if (!array_key_exists('case_count', $ini) or empty($ini['case_count'])) {
+      throw new fValidationException('Problem case count is not specified in problem.conf');
+    }
+    if (!array_key_exists('case_score', $ini) or empty($ini['case_score'])) {
+      throw new fValidationException('Problem case score is not specified in problem.conf');
+    }
+    if (!array_key_exists('time_limit', $ini) or empty($ini['time_limit'])) {
+      throw new fValidationException('Problem time limit is not specified in problem.conf');
+    }
+    if (!array_key_exists('memory_limit', $ini) or empty($ini['memory_limit'])) {
+      throw new fValidationException('Problem memory limit is not specified in problem.conf');
+    }
+    if (!array_key_exists('secret_before', $ini) or empty($ini['secret_before'])) {
+      throw new fValidationException('Problem secret-before time is not specified in problem.conf');
+    }
+    
+    $problem = new Problem();
+    $problem->setId($id);
+    $problem->setTitle($ini['title']);
+    $problem->setDescription(file_get_contents($problem_text));
+    $problem->setAuthor($ini['author']);
+    $problem->setCaseCount($ini['case_count']);
+    $problem->setCaseScore($ini['case_score']);
+    $problem->setTimeLimit($ini['time_limit']);
+    $problem->setMemoryLimit($ini['memory_limit']);
+    $problem->setSecretBefore($ini['secret_before']);
+    $problem->validate();
+    
+    for ($t = 1; $t <= $problem->getCaseCount(); $t++) {
+      $input = "{$data_dir}/$t.in";
+      if (!is_file($input)) {
+        throw new fValidationException("Case input file {$input} is not found in {$data_dir}");
       }
-      
-      $pwd = getcwd();
-      chdir($data_base_dir);
-      $output = array();
-      exec('git pull origin master 2>&1', $output, $retval);
-      chdir($pwd);
-      if ($retval != 0) {
-        throw new fValidationException("<pre>{$data_base_dir}$ git pull origin master\n" . implode("\n", $output) . '</pre>');
+      $output = "{$data_dir}/$t.out";
+      if (!is_file($output)) {
+        throw new fValidationException("Case output file {$output} is not found in {$data_dir}");
       }
-      
-      $problem_dir = "{$data_base_dir}/problems/{$id}";
-      if (!is_dir($problem_dir)) {
-        throw new fValidationException("Problem directory {$problem_dir} does not exist.");
+    }
+    
+    $problem->store();
+  }
+  
+  private function hideProblem($id)
+  {
+    $problem = new Problem($id);
+    $problem->delete();
+  }
+  
+  private function refreshProblem($id)
+  {
+    $db = fORMDatabase::retrieve();
+    try {
+      $db->query('BEGIN');
+      $this->hideProblem($id);
+      $this->showProblem($id);
+      $db->query('COMMIT');
+    } catch (fException $e) {
+      $db->query('ROLLBACK');
+      throw $e;
+    }
+  }
+  
+  private function refreshAllProblems()
+  {
+    set_time_limit(0);
+    $db = fORMDatabase::retrieve();
+    try {
+      $db->query('BEGIN');
+      $problems = fRecordSet::build('Problem');
+      foreach ($problems as $problem) {
+        $id = $problem->getId();
+        $this->hideProblem($id);
+        $this->showProblem($id);
       }
-      
-      $problem_conf = "{$problem_dir}/problem.conf";
-      if (!is_file($problem_conf)) {
-        throw new fValidationException("Problem configuration file {$problem_conf} does not exist.");
-      }
-      
-      $problem_text = "{$problem_dir}/problem.text";
-      if (!is_file($problem_text)) {
-        throw new fValidationException("Problem description file {$problem_text} does not exist.");
-      }
-      
-      $data_dir = "{$problem_dir}/data";
-      if (!is_dir($data_dir)) {
-        throw new fValidationException("Problem {$id} does not have a data directory at {$data_dir}");
-      }
-      
-      $properties_content = file_get_contents($problem_conf);
-      $ini_content = str_replace(': ', ' = ', $properties_content);
-      $ini = parse_ini_string($ini_content);
-      if (!array_key_exists('title', $ini) or empty($ini['title'])) {
-        throw new fValidationException('Problem title is not specified in problem.conf');
-      }
-      if (!array_key_exists('author', $ini)) {
-        throw new fValidationException('Problem author is not specified in problem.conf');
-      }
-      if (!array_key_exists('case_count', $ini) or empty($ini['case_count'])) {
-        throw new fValidationException('Problem case count is not specified in problem.conf');
-      }
-      if (!array_key_exists('case_score', $ini) or empty($ini['case_score'])) {
-        throw new fValidationException('Problem case score is not specified in problem.conf');
-      }
-      if (!array_key_exists('time_limit', $ini) or empty($ini['time_limit'])) {
-        throw new fValidationException('Problem time limit is not specified in problem.conf');
-      }
-      if (!array_key_exists('memory_limit', $ini) or empty($ini['memory_limit'])) {
-        throw new fValidationException('Problem memory limit is not specified in problem.conf');
-      }
-      if (!array_key_exists('secret_before', $ini) or empty($ini['secret_before'])) {
-        throw new fValidationException('Problem secret-before time is not specified in problem.conf');
-      }
-      
-      $problem = new Problem();
-      $problem->setId($id);
-      $problem->setTitle($ini['title']);
-      $problem->setDescription(file_get_contents($problem_text));
-      $problem->setAuthor($ini['author']);
-      $problem->setCaseCount($ini['case_count']);
-      $problem->setCaseScore($ini['case_score']);
-      $problem->setTimeLimit($ini['time_limit']);
-      $problem->setMemoryLimit($ini['memory_limit']);
-      $problem->setSecretBefore($ini['secret_before']);
-      $problem->validate();
-      
-      for ($t = 1; $t <= $problem->getCaseCount(); $t++) {
-        $input = "{$data_dir}/$t.in";
-        if (!is_file($input)) {
-          throw new fValidationException("Case input file {$input} is not found in {$data_dir}");
-        }
-        $output = "{$data_dir}/$t.out";
-        if (!is_file($output)) {
-          throw new fValidationException("Case output file {$output} is not found in {$data_dir}");
-        }
-      }
-      
-      $problem->store();
+      $db->query('COMMIT');
+    } catch (fException $e) {
+      $db->query('ROLLBACK');
+      throw $e;
     }
   }
   
@@ -142,9 +185,14 @@ class DashboardController extends ApplicationController
         $this->showProblem($id);
         fMessaging::create('success', "Problem {$id} showed successfully.");
       } else if ($action == 'Hide') {
-        $problem = new Problem($id);
-        $problem->delete();
+        $this->hideProblem($id);
         fMessaging::create('success', "Problem {$id} hidden successfully.");
+      } else if ($action == 'Refresh') {
+        $this->refreshProblem($id);
+        fMessaging::create('success', "Problem {$id} refreshed successfully.");
+      } else if ($action == 'Refresh All' and User::can('refresh-all')) {
+        $this->refreshAllProblems();
+        fMessaging::create('success', 'All problems refreshed successfully.');
       }
     } catch (fException $e) {
       fMessaging::create('error', $e->getMessage());

@@ -70,7 +70,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dashboard <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   <li class="nav-header">Problems</li>
-                  <li><a href="<?php echo SITE_BASE; ?>/dashboard#problems">Show/Hide Problem</a></li>
+                  <li><a href="<?php echo SITE_BASE; ?>/dashboard#problems">Show/Hide/Refresh Problem</a></li>
                   <?php if (User::can('rejudge-record')): ?>
                     <li class="divider"></li>
                     <li class="nav-header">Records</li>
