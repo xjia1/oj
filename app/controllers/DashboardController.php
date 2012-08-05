@@ -40,7 +40,23 @@ class DashboardController extends ApplicationController
     $this->render('dashboard/index');
   }
   
-  private function showProblem($id)
+  private function gitPullOriginMaster()
+  { 
+    $data_base_dir = Variable::getString('data-base-path');
+    if (!is_dir($data_base_dir)) {
+      throw new fValidationException("Data base directory {$data_base_dir} does not exist.");
+    }
+    $pwd = getcwd();
+    chdir($data_base_dir);
+    $output = array();
+    exec('git pull origin master 2>&1', $output, $retval);
+    chdir($pwd);
+    if ($retval != 0) {
+      throw new fValidationException("<pre>{$data_base_dir}$ git pull origin master\n" . implode("\n", $output) . '</pre>');
+    }
+  }
+  
+  private function showProblem($id, $ignore_git=FALSE)
   {
     try {
       $problem = new Problem($id);
@@ -56,13 +72,8 @@ class DashboardController extends ApplicationController
       throw new fValidationException("Data base directory {$data_base_dir} does not exist.");
     }
     
-    $pwd = getcwd();
-    chdir($data_base_dir);
-    $output = array();
-    exec('git pull origin master 2>&1', $output, $retval);
-    chdir($pwd);
-    if ($retval != 0) {
-      throw new fValidationException("<pre>{$data_base_dir}$ git pull origin master\n" . implode("\n", $output) . '</pre>');
+    if (!$ignore_git) {
+      $this->gitPullOriginMaster();
     }
     
     $problem_dir = "{$data_base_dir}/problems/{$id}";
@@ -166,11 +177,12 @@ class DashboardController extends ApplicationController
     $db = fORMDatabase::retrieve();
     try {
       $db->query('BEGIN');
+      $this->gitPullOriginMaster();
       $problems = fRecordSet::build('Problem');
       foreach ($problems as $problem) {
         $id = $problem->getId();
         $this->hideProblem($id);
-        $this->showProblem($id);
+        $this->showProblem($id, TRUE);  // ignore git
       }
       $db->query('COMMIT');
     } catch (fExpectedException $e) {
