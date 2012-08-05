@@ -19,7 +19,7 @@ class PollingController extends ApplicationController
 		  $p = $r->getProblem();
 		  $r->setJudgeStatus(JudgeStatus::WAITING);
 		  $r->store();
-		  echo fJSON::encode(array(
+		  echo json_encode(array(
 		    'id'            =>  $r->getId(),
 		    'problem_id'    =>  $p->getId(),
 		    'code_language' =>  $r->getLanguageName(),
@@ -29,7 +29,7 @@ class PollingController extends ApplicationController
 		    'caseScore'     =>  $p->getCaseScore(),
 		    'caseCount'     =>  $p->getCaseCount(),
 		    'Timestamp'     =>  $p->getLastModified()
-		  ));
+		  ), JSON_NUMERIC_CHECK);
 		} catch (fException $e) {
 		  echo -1;
 		}
