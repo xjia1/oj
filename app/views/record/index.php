@@ -23,7 +23,9 @@ include(__DIR__ . '/../layout/header.php');
       }
     ?>
     </select>
-    <button type="submit" class="btn btn-primary">Filter</button>
+    <button type="submit" class="btn btn-primary">
+      <i class="icon-filter icon-white"></i> Filter
+    </button>
     <?php if (strlen($this->owner) or strlen($this->problem_id) or !empty($this->language) or !empty($this->verdict)): ?>
       <a class="btn" href="<?php echo SITE_BASE; ?>/status">Cancel</a>
     <?php endif; ?>
