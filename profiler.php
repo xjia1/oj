@@ -1,4 +1,6 @@
 <?php
+// apd_set_pprof_trace();
+
 $profiler_stats = array(
   'time_start'  => microtime(TRUE),
   'query_num'   => 0,
