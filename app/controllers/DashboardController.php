@@ -110,6 +110,10 @@ class DashboardController extends ApplicationController
       throw new fValidationException('Problem secret-before time is not specified in problem.conf');
     }
     
+    if (empty($ini['author'])) {
+      $ini['author'] = ' ';
+    }
+    
     $problem = new Problem();
     $problem->setId($id);
     $problem->setTitle($ini['title']);
