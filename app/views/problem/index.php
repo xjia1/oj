@@ -32,7 +32,7 @@ include(__DIR__ . '/../layout/header.php');
       <tr>
         <td>
           <?php echo $p->getId(); ?>
-          <?php if (User::hasAccepted($p)): ?>
+          <?php if (fAuthorization::checkLoggedIn() and User::hasAccepted($p)): ?>
             <i class="icon-ok"></i>
           <?php endif; ?>
         </td>
