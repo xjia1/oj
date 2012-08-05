@@ -82,4 +82,15 @@ class Problem extends fActiveRecord
   {
     return Util::currentTime() < $this->getSecretBefore();
   }
+  
+  public function getLastModified()
+  {
+    $m = 0;
+    $data_dir = Variable::getString('data-base-path') . '/problems/' . $this->getId() . '/data';
+    for ($t = 1; $t <= $this->getCaseCount(); $t++) {
+      $m = max($m, filemtime("{$data_dir}/$t.in"));
+      $m = max($m, filemtime("{$data_dir}/$t.out"));
+    }
+    return $m;
+  }
 }

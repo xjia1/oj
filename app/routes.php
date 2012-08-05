@@ -153,4 +153,21 @@ $app->get('/report/:id', function ($id) {
   $controller->show($id);
 });
 
+$app->get('/polling', function () {
+  $controller = new PollingController();
+  $opcode = fRequest::get('opcode', 'string');
+  if ($opcode == 'fetchRecord') {
+    $controller->fetchRecord();
+  } else if ($opcode == 'fetchTimestamp') {
+    $controller->fetchTimestamp();
+  } else {
+    echo -1;
+  }
+});
+
+$app->post('/polling', function () {
+  $controller = new PollingController();
+  $controller->updateJudgeStatus();
+});
+
 $app->run();

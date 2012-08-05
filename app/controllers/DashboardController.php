@@ -60,7 +60,7 @@ class DashboardController extends ApplicationController
         throw new fEnvironmentException("<pre>{$data_base_dir}$ git pull origin master\n" . implode("\n", $output) . '</pre>');
       }
       
-      $problem_dir = "{$data_base_dir}/problems/${id}";
+      $problem_dir = "{$data_base_dir}/problems/{$id}";
       if (!is_dir($problem_dir)) {
         throw new fEnvironmentException("Problem directory {$problem_dir} does not exist.");
       }

@@ -35,7 +35,7 @@ class SubmitController extends ApplicationController
       }
       
       $record = new Record();
-      $record->setOwner(Authorization::getUserToken());
+      $record->setOwner(fAuthorization::getUserToken());
       $record->setProblemId($problem->getId());
       $record->setSubmitCode($code);
       $record->setCodeLanguage($language);
