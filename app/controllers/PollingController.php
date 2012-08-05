@@ -47,27 +47,32 @@ class PollingController extends ApplicationController
   
   public function updateJudgeStatus()
   {
-    $op = strtolower(trim(fRequest::get('status', 'string')));
-    $judge_message = base64_decode(fRequest::get('judgeMessage', 'string'));
-    $verdict = fRequest::get('verdict', 'integer');
-    $r = new Record(fRequest::get('id', 'integer'));
+    try {
+      $op = strtolower(trim(fRequest::get('status', 'string')));
+      $judge_message = base64_decode(fRequest::get('judgeMessage', 'string'));
+      $verdict = fRequest::get('verdict', 'integer');
+      $id = fRequest::get('id', 'integer');
+      $r = new Record($id);
     
-    if ($op == 'running') {
-      $r->setJudgeStatus(JudgeStatus::RUNNING);
-      $r->setJudgeMessage($r->getJudgeMessage() . "\n{$judge_message}");
-      $r->store();
-    } else if ($op == 'done') {
-      $r->setJudgeStatus(JudgeStatus::DONE);
-      if (!empty($judge_message)) {
-        $r->setJudgeMessage($judge_message);
+      if ($op == 'running') {
+        $r->setJudgeStatus(JudgeStatus::RUNNING);
+        $r->setJudgeMessage($r->getJudgeMessage() . "\n{$judge_message}");
+        $r->store();
+      } else if ($op == 'done') {
+        $r->setJudgeStatus(JudgeStatus::DONE);
+        if (!empty($judge_message)) {
+          $r->setJudgeMessage($judge_message);
+        }
+        $r->setVerdict($verdict);
+        $r->store();
       }
-      $r->setVerdict($verdict);
-      $r->store();
+      
+      echo "{$op}\n";
+      echo "{$judge_message}\n";
+      echo "{$verdict}\n";
+      echo "{$id}\n";
+    } catch (fException $e) {
+      echo -1;
     }
-    
-    echo "{$op}\n";
-    echo "{$judge_message}\n";
-    echo "{$verdict}\n";
-    echo "{$id}\n";
   }
 }
