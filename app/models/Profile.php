@@ -5,13 +5,20 @@ class Profile extends fActiveRecord
   {
   }
   
+  private static $realname_cache;
+  
   public static function fetchRealName($username)
   {
-    try {
-      $profile = new Profile($username);
-      return $profile->getRealname();
-    } catch (fNotFoundException $e) {
-      return '';
+    if (self::$realname_cache == NULL) {
+      self::$realname_cache = array();
+      $profiles = fRecordSet::build('Profile');
+      foreach ($profiles as $profile) {
+        self::$realname_cache[$profile->getUsername()] = $profile->getRealname();
+      }
     }
+    if (array_key_exists($username, self::$realname_cache)) {
+      return self::$realname_cache[$username];
+    }
+    return '';
   }
 }
