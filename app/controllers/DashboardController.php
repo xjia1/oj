@@ -111,7 +111,7 @@ class DashboardController extends ApplicationController
     }
     
     if (empty($ini['author'])) {
-      $ini['author'] = ' ';
+      $ini['author'] = '-';
     }
     
     $problem = new Problem();
