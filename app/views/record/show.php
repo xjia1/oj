@@ -1,9 +1,20 @@
 <?php
 $title = 'Record #' . $this->record->getId();
+$stylesheets = array('verdicts');
 include(__DIR__ . '/../layout/header.php');
 ?>
 <div class="page-header">
-  <h1>Record #<?php echo $this->record->getId(); ?></h1>
+  <h1>
+    Record #<?php echo $this->record->getId(); ?>
+    <small class="record<?php echo str_replace(' ', '', $this->record->getResult()); ?>">
+      <?php echo $this->record->getResult(); ?>
+    </small>
+    <small>
+      / Score: <?php echo $this->record->getScore(); ?>
+      / Time: <?php echo $this->record->getTimeCost(); ?>
+      / Memory: <?php echo $this->record->getMemoryCost(); ?>
+    </small>
+  </h1>
 </div>
 <div class="row">
   <div class="span9">
