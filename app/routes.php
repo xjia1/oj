@@ -154,6 +154,7 @@ $app->get('/report/:id', function ($id) {
 });
 
 $app->get('/polling', function () {
+  Util::restrictIp(JUDGER_ADDRESSES);
   $controller = new PollingController();
   $opcode = fRequest::get('opcode', 'string');
   if ($opcode == 'fetchRecord') {
@@ -166,6 +167,7 @@ $app->get('/polling', function () {
 });
 
 $app->post('/polling', function () {
+  Util::restrictIp(JUDGER_ADDRESSES);
   $controller = new PollingController();
   $controller->updateJudgeStatus();
 });
