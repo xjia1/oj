@@ -173,9 +173,12 @@ class DashboardController extends ApplicationController
         $this->showProblem($id);
       }
       $db->query('COMMIT');
-    } catch (fException $e) {
+    } catch (fExpectedException $e) {
       $db->query('ROLLBACK');
-      throw $e;
+      throw new fExpectedException($id . ': ' . $e->getMessage());
+    } catch (fUnexpectedException $e) {
+      $db->query('ROLLBACK');
+      throw new fUnexpectedException($id . ': ' . $e->getMessage());
     }
   }
   
