@@ -36,7 +36,7 @@ APC configuration in `php.ini`:
 
 ## `Memcached` Configuration
 
-APC seems not working with XAMPP on Mac OS X. So for application-purpose caching (instead of opcode caching), we use `memcached`.
+APC seems not working with XAMPP on Mac OS X ([see here](http://www.apachefriends.org/f/viewtopic.php?p=142520)). So for application-purpose caching (instead of opcode caching), we use `memcached`.
 
 On Ubuntu:
 
