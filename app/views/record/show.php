@@ -33,7 +33,7 @@ include(__DIR__ . '/../layout/header.php');
       Problem:
       <a href="<?php echo SITE_BASE; ?>/problem/<?php echo $this->record->getProblemId(); ?>">
         <?php echo $this->record->getProblemId(); ?></a>
-      (<a href="<?php echo SITE_BASE; ?>/submit?problem=<?php echo $this->record->getProblemId(); ?>">submit</a>)
+      <a href="<?php echo SITE_BASE; ?>/submit?problem=<?php echo $this->record->getProblemId(); ?>" class="icon-repeat"></a>
     </li>
     <li>Language: <?php echo fHTML::encode($this->record->getLanguageName()); ?></li>
     <li>Submit Time: <?php echo $this->record->getSubmitDatetime(); ?></li>

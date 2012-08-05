@@ -19,7 +19,7 @@ class PollingController extends ApplicationController
 		  $p = $r->getProblem();
 		  $r->setJudgeStatus(JudgeStatus::WAITING);
 		  $r->store();
-		  echo json_encode(array(
+		  echo fJSON::encode(array(
 		    'id'            =>  $r->getId(),
 		    'problem_id'    =>  $p->getId(),
 		    'code_language' =>  $r->getLanguageName(),

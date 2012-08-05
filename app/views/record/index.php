@@ -30,12 +30,12 @@ include(__DIR__ . '/../layout/header.php');
   </form>
   <h1>Problem Status List</h1>
 </div>
-<table class="table table-bordered table-striped">
+<table id="status" class="table table-bordered table-striped">
   <thead>
     <tr>
       <th>Run ID</th>
       <th>Who</th>
-      <th>What</th>
+      <th class="what">What</th>
       <th>Result</th>
       <th>Score</th>
       <th>Time</th>
@@ -49,7 +49,10 @@ include(__DIR__ . '/../layout/header.php');
       <tr>
         <td><a href="<?php echo $this->top_url; ?><?php echo $r->getId(); ?>"><?php echo $r->getId(); ?></a></td>
         <td><?php echo fHTML::encode($r->getOwner()); ?> <?php echo fHTML::encode(Profile::fetchRealName($r->getOwner())); ?></td>
-        <td><a href="<?php echo SITE_BASE; ?>/problem/<?php echo $r->getProblemId(); ?>"><?php echo $r->getProblemId(); ?></a></td>
+        <td>
+          <a href="<?php echo SITE_BASE; ?>/problem/<?php echo $r->getProblemId(); ?>"><?php echo $r->getProblemId(); ?></a>
+          <a href="<?php echo SITE_BASE; ?>/submit?problem=<?php echo $r->getProblemId(); ?>" class="icon-repeat"></a>
+        </td>
         <td>
           <?php if ($r->isReadable()): ?>
             <a class="record<?php echo str_replace(' ', '', $r->getResult()); ?>" 

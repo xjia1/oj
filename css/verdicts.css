@@ -11,3 +11,7 @@
 .recordCompileError        { color: #008C00 !important; }
 .recordSystemError         { color: #356AA0 !important; }
 .recordValidatorError      { color: #355AB0 !important; }
+
+#status thead tr th.what { min-width: 46px; }
+#status tbody tr td .icon-repeat { display: none; }
+#status tbody tr:hover td .icon-repeat { display: inline-block; }
