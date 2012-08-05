@@ -32,6 +32,9 @@ class UserController extends ApplicationController
         if (strlen($username) < 4) {
           throw new fValidationException('Username is too short.');
         }
+        if ($username != strip_tags($username)) {
+          throw new fValidationExcepton('Username is illegal.');
+        }
         try {
           $user = new User($username);
           throw new fValidationException('User already exists.');
