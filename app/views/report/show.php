@@ -6,8 +6,14 @@ include(__DIR__ . '/../layout/header.php');
 <div class="page-header">
   <h1>Report: <?php echo fHTML::prepare($this->report->getTitle()); ?></h1>
 </div>
-<div class="progress progress-striped active">
-  <div class="bar" style="width: <?php echo $this->report->getElapsedRatio(); ?>%;"></div>
+<div class="row">
+  <div class="progress progress-striped active span10">
+    <div class="bar" style="width: <?php echo $this->report->getElapsedRatio(); ?>%;"></div>
+  </div>
+  <div class="span2">
+    <i class="icon-time"></i>
+    Time: <?php echo $this->report->getElapsedRatio(); ?>% elapsed
+  </div>
 </div>
 <table id="userscores" class="tablesorter table table-bordered table-striped">
   <thead>
