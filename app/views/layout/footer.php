@@ -5,6 +5,8 @@
   <br>
   Copyright &copy; 2011-2012 <a href="http://acm.sjtu.edu.cn/">ACM Class</a>.
   All rights reserved.
+  <br>
+  <?php profiler_dump(); ?>
 </footer>
 </div> <!-- /container -->
 <script type="text/javascript" src="<?php echo SITE_BASE; ?>/js/jquery.min.js"></script>
