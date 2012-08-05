@@ -4,7 +4,15 @@ $stylesheets = array('tablesorter');
 include(__DIR__ . '/../layout/header.php');
 ?>
 <div class="page-header">
-  <h1>Report: <?php echo fHTML::prepare($this->report->getTitle()); ?></h1>
+  <h1>
+    Report: <?php echo fHTML::prepare($this->report->getTitle()); ?>
+    <small>
+      <?php echo $this->report->getStartDatetime(); ?>
+      --
+      <?php echo $this->report->getEndDatetime(); ?>
+      (<?php echo $this->report->getDuration(); ?>)
+    </small>
+  </h1>
 </div>
 <div class="row">
   <div class="progress progress-striped active span10">

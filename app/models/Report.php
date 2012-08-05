@@ -37,4 +37,9 @@ class Report extends fActiveRecord
     $now = min($ts->format('U'), $et);
     return round(100 * ($now - $st + 1) / ($et - $st + 1));
   }
+  
+  public function getDuration()
+  {
+    return $this->getStartDatetime()->getFuzzyDifference($this->getEndDatetime(), TRUE);
+  }
 }

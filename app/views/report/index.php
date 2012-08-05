@@ -32,7 +32,7 @@ include(__DIR__ . '/../layout/header.php');
         <td><a href="<?php echo SITE_BASE; ?>/report/<?php echo $r->getId(); ?>"><?php echo fHTML::prepare($r->getTitle()); ?></a></td>
         <td><?php echo $r->getStartDatetime(); ?></td>
         <td><?php echo $r->getEndDatetime(); ?></td>
-        <td><?php echo $r->getStartDatetime()->getFuzzyDifference($r->getEndDatetime(), TRUE); ?></td>
+        <td><?php echo $r->getDuration(); ?></td>
       </tr>
     <?php endforeach; ?>
   </tbody>
