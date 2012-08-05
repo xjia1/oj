@@ -86,12 +86,16 @@ class Record extends fActiveRecord
   
   public function getScore()
   {
-    $manjudge_score = $this->getManjudgeScore();
-    if ($manjudge_score != NULL) {
-      return $manjudge_score;
+    static $score = NULL;
+    if ($score == NULL) {
+      $manjudge_score = $this->getManjudgeScore();
+      if ($manjudge_score != NULL) {
+        return $score = $manjudge_score;
+      }
+      $accept_num = preg_match_all(self::$acceptPattern, $this->getJudgeMessage(), $matches);
+      return $score = $accept_num * $this->getProblem()->getCaseScore();
     }
-    $accept_num = preg_match_all(self::$acceptPattern, $this->getJudgeMessage(), $matches);
-    return $accept_num * $this->getProblem()->getCaseScore();
+    return $score;
   }
   
   public function getProblem()
