@@ -4,6 +4,8 @@ date_default_timezone_set('Asia/Shanghai');
 set_time_limit(600);  // 10 minutes
 
 define('SQL_DEBUG', TRUE);
+define('APC_ENABLED', TRUE);
+define('ENABLE_SCHEMA_CACHING', TRUE);
 
 // OJ database
 define('DB_NAME', 'online_judge');
