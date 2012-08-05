@@ -22,7 +22,7 @@ class ReportController extends ApplicationController
       
       global $cache;
       
-      $this->board = $cache->get("report_{$id}_board");
+      $this->board = $cache->get($this->report->getBoardCacheKey());
       
       if ($this->board == NULL) {
         $p  = $this->report->getProblems();
@@ -37,7 +37,7 @@ class ReportController extends ApplicationController
         
         $this->board = new BoardTable(ReportGenerator::headers($p), $up, ReportGenerator::scores($p, $un, $st, $et));
         
-        $cache->set("report_{$id}_board", $this->board, 60);  // 60 seconds
+        $cache->set($this->report->getBoardCacheKey(), $this->board);
       }
       
       $this->nav_class = 'reports';

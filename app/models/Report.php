@@ -42,4 +42,9 @@ class Report extends fActiveRecord
   {
     return $this->getStartDatetime()->getFuzzyDifference($this->getEndDatetime(), TRUE);
   }
+  
+  public function getBoardCacheKey()
+  {
+    return 'report_' . $this->getId() . '_board';
+  }
 }

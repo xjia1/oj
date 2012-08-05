@@ -3,6 +3,12 @@ class Record extends fActiveRecord
 {
   protected function configure()
   {
+    fORM::registerHookCallback($this, 'post::store()', 'Record::invalidateBoardCache');
+  }
+  
+  public static function invalidateBoardCache($object, &$values, &$old_values, &$related_records, &$cache)
+  {
+    BoardCacheInvalidator::invalidate($values['owner'], $values['problem_id'], $values['submit_datetime']);
   }
   
   public static function find($top, $owner, $problem_id, $language, $verdict)

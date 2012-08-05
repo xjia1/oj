@@ -29,5 +29,6 @@ require_once(__DIR__ . '/helpers/Verdict.php');
 require_once(__DIR__ . '/helpers/JudgeStatus.php');
 require_once(__DIR__ . '/helpers/ReportGenerator.php');
 require_once(__DIR__ . '/helpers/BoardTable.php');
+require_once(__DIR__ . '/helpers/BoardCacheInvalidator.php');
 
 require_once(__DIR__ . '/routes.php');

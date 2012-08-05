@@ -206,8 +206,8 @@ class DashboardController extends ApplicationController
       $report->setTitle(fRequest::get('title', 'string'));
       $report->setProblemList(fRequest::get('problem_list', 'string'));
       $report->setUserList(fRequest::get('user_list', 'string'));
-      $report->setStartDatetime(fRequest::get('start_datetime', 'timestamp'));
-      $report->setEndDatetime(fRequest::get('end_datetime', 'timestamp'));
+      $report->setStartDatetime(fRequest::get('start_time', 'timestamp'));
+      $report->setEndDatetime(fRequest::get('end_time', 'timestamp'));
       $report->store();
       fMessaging::create('success', 'Report created successfully.');
     } catch (fException $e) {
