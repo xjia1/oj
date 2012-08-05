@@ -22,6 +22,7 @@ include(__DIR__ . '/../layout/header.php');
       <th>Title</th>
       <th>Author</th>
       <th>Ratio (AC/submit)</th>
+      <th>Action</th>
     </tr>
   </thead>
   <tbody>
@@ -36,6 +37,7 @@ include(__DIR__ . '/../layout/header.php');
         <td><a href="<?php echo SITE_BASE; ?>/problem/<?php echo $p->getId(); ?>"><?php echo fHTML::encode($p->getTitle()); ?></a></td>
         <td><?php echo fHTML::encode($p->getAuthor()); ?></td>
         <td><?php echo $p->getRatio(); ?>% (<?php echo $p->getAcceptCount(); ?>/<?php echo $p->getSubmitCount(); ?>)</td>
+        <td><a href="<?php echo SITE_BASE; ?>/submit?problem=<?php echo $p->getId(); ?>">Submit</a></td>
       </tr>
     <?php endforeach; ?>
   </tbody>
