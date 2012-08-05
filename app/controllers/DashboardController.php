@@ -48,7 +48,7 @@ class DashboardController extends ApplicationController
     } catch (fNotFoundException $e) {
       $data_base_dir = Variable::getString('data-base-path');
       if (!is_dir($data_base_dir)) {
-        throw new fEnvironmentException("Data base directory {$data_base_dir} does not exist.");
+        throw new fValidationException("Data base directory {$data_base_dir} does not exist.");
       }
       
       $pwd = getcwd();
@@ -57,27 +57,27 @@ class DashboardController extends ApplicationController
       exec('git pull origin master 2>&1', $output, $retval);
       chdir($pwd);
       if ($retval != 0) {
-        throw new fEnvironmentException("<pre>{$data_base_dir}$ git pull origin master\n" . implode("\n", $output) . '</pre>');
+        throw new fValidationException("<pre>{$data_base_dir}$ git pull origin master\n" . implode("\n", $output) . '</pre>');
       }
       
       $problem_dir = "{$data_base_dir}/problems/{$id}";
       if (!is_dir($problem_dir)) {
-        throw new fEnvironmentException("Problem directory {$problem_dir} does not exist.");
+        throw new fValidationException("Problem directory {$problem_dir} does not exist.");
       }
       
       $problem_conf = "{$problem_dir}/problem.conf";
       if (!is_file($problem_conf)) {
-        throw new fEnvironmentException("Problem configuration file {$problem_conf} does not exist.");
+        throw new fValidationException("Problem configuration file {$problem_conf} does not exist.");
       }
       
       $problem_text = "{$problem_dir}/problem.text";
       if (!is_file($problem_text)) {
-        throw new fEnvironmentException("Problem description file {$problem_text} does not exist.");
+        throw new fValidationException("Problem description file {$problem_text} does not exist.");
       }
       
       $data_dir = "{$problem_dir}/data";
       if (!is_dir($data_dir)) {
-        throw new fEnvironmentException("Problem {$id} does not have a data directory at {$data_dir}");
+        throw new fValidationException("Problem {$id} does not have a data directory at {$data_dir}");
       }
       
       $properties_content = file_get_contents($problem_conf);
@@ -120,11 +120,11 @@ class DashboardController extends ApplicationController
       for ($t = 1; $t <= $problem->getCaseCount(); $t++) {
         $input = "{$data_dir}/$t.in";
         if (!is_file($input)) {
-          throw new fEnvironmentException("Case input file {$input} is not found in {$data_dir}");
+          throw new fValidationException("Case input file {$input} is not found in {$data_dir}");
         }
         $output = "{$data_dir}/$t.out";
         if (!is_file($output)) {
-          throw new fEnvironmentException("Case output file {$output} is not found in {$data_dir}");
+          throw new fValidationException("Case output file {$output} is not found in {$data_dir}");
         }
       }
       
