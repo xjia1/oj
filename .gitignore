@@ -3,3 +3,4 @@ tmp/
 *.tmp
 *.log
 settings.php
+cache-settings.php
