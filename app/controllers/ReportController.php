@@ -20,17 +20,25 @@ class ReportController extends ApplicationController
         throw new fAuthorizationException('You are not allowed to view this report.');
       }
       
-      $p  = $this->report->getProblems();
-      $un = $this->report->getUsernames();
-      $up = $this->report->getUserPairs();
+      global $cache;
       
-      $un[] = '';
-      $up[] = array('id' => '', 'name' => 'Average');
+      $this->board = $cache->get("report_{$id}_board");
       
-      $st = $this->report->getStartDatetime();
-      $et = $this->report->getEndDatetime();
-      
-      $this->board = new BoardTable(ReportGenerator::headers($p), $up, ReportGenerator::scores($p, $un, $st, $et));
+      if ($this->board == NULL) {
+        $p  = $this->report->getProblems();
+        $un = $this->report->getUsernames();
+        $up = $this->report->getUserPairs();
+        
+        $un[] = '';
+        $up[] = array('id' => '', 'name' => 'Average');
+        
+        $st = $this->report->getStartDatetime();
+        $et = $this->report->getEndDatetime();
+        
+        $this->board = new BoardTable(ReportGenerator::headers($p), $up, ReportGenerator::scores($p, $un, $st, $et));
+        
+        $cache->set("report_{$id}_board", $this->board, 60);  // 60 seconds
+      }
       
       $this->nav_class = 'reports';
       $this->render('report/show');
