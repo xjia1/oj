@@ -12,6 +12,28 @@ RewriteRule ^(.*)$ index.php [QSA,L]
 
 php_value error_log /var/log/apache2/OnlineJudge.error.log
 
+# Set Cache-Control and Expires headers
+<FilesMatch "\\.(ico|pdf|flv|jpg|jpeg|png|gif|swf|mp3|mp4)$">
+  Header set Cache-Control "max-age=2592000, private"
+  Header set Expires "Sun, 17 July 2011 20:00:00 GMT"
+</FilesMatch>
+<FilesMatch "\\.(css|css.gz)$">
+  Header set Cache-Control "max-age=604800, private"
+</FilesMatch>
+<FilesMatch "\\.(js|js.gz)$">
+  Header set Cache-Control "max-age=604800, private"
+</FilesMatch>
+<FilesMatch "\\.(xml|txt)$">
+  Header set Cache-Control "max-age=216000, private, must-revalidate"
+</FilesMatch>
+<FilesMatch "\\.(html|htm)$">
+  Header set Cache-Control "max-age=7200, private, must-revalidate"
+</FilesMatch>
+
+# Turn off ETags
+FileETag None
+Header unset ETag
+
 # Set Expires headers
 ExpiresActive On
 ExpiresDefault "access plus 1 year"
