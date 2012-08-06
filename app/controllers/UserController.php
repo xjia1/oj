@@ -32,7 +32,13 @@ class UserController extends ApplicationController
         if (strlen($username) < 4) {
           throw new fValidationException('Username is too short.');
         }
-        if ($username != strip_tags($username)) {
+        if (strlen($username) > 20) {
+          throw new fValidationException('Username is too long.');
+        }
+        if (strlen($password) < 6) {
+          throw new fValidationException('Password is too short.');
+        }
+        if (Util::contains('`~!@#$%^&*()-+=[]\\;\',/{}|:"<>?', $username) or preg_match('/\s/', $username)) {
           throw new fValidationException('Username is illegal.');
         }
         try {

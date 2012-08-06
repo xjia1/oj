@@ -59,4 +59,16 @@ class Util
     }
     return $a;
   }
+  
+  public static function contains($any, $str)
+  {
+    for ($i = 0; $i < strlen($str); $i++) {
+      for ($j = 0; $j < strlen($any); $j++) {
+        if ($str[$i] == $any[$j]) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
 }
