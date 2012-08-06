@@ -9,3 +9,5 @@ RewriteBase /OnlineJudge
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php [QSA,L]
+
+php_value error_log /var/log/apache2/OnlineJudge.error.log
