@@ -1,5 +1,11 @@
 # php-OnlineJudge
 
+## Apache Configuration
+
+    $ sudo a2enmod rewrite
+    $ sudo a2enmod headers
+    $ sudo a2enmod expires
+
 ## APC Configuration
 
 On Ubuntu:
