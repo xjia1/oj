@@ -1,5 +1,6 @@
 <?php
 $title = 'All Problems';
+$stylesheets = array('tablesorter');
 include(__DIR__ . '/../layout/header.php');
 ?>
 <div class="page-header">
@@ -17,7 +18,7 @@ include(__DIR__ . '/../layout/header.php');
   <h1>All Problems</h1>
 </div>
 <?php include(__DIR__ . '/_pagination.php'); ?>
-<table class="table table-bordered table-striped">
+<table id="problems" class="tablesorter table table-bordered table-striped">
   <thead>
     <tr>
       <th>ID</th>
@@ -44,6 +45,12 @@ include(__DIR__ . '/../layout/header.php');
     <?php endforeach; ?>
   </tbody>
 </table>
+<div class="alert alert-info">
+  Sort multiple columns simultaneously by 
+  holding down the <strong>shift</strong> key and 
+  clicking a second, third or even fourth column header!
+</div>
 <?php
 include(__DIR__ . '/_pagination.php');
+$javascripts = array('jquery.tablesorter.min', 'problems');
 include(__DIR__ . '/../layout/footer.php');

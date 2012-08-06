@@ -4,7 +4,7 @@ $(function() {
   }
   var n = $("#userscores").children(":first").children(":first").find("th").size();
   $.tablesorter.addParser({
-    id : 'score',
+    id : 'firstInteger',
     is : function(s) {
       return true;
     },
@@ -34,8 +34,8 @@ $(function() {
   });
   $("#userscores").tablesorter({
     widgets : [ 'zebra', 'indexFirstColumn' ],
-    sorter : 'score',
+    sorter : 'firstInteger',
     sortList : [ [ n - 1, 1 ], [ n - 3, 0 ], [ n - 2, 0 ] ],
-    headers : { 0 : { sorter: 'text' } }
+    headers : { 0 : { sorter: false } }
   });
 });
