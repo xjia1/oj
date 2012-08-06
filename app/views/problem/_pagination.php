@@ -1,4 +1,4 @@
-<div class="pagination pagination-centered">
+<div class="pagination pagination-centered" style="height: auto;">
   <ul>
     <?php if ($this->page == 1): ?>
       <li class="disabled"><a href="#">&laquo; Previous</a></li>
