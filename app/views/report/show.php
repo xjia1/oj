@@ -1,4 +1,5 @@
 <?php
+$meta_refresh = Variable::getInteger('status-refresh', 30);
 $title = 'Report: ' . $this->report->getTitle();
 $stylesheets = array('tablesorter');
 include(__DIR__ . '/../layout/header.php');

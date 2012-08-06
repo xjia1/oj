@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <?php if (isset($meta_refresh)): ?>
+    <meta http-equiv="refresh" content="<?php echo $meta_refresh; ?>">
+  <?php endif; ?>
   <meta charset="utf-8">
   <title><?php echo fHTML::encode($title . TITLE_SUFFIX); ?></title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta name="author" content="">
+  <?php if (isset($meta_description)): ?>
+    <meta name="description" content="<?php echo $meta_description; ?>">
+  <?php endif; ?>
+  <?php if (isset($meta_author)): ?>
+    <meta name="author" content="<?php echo $meta_author; ?>">
+  <?php endif; ?>
   <link href="<?php echo SITE_BASE; ?>/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body {

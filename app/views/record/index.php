@@ -1,4 +1,5 @@
 <?php
+$meta_refresh = Variable::getInteger('status-refresh', 30);
 $title = 'Status';
 $stylesheets = array('verdicts');
 include(__DIR__ . '/../layout/header.php');
