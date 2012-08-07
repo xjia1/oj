@@ -1,44 +1,62 @@
-select owner,problem_id,verdict from records 
+delimiter //
 
-Solved:
-select owner, count(distinct problem_id) as solved from records where verdict=1 group by owner order by solved desc
+CREATE PROCEDURE populate_user_stats()
+BEGIN
 
-Tried:
-select owner, count(distinct problem_id) as tried from records group by owner order by tried desc
+  create temporary table tmp_solved(
+    username varchar(30) primary key,
+    solved bigint not null
+  );
+  create temporary table tmp_tried(
+    username varchar(30) primary key,
+    tried bigint not null
+  );
+  create temporary table tmp_submissions(
+    username varchar(30) primary key,
+    submissions bigint not null
+  );
 
-Submissions:
-select owner, count(1) as submissions from records group by owner order by submissions desc
+  create temporary table tmp_solved_join(
+    username varchar(30) primary key,
+    solved bigint not null
+  );
+  create temporary table tmp_tried_join(
+    username varchar(30) primary key,
+    solved bigint not null,
+    tried bigint not null
+  );
 
-----
+  insert into tmp_solved(username,solved)
+    select owner,count(distinct problem_id) from records where verdict=1 group by owner;
 
-create temporary table tmp_solved (
-  username varchar(30) not null primary key,
-  solved bigint not null
-);
-create temporary table tmp_tried (
-  username varchar(30) not null primary key,
-  tried bigint not null
-);
-create temporary table tmp_submissions (
-  username varchar(30) not null primary key,
-  submissions bigint not null
-);
+  insert into tmp_tried(username,tried)
+    select owner,count(distinct problem_id) from records group by owner;
 
-insert into tmp_solved(username,solved)
-select owner,count(distinct problem_id) from records where verdict=1 group by owner;
-insert into tmp_tried(username,tried)
-select owner,count(distinct problem_id) from records group by owner;
+  insert into tmp_submissions(username,submissions)
+    select owner,count(1) from records group by owner;
 
-insert into tmp_submissions(username,submissions)
-select owner,count(1) from records group by owner;
+  insert into tmp_solved_join(username,solved)
+    select u.username, v.solved
+    from users as u left join tmp_solved as v on u.username=v.username;
 
-delete from user_stats;
+  insert into tmp_tried_join(username,solved,tried)
+    select v.username, v.solved, t.tried
+    from tmp_solved_join as v left join tmp_tried as t on v.username=t.username;
 
-insert into user_stats(username,solved,tried,submissions)
-select u.username, v.solved, t.tried, s.submissions
-from users as u, tmp_solved as v, tmp_tried as t, tmp_submissions as s
-where u.username=v.username and u.username=t.username and u.username=s.username;
+  delete from user_stats;
 
-drop table tmp_solved;
-drop table tmp_tried;
-drop table tmp_submissions;
+  insert into user_stats(username,solved,tried,submissions)
+    select t.username, t.solved, t.tried, s.submissions
+    from tmp_tried_join as t left join tmp_submissions as s on t.username=s.username;
+
+  drop table tmp_solved_join;
+  drop table tmp_tried_join;
+
+  drop table tmp_solved;
+  drop table tmp_tried;
+  drop table tmp_submissions;
+
+END
+//
+
+delimiter ;
