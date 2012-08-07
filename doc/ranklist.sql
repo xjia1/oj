@@ -1,3 +1,5 @@
+drop procedure if exists populate_user_stats;
+
 delimiter //
 
 CREATE PROCEDURE populate_user_stats()
