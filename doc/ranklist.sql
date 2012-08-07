@@ -43,7 +43,7 @@ BEGIN
     select v.username, v.solved, t.tried
     from tmp_solved_join as v left join tmp_tried as t on v.username=t.username;
 
-  delete from user_stats;
+  truncate table user_stats;
 
   insert into user_stats(username,solved,tried,submissions)
     select t.username, t.solved, t.tried, s.submissions
