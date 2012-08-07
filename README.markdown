@@ -6,6 +6,13 @@
     $ sudo a2enmod headers
     $ sudo a2enmod expires
 
+## MySQL Configuration
+
+Remember to increase `max_connections` and `thread_stack` in `my.cnf`:
+
+    max_connections = 1000
+    thread_stack = 640K
+
 ## APC Configuration
 
 On Ubuntu:
