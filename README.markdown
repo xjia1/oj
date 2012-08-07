@@ -14,6 +14,10 @@ Remember to increase `max_connections`, `thread_stack` and `max_heap_table_size`
     thread_stack = 640K
     max_heap_table_size = 1024M
 
+Also change default character set to UTF-8:
+
+    default-character-set = utf8
+
 ## APC Configuration
 
 On Ubuntu:
