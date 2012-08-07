@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS `permissions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `problems` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id` bigint(20) NOT NULL,
   `title` varchar(100) NOT NULL,
   `description` longtext NOT NULL,
   `author` varchar(100) NOT NULL,
@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `problems` (
   `secret_before` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `title` (`title`,`author`,`secret_before`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3034 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `profiles` (
   `username` varchar(30) NOT NULL DEFAULT '',
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `records` (
   `verdict` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `owner` (`owner`,`problem_id`,`code_language`,`submit_datetime`,`judge_status`,`verdict`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=35868 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `reports` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `reports` (
   `end_datetime` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `visible` (`visible`,`title`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=44 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `users` (
   `username` varchar(30) NOT NULL DEFAULT '',
