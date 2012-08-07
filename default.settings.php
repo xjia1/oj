@@ -14,6 +14,9 @@ define('DB_HOST', 'localhost');
 // Judger secret
 define('JUDGER_SECRET', 'secret');
 
+// Ranklist secret
+define('RANKLIST_SECRET', 'secret');
+
 // Misc.
 define('HOST_URL', 'http://localhost');
 define('SITE_BASE', '/oj');

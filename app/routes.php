@@ -72,7 +72,14 @@ $app->get('/status', function () {
 
 $app->get('/ranklist', function () {
   $controller = new UserController();
-  $controller->index();
+  $controller->ranklist();
+});
+
+$app->get('/ranklist/refresh/:secret', function ($secret) {
+  if (RANKLIST_SECRET != $secret) exit();
+  
+  $controller = new UserController();
+  $controller->refreshRanklist();
 });
 
 $app->get('/reports', function () {
