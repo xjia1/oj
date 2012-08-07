@@ -70,3 +70,11 @@ CREATE TABLE IF NOT EXISTS `variables` (
   `value` longtext NOT NULL,
   PRIMARY KEY (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `user_stats` (
+  `username` varchar(30) NOT NULL,
+  `solved` bigint NOT NULL,
+  `tried` bigint NOT NULL,
+  `submissions` bigint NOT NULL,
+  PRIMARY KEY (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
