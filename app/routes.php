@@ -70,6 +70,11 @@ $app->get('/status', function () {
   $controller->index();
 });
 
+$app->get('/ranklist', function () {
+  $controller = new UserController();
+  $controller->index();
+});
+
 $app->get('/reports', function () {
   fAuthorization::requireLoggedIn();
   $controller = new ReportController();

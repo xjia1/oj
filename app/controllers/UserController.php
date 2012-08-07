@@ -1,6 +1,20 @@
 <?php
 class UserController extends ApplicationController
 {
+  /**
+   * Authors Ranklist
+   */
+  public function index()
+  {
+    $this->user_stats = fRecordSet::build('UserStat', array(), array(
+      'solved' => 'desc',
+      'tried' => 'asc',
+      'submissions' => 'asc'
+    ), 50);
+    $this->nav_class = 'ranklist';
+    $this->render('user/ranklist');
+  }
+  
   public function showLoginPage()
   {
     $this->render('user/login');

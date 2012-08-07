@@ -12,6 +12,7 @@ require_once(__DIR__ . '/models/Profile.php');
 require_once(__DIR__ . '/models/Record.php');
 require_once(__DIR__ . '/models/Report.php');
 require_once(__DIR__ . '/models/User.php');
+require_once(__DIR__ . '/models/UserStat.php');
 require_once(__DIR__ . '/models/Variable.php');
 
 require_once(__DIR__ . '/controllers/ApplicationController.php');

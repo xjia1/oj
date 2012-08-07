@@ -70,6 +70,7 @@
             <li class="nav-submit"><a href="<?php echo SITE_BASE; ?>/submit">Submit</a></li>
           <?php endif; ?>
           <li class="nav-status"><a href="<?php echo SITE_BASE; ?>/status">Status</a></li>
+          <li class="nav-ranklist"><a href="<?php echo SITE_BASE; ?>/ranklist">Ranklist</a></li>
           <?php if (fAuthorization::checkLoggedIn()): ?>
             <li class="nav-reports"><a href="<?php echo SITE_BASE; ?>/reports">Reports</a></li>
             <?php if (User::can('manage-site')): ?>
