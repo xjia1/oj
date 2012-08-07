@@ -10,18 +10,9 @@ class UserController extends ApplicationController
       'solved' => 'desc',
       'tried' => 'asc',
       'submissions' => 'asc'
-    ), 50);
+    ), 100);
     $this->nav_class = 'ranklist';
     $this->render('user/ranklist');
-  }
-  
-  /**
-   * Should be called by crontab and lynx/curl/wget
-   * @see http://www.thegeekstuff.com/2011/07/php-cron-job/
-   */
-  public function refreshRanklist()
-  {
-    //
   }
   
   public function showLoginPage()

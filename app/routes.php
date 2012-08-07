@@ -75,13 +75,6 @@ $app->get('/ranklist', function () {
   $controller->ranklist();
 });
 
-$app->get('/ranklist/refresh/:secret', function ($secret) {
-  if (RANKLIST_SECRET != $secret) exit();
-  
-  $controller = new UserController();
-  $controller->refreshRanklist();
-});
-
 $app->get('/reports', function () {
   fAuthorization::requireLoggedIn();
   $controller = new ReportController();
