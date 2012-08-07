@@ -5,6 +5,7 @@ include(__DIR__ . '/../layout/header.php');
 <div class="page-header">
   <h1>Authors Ranklist</h1>
 </div>
+<?php include(__DIR__ . '/../layout/_pagination.php'); ?>
 <table class="table table-bordered table-striped">
   <thead>
     <tr>
@@ -28,4 +29,5 @@ include(__DIR__ . '/../layout/header.php');
   </tbody>
 </table>
 <?php
+include(__DIR__ . '/../layout/_pagination.php');
 include(__DIR__ . '/../layout/footer.php');

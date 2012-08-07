@@ -17,7 +17,7 @@ include(__DIR__ . '/../layout/header.php');
   </form>
   <h1>All Problems</h1>
 </div>
-<?php include(__DIR__ . '/_pagination.php'); ?>
+<?php include(__DIR__ . '/../layout/_pagination.php'); ?>
 <table id="problems" class="tablesorter table table-bordered table-striped">
   <thead>
     <tr>
@@ -51,6 +51,6 @@ include(__DIR__ . '/../layout/header.php');
   clicking a second, third or even fourth column header!
 </div>
 <?php
-include(__DIR__ . '/_pagination.php');
+include(__DIR__ . '/../layout/_pagination.php');
 $javascripts = array('jquery.tablesorter.min', 'problems');
 include(__DIR__ . '/../layout/footer.php');

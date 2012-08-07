@@ -22,6 +22,7 @@ class ProblemController extends ApplicationController
     }
     $this->page_url .= 'page=';
     
+    $this->page_records = $this->problems;
     $this->nav_class = 'problems';
     $this->render('problem/index');
   }
