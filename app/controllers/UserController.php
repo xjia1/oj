@@ -7,11 +7,14 @@ class UserController extends ApplicationController
   public function ranklist()
   {
     $this->page = fRequest::get('page', 'integer', 1);
+    if ($this->page <= 0) $this->page = 1;
+    
     $this->user_stats = fRecordSet::build('UserStat', array(), array(
       'solved' => 'desc',
       'tried' => 'asc',
       'submissions' => 'asc'
     ), Variable::getInteger('users-per-page', 50), $this->page);
+    
     $this->page_url = SITE_BASE . '/ranklist?page=';
     $this->page_records = $this->user_stats;
     $this->nav_class = 'ranklist';
