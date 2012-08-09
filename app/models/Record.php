@@ -11,7 +11,7 @@ class Record extends fActiveRecord
     BoardCacheInvalidator::invalidate($values['owner'], $values['problem_id'], $values['submit_datetime']);
   }
   
-  public static function find($top, $owner, $problem_id, $language, $verdict)
+  public static function find($top, $owner, $problem_id, $language, $verdict, $page=1)
   {
     $conditions = array();
     if (!empty($top)) {
@@ -29,8 +29,8 @@ class Record extends fActiveRecord
     if (!empty($verdict)) {
       $conditions['verdict='] = $verdict;
     }
-		$limit = Variable::getInteger('records-per-page', 50);
-		return fRecordSet::build('Record', $conditions, array('id' => 'desc'), $limit);
+    $limit = Variable::getInteger('records-per-page', 50);
+    return fRecordSet::build('Record', $conditions, array('id' => 'desc'), $limit, $page);
   }
   
   public function getLanguageName()
