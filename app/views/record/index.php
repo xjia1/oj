@@ -40,7 +40,9 @@ include(__DIR__ . '/../layout/header.php');
       <th>Who</th>
       <th class="what">What</th>
       <th>Result</th>
-      <th>Score</th>
+      <?php if (fAuthorization::checkLoggedIn()): ?>
+        <th>Score</th>
+      <?php endif; ?>
       <th>Time</th>
       <th>Memory</th>
       <th>How</th>
@@ -54,7 +56,9 @@ include(__DIR__ . '/../layout/header.php');
         <td><?php echo fHTML::encode($r->getOwner()); ?> <?php echo fHTML::encode(Profile::fetchRealName($r->getOwner())); ?></td>
         <td>
           <a href="<?php echo SITE_BASE; ?>/problem/<?php echo $r->getProblemId(); ?>"><?php echo $r->getProblemId(); ?></a>
-          <a href="<?php echo SITE_BASE; ?>/submit?problem=<?php echo $r->getProblemId(); ?>" class="icon-repeat"></a>
+          <?php if (fAuthorization::checkLoggedIn()): ?>
+            <a href="<?php echo SITE_BASE; ?>/submit?problem=<?php echo $r->getProblemId(); ?>" class="icon-repeat"></a>
+          <?php endif; ?>
         </td>
         <td>
           <?php if ($r->isReadable()): ?>
@@ -64,13 +68,15 @@ include(__DIR__ . '/../layout/header.php');
             <span class="record<?php echo str_replace(' ', '', $r->getResult()); ?>"><?php echo $r->getResult(); ?></span>
           <?php endif; ?>
         </td>
-        <td>
-          <?php if ($r->isReadable()): ?>
-            <?php echo $r->getScore(); ?>
-          <?php else: ?>
-            -
-          <?php endif; ?>
-        </td>
+        <?php if (fAuthorization::checkLoggedIn()): ?>
+          <td>
+            <?php if ($r->isReadable()): ?>
+              <?php echo $r->getScore(); ?>
+            <?php else: ?>
+              -
+            <?php endif; ?>
+          </td>
+        <?php endif; ?>
         <td><?php echo $r->getTimeCost(); ?></td>
         <td><?php echo $r->getMemoryCost(); ?></td>
         <td><?php echo fHTML::encode($r->getLanguageName()); ?></td>
