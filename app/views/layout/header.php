@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <?php if (isset($meta_refresh)): ?>
     <meta http-equiv="refresh" content="<?php echo $meta_refresh; ?>">
