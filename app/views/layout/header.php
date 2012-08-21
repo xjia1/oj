@@ -47,6 +47,7 @@
             <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
+            <li><a href="<?php echo SITE_BASE; ?>/email/verify">Email: <?php echo User::getVerifiedEmail(); ?></a></li>
             <li class="divider"></li>
             <li><a href="<?php echo SITE_BASE; ?>/change/password">Change Password</a></li>
             <li class="divider"></li>

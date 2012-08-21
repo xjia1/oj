@@ -31,4 +31,34 @@ class User extends fActiveRecord
     }
     return in_array($problem->getId(), self::$accepted_cache);
   }
+  
+  public static function getVerifiedEmail($username=NULL)
+  {
+    if ($username == NULL) $username = fAuthorization::getUserToken();
+    try {
+      $ue = new UserEmail($username);
+      return $ue->getEmail();
+    } catch (fNotFoundException $e) {
+      return '(click to verify)';
+    }
+  }
+  
+  public static function hasEmailVerified($username=NULL)
+  {
+    if ($username == NULL) $username = fAuthorization::getUserToken();
+    try {
+      $ue = new UserEmail($username);
+      return strlen($ue->getEmail()) > 0;
+    } catch (fNotFoundException $e) {
+      return false;
+    }
+  }
+  
+  public static function requireEmailVerified()
+  {
+    if (!fAuthorization::checkLoggedIn()) return;
+    if (User::hasEmailVerified()) return;
+    fMessaging::create('warning', 'You are required to verify your email address before doing this action.');
+    Util::redirect('/email/verify');
+  }
 }

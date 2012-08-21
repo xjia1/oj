@@ -5,6 +5,26 @@ $app->get('/', function () {
   Util::redirect('/home');
 });
 
+$app->get('/email/verify', function () {
+  $controller = new UserController();
+  $controller->emailVerify();
+});
+
+$app->post('/email/verify', function () {
+  $controller = new UserController();
+  $controller->sendVericode();
+});
+
+$app->get('/email/verify/sent', function () {
+  $controller = new UserController();
+  $controller->vericodeSent();
+});
+
+$app->get('/email/vericode/:id/:vericode', function ($id, $vericode) {
+  $controller = new UserController();
+  $controller->checkVericode($id, $vericode);
+});
+
 $app->get('/login', function () {
   $controller = new UserController();
   $controller->showLoginPage();
@@ -55,6 +75,7 @@ $app->get('/problems', function () {
 
 $app->get('/submit', function () {
   fAuthorization::requireLoggedIn();
+  User::requireEmailVerified();
   $controller = new SubmitController();
   $controller->index();
 });
@@ -77,6 +98,7 @@ $app->get('/ranklist', function () {
 
 $app->get('/reports', function () {
   fAuthorization::requireLoggedIn();
+  User::requireEmailVerified();
   $controller = new ReportController();
   $controller->index();
 });
@@ -144,6 +166,7 @@ $app->get('/record', function () {
 
 $app->get('/record/:id', function ($id) {
   fAuthorization::requireLoggedIn();
+  User::requireEmailVerified();
   $controller = new RecordController();
   $controller->show($id);
 });
@@ -154,6 +177,7 @@ $app->get('/report', function () {
 
 $app->get('/report/:id', function ($id) {
   fAuthorization::requireLoggedIn();
+  User::requireEmailVerified();
   $controller = new ReportController();
   $controller->show($id);
 });

@@ -72,7 +72,7 @@ class Util
     return false;
   }
   
-  public static function send_text_mail($from_user, $from_email, $to, $subject, $message, $reply_user='', $reply_email='')
+  public static function sendTextMail($from_user, $from_email, $to, $subject, $message, $reply_user='', $reply_email='')
   {
     $from_user = "=?UTF-8?B?" . base64_encode($from_user) . "?=";
     $subject = "=?UTF-8?B?" . base64_encode($subject) . "?=";
@@ -89,7 +89,7 @@ class Util
     return mail($to, $subject, $message, implode("\r\n", $headers));
   }
   
-  public static function send_html_mail($from_user, $from_email, $to, $subject, $message, $reply_user='', $reply_email='')
+  public static function sendHtmlMail($from_user, $from_email, $to, $subject, $message, $reply_user='', $reply_email='')
   {
     $html = '<html>
 <head>

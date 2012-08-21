@@ -121,4 +121,74 @@ class UserController extends ApplicationController
       Util::redirect('/change/password');
     }
   }
+  
+  public function emailVerify()
+  {
+    fMessaging::create('referer', '/email/verify', Util::getReferer());
+    $this->render('user/email/verify');
+  }
+  
+  public function sendVericode()
+  {
+    $username = fAuthorization::getUserToken();
+    $vericode = md5(uniqid($username, TRUE));
+    
+    try {
+      $email = fRequest::get('email', 'string');
+      if (filter_var($email, FILTER_VALIDATE_EMAIL) == FALSE) {
+        throw new fValidationException('Invalid email address.');
+      }
+      
+      $v = new Vericode();
+      $v->setUsername($username);
+      $v->setVericode($vericode);
+      $v->setEmail($email);
+      $v->store();
+      $id = $v->getId();
+      $verilink = HOST_URL . SITE_BASE . "/email/vericode/{$id}/{$vericode}";
+      
+      Util::sendHtmlMail(
+        'SJTU Online Judge', 'noreply@acm.sjtu.edu.cn',
+        $email,
+        'Email Verification (电子邮件验证)',
+        "<p>Hi {$username},</p>
+<p>Please verify that you own this email address ({$email}) by clicking this link:</p>
+<p><a href=\"{$verilink}\" target=\"_blank\">{$verilink}</a></p>
+<p>Regards,<br>SJTU Online Judge</p>",
+        $username, $email
+      );
+      Util::redirect('/email/verify/sent');
+    } catch (fException $e) {
+      fMessaging::create('error', $e->getMessage());
+      Util::redirect('/email/verify');
+    }
+  }
+  
+  public function vericodeSent()
+  {
+    $this->render('user/email/vericode_sent');
+  }
+  
+  public function checkVericode($id, $vericode)
+  {
+    try {
+      $v = new Vericode($id);
+      if ($v->getUsername() != fAuthorization::getUserToken() or $v->getVericode() != $vericode) {
+        throw new fValidationException('Invalid verification code.');
+      }
+      
+      $ue = new UserEmail();
+      $ue->setUsername($v->getUsername());
+      $ue->setEmail($v->getEmail());
+      $ue->store();
+      
+      fMessaging::create('success', 'Your email address is verified successfully.');
+      $referer = fMessaging::retrieve('referer', '/email/verify');
+      if ($referer == NULL) $referer = SITE_BASE;
+      fURL::redirect($referer);
+    } catch (fException $e) {
+      fMessaging::create('error', 'Email verification failed: ' . $e->getMessage());
+      Util::redirect('/email/verify');
+    }
+  }
 }
