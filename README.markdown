@@ -2,7 +2,7 @@
 
 ## Sending Emails
 
-See [](https://github.com/stfairy/mail).
+See [https://github.com/stfairy/mail](https://github.com/stfairy/mail).
 
 ## Apache Configuration
 
