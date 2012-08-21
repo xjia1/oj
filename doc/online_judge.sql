@@ -23,7 +23,9 @@ CREATE TABLE IF NOT EXISTS `problems` (
   `memory_limit` int(11) NOT NULL,
   `secret_before` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `title` (`title`,`author`,`secret_before`)
+  KEY `title` (`title`),
+  KEY `author` (`author`),
+  KEY `secret_before` (`secret_before`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `profiles` (
@@ -43,7 +45,12 @@ CREATE TABLE IF NOT EXISTS `records` (
   `judge_message` text NOT NULL,
   `verdict` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `owner` (`owner`,`problem_id`,`code_language`,`submit_datetime`,`judge_status`,`verdict`)
+  KEY `owner` (`owner`),
+  KEY `problem_id` (`problem_id`),
+  KEY `code_language` (`code_language`),
+  KEY `submit_datetime` (`submit_datetime`),
+  KEY `judge_status` (`judge_status`),
+  KEY `verdict` (`verdict`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `reports` (
@@ -55,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `reports` (
   `start_datetime` datetime NOT NULL,
   `end_datetime` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `visible` (`visible`,`title`)
+  KEY `visible` (`visible`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `users` (
