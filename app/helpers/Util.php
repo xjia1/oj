@@ -71,4 +71,45 @@ class Util
     }
     return false;
   }
+  
+  public static function send_text_mail($from_user, $from_email, $to, $subject, $message, $reply_user='', $reply_email='')
+  {
+    $from_user = "=?UTF-8?B?" . base64_encode($from_user) . "?=";
+    $subject = "=?UTF-8?B?" . base64_encode($subject) . "?=";
+    $headers   = array();
+    $headers[] = "MIME-Version: 1.0";
+    $headers[] = "Content-type: text/plain; charset=UTF-8";
+    $headers[] = "From: {$from_user} <{$from_email}>";
+    if (strlen($reply_user) and strlen($reply_email)) {
+      $reply_user = "=?UTF-8?B?" . base64_encode($reply_user) . "?=";
+      $headers[] = "Reply-To: {$reply_user} <{$reply_email}>";
+    }
+    $headers[] = "Subject: {$subject}";
+    $headers[] = "X-Mailer: PHP/" . phpversion();
+    return mail($to, $subject, $message, implode("\r\n", $headers));
+  }
+  
+  public static function send_html_mail($from_user, $from_email, $to, $subject, $message, $reply_user='', $reply_email='')
+  {
+    $html = '<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>' . $subject . '</title>
+</head>
+<body>' . $message . '</body>
+</html>';
+    $from_user = "=?UTF-8?B?" . base64_encode($from_user) . "?=";
+    $subject = "=?UTF-8?B?" . base64_encode($subject) . "?=";
+    $headers   = array();
+    $headers[] = "MIME-Version: 1.0";
+    $headers[] = "Content-type: text/html; charset=utf-8";
+    $headers[] = "From: {$from_user} <{$from_email}>";
+    if (strlen($reply_user) and strlen($reply_email)) {
+      $reply_user = "=?UTF-8?B?" . base64_encode($reply_user) . "?=";
+      $headers[] = "Reply-To: {$reply_user} <{$reply_email}>";
+    }
+    $headers[] = "Subject: {$subject}";
+    $headers[] = "X-Mailer: PHP/" . phpversion();
+    return mail($to, $subject, $html, implode("\r\n", $headers));
+  }
 }
