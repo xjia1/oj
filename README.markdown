@@ -1,5 +1,9 @@
 # php-OnlineJudge
 
+## Sending Emails
+
+See [](https://github.com/stfairy/mail).
+
 ## Apache Configuration
 
     $ sudo a2enmod rewrite
