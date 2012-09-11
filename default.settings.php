@@ -19,4 +19,3 @@ define('HOST_URL', 'http://localhost');
 define('SITE_BASE', '/oj');
 define('TITLE_SUFFIX', ' | Online Judge');
 
-define('SESSIONS_PATH', '/tmp');
