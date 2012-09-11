@@ -1,6 +1,7 @@
 <?php
-fSession::setPath(SESSIONS_PATH);
-fSession::setLength('1 day 2 hours');
+//fSession::setPath(SESSIONS_PATH);
+fSession::setBackend($cache, 'OJSESS');
+fSession::setLength('1 day');
 fORMDatabase::attach(new fDatabase('mysql', DB_NAME, DB_USER, DB_PASS, DB_HOST));
 if (ENABLE_SCHEMA_CACHING) {
   fORM::enableSchemaCaching($cache);
