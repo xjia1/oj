@@ -67,7 +67,7 @@ BEGIN
     select u.username, v.solved, t.tried, s.submissions
     from users as u natural join tmp_solved as v natural join tmp_tried as t natural join tmp_submissions as s;
   
-  return 'ok';
+  RETURN 'ok';
 
 END;
 $populate_user_stats$ LANGUAGE plpgsql;
@@ -80,7 +80,8 @@ DROP FUNCTION if exists user_stats_trigger();
 
 CREATE FUNCTION user_stats_trigger() RETURNS TRIGGER AS $user_stats_trigger$
   BEGIN
-    select populate_user_stats();
+    PERFORM populate_user_stats();
+    RETURN NEW;
   END;
 $user_stats_trigger$ LANGUAGE plpgsql;
 
