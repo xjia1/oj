@@ -1,35 +1,33 @@
 drop table if exists tmp_solved;
 
-create table tmp_solved(
+create unlogged table tmp_solved(
   username varchar(30) primary key,
   solved bigint not null
-) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+);
 
 -- --
 
 drop table if exists tmp_tried;
 
-create table tmp_tried(
+create unlogged table tmp_tried(
   username varchar(30) primary key,
   tried bigint not null
-) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+);
 
 -- --
 
 drop table if exists tmp_submissions;
 
-create table tmp_submissions(
+create unlogged table tmp_submissions(
   username varchar(30) primary key,
   submissions bigint not null
-) ENGINE=MEMORY DEFAULT CHARSET=utf8;
+);
 
 -- --
 
-drop procedure if exists populate_user_stats;
+drop function if exists populate_user_stats();
 
-delimiter //
-
-CREATE PROCEDURE populate_user_stats()
+CREATE FUNCTION populate_user_stats() RETURNS text AS $populate_user_stats$
 BEGIN
 
   delete from tmp_solved;
@@ -68,36 +66,24 @@ BEGIN
   insert into user_stats(username,solved,tried,submissions)
     select u.username, v.solved, t.tried, s.submissions
     from users as u natural join tmp_solved as v natural join tmp_tried as t natural join tmp_submissions as s;
+  
+  return 'ok';
 
-END
-//
-
-delimiter ;
-
--- --
-
-drop trigger if exists trig_insert_record;
-
-delimiter //
-
-CREATE TRIGGER trig_insert_record after insert ON records
-FOR EACH ROW BEGIN
-  call populate_user_stats();
-END
-//
-
-delimiter ;
+END;
+$populate_user_stats$ LANGUAGE plpgsql;
 
 -- --
 
-drop trigger if exists trig_update_record;
+DROP TRIGGER IF EXISTS trig_record ON records;
 
-delimiter //
+DROP FUNCTION if exists user_stats_trigger();
 
-CREATE TRIGGER trig_update_record after update ON records
-FOR EACH ROW BEGIN
-  call populate_user_stats();
-END
-//
+CREATE FUNCTION user_stats_trigger() RETURNS TRIGGER AS $user_stats_trigger$
+  BEGIN
+    select populate_user_stats();
+  END;
+$user_stats_trigger$ LANGUAGE plpgsql;
 
-delimiter ;
+CREATE TRIGGER trig_record
+AFTER INSERT OR UPDATE OR DELETE ON records
+  FOR EACH ROW EXECUTE PROCEDURE user_stats_trigger();
