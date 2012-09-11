@@ -6,6 +6,7 @@ set_time_limit(600);  // 10 minutes
 define('SQL_DEBUG', FALSE);
 
 // OJ database
+define('DB_TYPE', 'mysql');
 define('DB_NAME', 'online_judge');
 define('DB_USER', 'root');
 define('DB_PASS', '');
