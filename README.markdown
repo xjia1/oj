@@ -22,6 +22,15 @@ Also change default character set to UTF-8:
 
     default-character-set = utf8
 
+NOTE: OJ has already been migrated from MySQL to PostgreSQL.
+
+    sudo apt-get install ruby rubygems libmysqlclient-dev libpq-dev
+    sudo gem install mysql pg mysql2psql
+    
+    mysql2psql          # creates a .yml templae
+    vim mysql2psql.yml  # edit the template
+    mysql2psql          # connects to mysql database and write into postgres database
+
 ## APC Configuration
 
 On Ubuntu:
