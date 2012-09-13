@@ -10,6 +10,11 @@ class Report extends fActiveRecord
     return $this->getVisible() or User::can('view-any-report');
   }
   
+  public function isFinished()
+  {
+    return $this->getEndDatetime()->lt(new fTimestamp());
+  }
+  
   /**
    * (1) user_list 为空才开放注册
    * (2) 注册截止比赛开始前五分钟
@@ -18,15 +23,15 @@ class Report extends fActiveRecord
   public function isRegistrable()
   {
     if (strlen(trim($this->getUserList())) > 0) {
-      return false;
+      return FALSE;
     }
     if ($this->getStartDatetime()->lt(new fTimestamp('+5 min'))) {
-      return false;
+      return FALSE;
     }
     if (Registration::has(fAuthorization::getUserToken(), $this->getId())) {
-      return false;
+      return FALSE;
     }
-    return true;
+    return TRUE;
   }
   
   public function getProblems()
@@ -82,5 +87,23 @@ class Report extends fActiveRecord
   public function getBoardCacheKey()
   {
     return 'report_' . $this->getId() . '_board';
+  }
+  
+  /**
+   *  - 管理员可以看到所有提问
+   *  - 普通用户只能看到被回复的提问，以及自己的提问
+   */
+  public function fetchQuestions()
+  {
+    if (User::can('view-any-report')) {
+      $conditions = array('report_id=' => $this->getId());
+    } else {
+      $conditions = array(
+        'report_id=' => $this->getId(),
+        ''
+      );
+    }
+    // TODO
+    return array();
   }
 }

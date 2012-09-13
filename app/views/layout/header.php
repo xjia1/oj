@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <?php if (isset($meta_refresh)): ?>
-    <meta http-equiv="refresh" content="<?php echo $meta_refresh; ?>">
-  <?php endif; ?>
   <meta charset="utf-8">
   <title><?php echo fHTML::encode($title . TITLE_SUFFIX); ?></title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,11 +11,7 @@
     <meta name="author" content="<?php echo $meta_author; ?>">
   <?php endif; ?>
   <link href="<?php echo SITE_BASE; ?>/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body {
-      padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-    }
-  </style>
+  <style> body { padding-top: 60px; } </style>
   <link href="<?php echo SITE_BASE; ?>/css/bootstrap-responsive.min.css" rel="stylesheet">
   <link href="<?php echo SITE_BASE; ?>/css/prettify.css" media="screen" rel="stylesheet">
   <!--[if lt IE 9]>

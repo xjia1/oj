@@ -9,16 +9,39 @@
   <?php profiler_dump(); ?>
 </footer>
 </div> <!-- /container -->
-<script type="text/javascript" src="<?php echo SITE_BASE; ?>/js/jquery.min.js"></script>
-<script type="text/javascript" src="<?php echo SITE_BASE; ?>/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="<?php echo SITE_BASE; ?>/js/prettify.js"></script>
+<script src="<?php echo SITE_BASE; ?>/js/jquery.min.js"></script>
+<script src="<?php echo SITE_BASE; ?>/js/bootstrap.min.js"></script>
+<script src="<?php echo SITE_BASE; ?>/js/prettify.js"></script>
 <?php if (isset($javascripts)): ?>
   <?php foreach ($javascripts as $javascript): ?>
-    <script type="text/javascript" src="<?php echo SITE_BASE; ?>/js/<?php echo $javascript; ?>.js"></script>
+    <script src="<?php echo SITE_BASE; ?>/js/<?php echo $javascript; ?>.js"></script>
   <?php endforeach; ?>
 <?php endif; ?>
 <?php if (isset($this->nav_class)): ?>
-  <script type="text/javascript"> $(function(){ $('.nav-<?php echo $this->nav_class; ?>').addClass('active'); }); </script>
+  <script> $(function(){ $('.nav-<?php echo $this->nav_class; ?>').addClass('active'); }); </script>
+<?php endif; ?>
+<?php if (isset($meta_refresh)): ?>
+<script>
+(function(){
+  var this_url = unescape(window.location.pathname);
+  window.do_refresh = function() {
+    window.location.href = this_url;
+  }
+  var timer;
+  function enable_refresh() {
+    console.log('enable_refresh');
+    timer = setTimeout("window.do_refresh()", <?php echo $meta_refresh; ?> * 1000);
+  }
+  function disable_refresh() {
+    console.log('disable_refresh');
+    clearTimeout(timer);
+  }
+  $(function(){
+    $('.modal').on('show', disable_refresh).on('hide', enable_refresh);
+    enable_refresh();
+  });
+})();
+</script>
 <?php endif; ?>
 </body>
 </html>

@@ -70,4 +70,43 @@ class ReportController extends ApplicationController
     }
     fURL::redirect(Util::getReferer());
   }
+  
+  public function newQuestion($id)
+  {
+    try {
+      $report = new Report($id);
+      if ($report->isFinished()) {
+        throw new fValidationException('You cannot ask questions after the contest is finished.');
+      }
+      $category = fRequest::get('category', 'integer');
+      if ($category == 0) {
+        throw new fValidationException('Please choose a category.');
+      }
+      $question = new Question();
+      $question->setUsername(fAuthorization::getUserToken());
+      $question->setReportId($report->getId());
+      if ($category < 0) {
+        $question->setCategory($category);
+      } else {
+        $question->setCategory(Question::ABOUT_PROBLEM_HIDDEN);
+        $problem = new Problem($category);
+        $question->setProblemId($problem->getId());
+      }
+      $question->setAskTime(new fTimestamp());
+      $question->setQuestion(trim(fRequest::get('question')));
+      if (strlen($question->getQuestion()) < 10) {
+        throw new fValidationException('Question too short (minimum 10 bytes).');
+      }
+      if (strlen($question->getQuestion()) > 500) {
+        throw new fValidationException('Question too long (maximum 500 bytes).');
+      }
+      $question->store();
+      fMessaging::create('success', 'Question saved.');
+    } catch (fExpectedException $e) {
+      fMessaging::create('warning', $e->getMessage());
+    } catch (fUnexpectedException $e) {
+      fMessaging::create('error', $e->getMessage());
+    }
+    Util::redirect("/contest/{$id}");
+  }
 }
