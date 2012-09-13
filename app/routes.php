@@ -41,6 +41,18 @@ $app->get('/logout', function () {
   $controller->logout();
 });
 
+$app->get('/change/info', function () {
+  fAuthorization::requireLoggedIn();
+  $controller = new UserController();
+  $controller->changeInfo();
+});
+
+$app->post('/change/info', function () {
+  fAuthorization::requireLoggedIn();
+  $controller = new UserController();
+  $controller->updateInfo();
+});
+
 $app->get('/change/password', function () {
   fAuthorization::requireLoggedIn();
   $controller = new UserController();

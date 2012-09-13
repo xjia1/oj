@@ -1,12 +1,12 @@
 <?php
 $meta_refresh = Variable::getInteger('status-refresh', 30);
-$title = 'Report: ' . $this->report->getTitle();
+$title = $this->report->getTitle();
 $stylesheets = array('tablesorter');
 include(__DIR__ . '/../layout/header.php');
 ?>
 <div class="page-header">
   <h1>
-    Report: <?php echo fHTML::prepare($this->report->getTitle()); ?>
+    <?php echo fHTML::prepare($this->report->getTitle()); ?>
     <small>
       <?php echo $this->report->getStartDatetime(); ?>
       --
@@ -21,7 +21,7 @@ include(__DIR__ . '/../layout/header.php');
   </div>
   <div class="span2">
     <i class="icon-time"></i>
-    Time: <?php echo $this->report->getElapsedRatio(); ?>% elapsed
+    时间：已经过 <?php echo $this->report->getElapsedRatio(); ?>%
   </div>
 </div>
 <table id="userscores" class="tablesorter table table-bordered table-striped">

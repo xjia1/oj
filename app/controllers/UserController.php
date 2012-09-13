@@ -87,6 +87,37 @@ class UserController extends ApplicationController
     fURL::redirect(Util::getReferer());
   }
   
+  public function changeInfo()
+  {
+    $this->render('user/change_info');
+  }
+  
+  public function updateInfo()
+  {
+    try {
+      $realname = trim(fRequest::get('realname'));
+      $class_name = trim(fRequest::get('class_name'));
+      $phone_number = trim(fRequest::get('phone_number'));
+      
+      try {
+        $profile = new Profile(fAuthorization::getUserToken());
+      } catch (fNotFoundException $e) {
+        $profile = new Profile();
+        $profile->setUsername(fAuthorization::getUserToken());
+      }
+      $profile->setRealname($realname);
+      $profile->setClassName($class_name);
+      $profile->setPhoneNumber($phone_number);
+      $profile->store();
+      
+      fMessaging::create('success', 'Information updated successfully.');
+      fURL::redirect(Util::getReferer());
+    } catch (fException $e) {
+      fMessaging::create('error', $e->getMessage());
+      Util::redirect('/change/info');
+    }
+  }
+  
   public function changePassword()
   {
     $this->render('user/change_password');

@@ -43,12 +43,13 @@
       <?php if (fAuthorization::checkLoggedIn()): ?>
         <div class="btn-group pull-right">
           <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-            <i class="icon-user"></i> <?php echo fAuthorization::getUserToken(); ?>
+            <i class="icon-user"></i> 当前用户：<?php echo fAuthorization::getUserToken(); ?>
             <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
             <li><a href="<?php echo SITE_BASE; ?>/email/verify">Email：<?php echo User::getVerifiedEmail(); ?></a></li>
             <li class="divider"></li>
+            <li><a href="<?php echo SITE_BASE; ?>/change/info">修改个人信息</a></li>
             <li><a href="<?php echo SITE_BASE; ?>/change/password">修改密码</a></li>
             <li class="divider"></li>
             <li><a href="<?php echo SITE_BASE; ?>/logout">登出</a></li>
