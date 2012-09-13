@@ -1,52 +1,52 @@
 <?php
 $meta_refresh = Variable::getInteger('status-refresh', 30);
-$title = 'Status';
+$title = '评测状态';
 $stylesheets = array('verdicts');
 include(__DIR__ . '/../layout/header.php');
 ?>
 <div class="page-header">
   <form method="GET" action="<?php echo SITE_BASE; ?>/status" class="pull-right form-search">
-    <input type="text" class="input-small search-query" placeholder="Who" name="owner" maxlength="100" value="<?php echo $this->owner; ?>">
-    <input type="number" class="input-small search-query" placeholder="What" name="problem" maxlength="10" value="<?php echo $this->problem_id; ?>">
+    <input type="text" class="input-small search-query" placeholder="提交者" name="owner" maxlength="100" value="<?php echo $this->owner; ?>">
+    <input type="number" class="input-small search-query" placeholder="题目编号" name="problem" maxlength="10" value="<?php echo $this->problem_id; ?>">
     <select name="language" class="input-small search-query">
     <?php
-      $languages = array('How', 'C++', 'C', 'Java');
+      $languages = array('语言', 'C++', 'C', 'Java');
       foreach ($languages as $value => $text) {
         fHTML::printOption($text, $value, $this->language);
       }
     ?>
     </select>
-    <select name="verdict" class="input-small search-query">
+    <select name="verdict" class="input-medium search-query">
     <?php
-      $verdicts = array('Verdict', 'AC', 'PE', 'TLE', 'MLE', 'WA', 'RE', 'OLE', 'CE', 'SE', 'VE');
+      $verdicts = array('结果', '正确', '格式错误', '超过时间限制', '超过内存限制', '答案错误', '运行时错误', '超过输出限制', '编译错误', '系统错误', '校验错误');
       foreach ($verdicts as $value => $text) {
         fHTML::printOption($text, $value, $this->verdict);
       }
     ?>
     </select>
     <button type="submit" class="btn btn-primary">
-      <i class="icon-filter icon-white"></i> Filter
+      <i class="icon-filter icon-white"></i> 过滤
     </button>
     <?php if (strlen($this->owner) or strlen($this->problem_id) or !empty($this->language) or !empty($this->verdict)): ?>
-      <a class="btn" href="<?php echo SITE_BASE; ?>/status">Cancel</a>
+      <a class="btn" href="<?php echo SITE_BASE; ?>/status">取消</a>
     <?php endif; ?>
   </form>
-  <h1>Problem Status List</h1>
+  <h1><?php echo $title; ?></h1>
 </div>
 <table id="status" class="table table-bordered table-striped">
   <thead>
     <tr>
-      <th>Run ID</th>
-      <th>Who</th>
-      <th class="what">What</th>
-      <th>Result</th>
+      <th>运行编号</th>
+      <th>提交者</th>
+      <th class="what">题目编号</th>
+      <th>评测结果</th>
       <?php if (fAuthorization::checkLoggedIn()): ?>
-        <th>Score</th>
+        <th>分数</th>
       <?php endif; ?>
-      <th>Time</th>
-      <th>Memory</th>
-      <th>How</th>
-      <th>When</th>
+      <th>时间</th>
+      <th>内存</th>
+      <th>语言</th>
+      <th>提交时间</th>
     </tr>
   </thead>
   <tbody>
@@ -63,9 +63,9 @@ include(__DIR__ . '/../layout/header.php');
         <td>
           <?php if ($r->isReadable()): ?>
             <a class="record<?php echo str_replace(' ', '', $r->getResult()); ?>" 
-               href="<?php echo SITE_BASE; ?>/record/<?php echo $r->getId(); ?>"><?php echo $r->getResult(); ?></a>
+               href="<?php echo SITE_BASE; ?>/record/<?php echo $r->getId(); ?>"><?php echo $r->getTranslatedResult(); ?></a>
           <?php else: ?>
-            <span class="record<?php echo str_replace(' ', '', $r->getResult()); ?>"><?php echo $r->getResult(); ?></span>
+            <span class="record<?php echo str_replace(' ', '', $r->getResult()); ?>"><?php echo $r->getTranslatedResult(); ?></span>
           <?php endif; ?>
         </td>
         <?php if (fAuthorization::checkLoggedIn()): ?>

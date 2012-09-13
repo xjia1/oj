@@ -47,36 +47,36 @@
             <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
-            <li><a href="<?php echo SITE_BASE; ?>/email/verify">Email: <?php echo User::getVerifiedEmail(); ?></a></li>
+            <li><a href="<?php echo SITE_BASE; ?>/email/verify">Email：<?php echo User::getVerifiedEmail(); ?></a></li>
             <li class="divider"></li>
-            <li><a href="<?php echo SITE_BASE; ?>/change/password">Change Password</a></li>
+            <li><a href="<?php echo SITE_BASE; ?>/change/password">修改密码</a></li>
             <li class="divider"></li>
-            <li><a href="<?php echo SITE_BASE; ?>/logout">Sign Out</a></li>
+            <li><a href="<?php echo SITE_BASE; ?>/logout">登出</a></li>
           </ul>
         </div>
       <?php else: ?>
         <form action="<?php echo SITE_BASE; ?>/login" method="POST" class="form-inline pull-right" style="margin: 0">
-          <input type="text" class="input-small" placeholder="Username" name="username" maxlength="80">
-          <input type="password" class="input-small" placeholder="Password" name="password" maxlength="80">
-          <input type="submit" class="btn btn-primary" name="action" value="Sign In"><?php
-          ?><input type="submit" class="btn btn-success" name="action" value="Register">
+          <input type="text" class="input-small" placeholder="用户名" name="username" maxlength="80">
+          <input type="password" class="input-small" placeholder="密码" name="password" maxlength="80">
+          <input type="submit" class="btn btn-primary" name="action" value="登录"><?php
+          ?><a class="btn btn-success" href="<?php echo SITE_BASE; ?>/login">注册</a>
         </form>
       <?php endif; ?>
       <div class="nav-collapse">
         <ul class="nav">
-          <li class="nav-home"><a href="<?php echo SITE_BASE; ?>/home">Home</a></li>
+          <li class="nav-home"><a href="<?php echo SITE_BASE; ?>/home">首页</a></li>
           <li class="nav-sets"><a href="<?php echo SITE_BASE; ?>/sets">Problem Sets</a></li>
-          <li class="nav-problems"><a href="<?php echo SITE_BASE; ?>/problems">All Problems</a></li>
+          <li class="nav-problems"><a href="<?php echo SITE_BASE; ?>/problems">题库</a></li>
           <?php if (fAuthorization::checkLoggedIn()): ?>
-            <li class="nav-submit"><a href="<?php echo SITE_BASE; ?>/submit">Submit</a></li>
+            <li class="nav-submit"><a href="<?php echo SITE_BASE; ?>/submit">提交</a></li>
           <?php endif; ?>
-          <li class="nav-status"><a href="<?php echo SITE_BASE; ?>/status">Status</a></li>
-          <li class="nav-ranklist"><a href="<?php echo SITE_BASE; ?>/ranklist">Ranklist</a></li>
+          <li class="nav-status"><a href="<?php echo SITE_BASE; ?>/status">评测状态</a></li>
+          <li class="nav-ranklist"><a href="<?php echo SITE_BASE; ?>/ranklist">排名</a></li>
           <?php if (fAuthorization::checkLoggedIn()): ?>
             <li class="nav-reports"><a href="<?php echo SITE_BASE; ?>/reports">Reports</a></li>
             <?php if (User::can('manage-site')): ?>
               <li class="nav-dashboard dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dashboard <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">管理 <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   <li class="nav-header">Problems</li>
                   <li><a href="<?php echo SITE_BASE; ?>/dashboard#problems">Show/Hide/Refresh Problem</a></li>

@@ -40,15 +40,16 @@ class UserController extends ApplicationController
     $password = fRequest::get('password', 'string');
     $password_hash = static::hashPassword($password);
     try {
-      if (fRequest::get('action') == 'Sign In') {
+      if (fRequest::get('action') == '登录') {
         $user = new User($username);
         if ($user->getPassword() == $password_hash) {
           fAuthorization::setUserToken($user->getUsername());
           fMessaging::create('success', 'Logged in successfully.');
+          fURL::redirect(fAuthorization::getRequestedURL(TRUE, Util::getReferer()));
         } else {
           throw new fValidationException('Password mismatch.');
         }
-      } else if (fRequest::get('action') == 'Register') {
+      } else if (fRequest::get('action') == '注册') {
         if (strlen($username) < 4) {
           throw new fValidationException('Username is too short.');
         }
@@ -71,12 +72,12 @@ class UserController extends ApplicationController
           $user->store();
           fAuthorization::setUserToken($user->getUsername());
           fMessaging::create('success', 'Registered successfully.');
+          fURL::redirect('/email/verify');
         }
       }
     } catch (fException $e) {
       fMessaging::create('error', $e->getMessage());
     }
-    fURL::redirect(fAuthorization::getRequestedURL(TRUE, Util::getReferer()));
   }
   
   public function logout()

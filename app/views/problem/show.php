@@ -10,7 +10,7 @@ include(__DIR__ . '/../layout/header.php');
   <aside class="span3">
     <div class="well">
       <a class="btn btn-primary btn-large"
-         href="<?php echo SITE_BASE; ?>/submit?problem=<?php echo $this->problem->getId(); ?>">Submit<a>
+         href="<?php echo SITE_BASE; ?>/submit?problem=<?php echo $this->problem->getId(); ?>">提交此题<a>
     </div>
   </aside>
 </div>

@@ -12,4 +12,11 @@ class JudgeStatus
 		'Running',	// running on a judge
 		'Done'
 	);
+	
+	static $CHINESE_NAMES = array(
+	  '未评测',
+	  '等待评测',
+	  '正在评测',
+	  '评测完成'
+	);
 }

@@ -39,7 +39,7 @@ class User extends fActiveRecord
       $ue = new UserEmail($username);
       return $ue->getEmail();
     } catch (fNotFoundException $e) {
-      return '(click to verify)';
+      return '点击此处进行邮件验证';
     }
   }
   

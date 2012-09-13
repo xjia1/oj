@@ -88,4 +88,18 @@ class Verdict
 		'System Error',
 		'Validator Error'
   );
+  
+  static $CHINESE_NAMES = array(
+		'未知',
+		'正确',
+		'格式错误',
+		'超过时间限制',
+		'超过内存限制',
+		'答案错误',
+		'运行时错误',
+		'超过输出限制',
+		'编译错误',
+		'系统错误',
+		'校验错误'
+  );
 }

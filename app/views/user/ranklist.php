@@ -1,19 +1,19 @@
 <?php
-$title = 'Authors Ranklist';
+$title = '用户排名';
 include(__DIR__ . '/../layout/header.php');
 ?>
 <div class="page-header">
-  <h1>Authors Ranklist</h1>
+  <h1><?php echo $title; ?></h1>
 </div>
 <?php include(__DIR__ . '/../layout/_pagination.php'); ?>
 <table class="table table-bordered table-striped">
   <thead>
     <tr>
       <th>#</th>
-      <th>User</th>
-      <th>Solved</th>
-      <th>Tried</th>
-      <th>Submissions</th>
+      <th>用户</th>
+      <th>已解决的题目</th>
+      <th>尝试过的题目</th>
+      <th>总提交次数</th>
     </tr>
   </thead>
   <tbody>

@@ -66,6 +66,14 @@ class Record extends fActiveRecord
     return JudgeStatus::$NAMES[$this->getJudgeStatus()];
   }
   
+  public function getTranslatedResult()
+  {
+    if ($this->getJudgeStatus() == JudgeStatus::DONE) {
+      return Verdict::$CHINESE_NAMES[$this->getVerdict()];
+    }
+    return JudgeStatus::$CHINESE_NAMES[$this->getJudgeStatus()];
+  }
+  
   public function isReadable()
   {
     return fAuthorization::getUserToken() == $this->getOwner() or User::can('view-any-record');

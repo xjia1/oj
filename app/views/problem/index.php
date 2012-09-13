@@ -1,31 +1,31 @@
 <?php
-$title = 'All Problems';
+$title = '题目列表';
 $stylesheets = array('tablesorter');
 include(__DIR__ . '/../layout/header.php');
 ?>
 <div class="page-header">
   <form method="GET" action="<?php echo SITE_BASE; ?>/problems" class="pull-right form-search">
     <input type="number" class="input-small search-query" placeholder="ID" name="id" maxlength="20">
-    <input type="text" class="input-medium search-query" placeholder="Title" name="title" maxlength="100" value="<?php echo fHTML::encode($this->title); ?>">
-    <input type="text" class="input-medium search-query" placeholder="Author" name="author" maxlength="100" value="<?php echo fHTML::encode($this->author); ?>">
+    <input type="text" class="input-medium search-query" placeholder="标题" name="title" maxlength="100" value="<?php echo fHTML::encode($this->title); ?>">
+    <input type="text" class="input-medium search-query" placeholder="作者" name="author" maxlength="100" value="<?php echo fHTML::encode($this->author); ?>">
     <button type="submit" class="btn btn-primary">
-      <i class="icon-filter icon-white"></i> Filter
+      <i class="icon-filter icon-white"></i> 过滤
     </button>
     <?php if (strlen($this->title) or strlen($this->author)): ?>
       <a class="btn" href="<?php echo SITE_BASE; ?>/problems">Cancel</a>
     <?php endif; ?>
   </form>
-  <h1>All Problems</h1>
+  <h1><?php echo $title; ?></h1>
 </div>
 <?php include(__DIR__ . '/../layout/_pagination.php'); ?>
 <table id="problems" class="tablesorter table table-bordered table-striped">
   <thead>
     <tr>
       <th>ID</th>
-      <th>Title</th>
-      <th>Author</th>
-      <th>Ratio (AC/submit)</th>
-      <th>Action</th>
+      <th>标题</th>
+      <th>作者</th>
+      <th>通过率 (通过/提交)</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -40,7 +40,7 @@ include(__DIR__ . '/../layout/header.php');
         <td><a href="<?php echo SITE_BASE; ?>/problem/<?php echo $p->getId(); ?>"><?php echo fHTML::encode($p->getTitle()); ?></a></td>
         <td><?php echo fHTML::encode($p->getAuthor()); ?></td>
         <td><?php echo $p->getRatio(); ?>% (<?php echo $p->getAcceptCount(); ?>/<?php echo $p->getSubmitCount(); ?>)</td>
-        <td><a href="<?php echo SITE_BASE; ?>/submit?problem=<?php echo $p->getId(); ?>">Submit</a></td>
+        <td><a href="<?php echo SITE_BASE; ?>/submit?problem=<?php echo $p->getId(); ?>">提交</a></td>
       </tr>
     <?php endforeach; ?>
   </tbody>
