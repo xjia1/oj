@@ -62,6 +62,7 @@ class ReportController extends ApplicationController
       $registration->setUsername(fAuthorization::getUserToken());
       $registration->setReportId($report->getId());
       $registration->store();
+      BoardCacheInvalidator::invalidateByReport($report);
       fMessaging::create('success', 'Registered successfully.');
     } catch (fExpectedException $e) {
       fMessaging::create('warning', $e->getMessage());
@@ -75,8 +76,8 @@ class ReportController extends ApplicationController
   {
     try {
       $report = new Report($id);
-      if ($report->isFinished()) {
-        throw new fValidationException('You cannot ask questions after the contest is finished.');
+      if (!$report->allowQuestion()) {
+        throw new fValidationException('Not allowed to ask question.');
       }
       $category = fRequest::get('category', 'integer');
       if ($category == 0) {
@@ -108,5 +109,26 @@ class ReportController extends ApplicationController
       fMessaging::create('error', $e->getMessage());
     }
     Util::redirect("/contest/{$id}");
+  }
+  
+  public function replyQuestion($id)
+  {
+    try {
+      $question = new Question($id);
+      $report = new Report($report_id = $question->getReportId());
+      if (!$report->allowAnswer()) {
+        throw new fValidationException('Not allowed to answer question.');
+      }
+      $question->setCategory(-$question->getCategory());
+      $question->setAnswerTime(new fTimestamp());
+      $question->setAnswer(trim(fRequest::get('reply')));
+      $question->store();
+      fMessaging::create('success', 'Question answered.');
+    } catch (fExpectedException $e) {
+      fMessaging::create('warning', $e->getMessage());
+    } catch (fUnexpectedException $e) {
+      fMessaging::create('error', $e->getMessage());
+    }
+    Util::redirect("/contest/{$report_id}");
   }
 }

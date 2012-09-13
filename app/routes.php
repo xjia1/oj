@@ -231,6 +231,12 @@ $app->post('/contest/:id/question', function ($id) {
   $controller->newQuestion($id);
 });
 
+$app->post('/question/:id/reply', function ($id) {
+  fAuthorization::requireLoggedIn();
+  $controller = new ReportController();
+  $controller->replyQuestion($id);
+});
+
 $app->get('/polling/:secret', function ($secret) {
   if (JUDGER_SECRET != $secret) exit();
   

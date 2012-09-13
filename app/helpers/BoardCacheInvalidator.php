@@ -16,4 +16,9 @@ class BoardCacheInvalidator
       $cache->delete($report->getBoardCacheKey());
     }
   }
+  
+  public static function invalidateByReport($report) {
+    global $cache;
+    $cache->delete($report->getBoardCacheKey());
+  }
 }

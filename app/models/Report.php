@@ -10,6 +10,16 @@ class Report extends fActiveRecord
     return $this->getVisible() or User::can('view-any-report');
   }
   
+  public function isRunning()
+  {
+    return $this->isStarted() and !$this->isFinished();
+  }
+  
+  public function isStarted()
+  {
+    return $this->getStartDatetime()->lte(new fTimestamp());
+  }
+  
   public function isFinished()
   {
     return $this->getEndDatetime()->lt(new fTimestamp());
@@ -39,6 +49,21 @@ class Report extends fActiveRecord
     return preg_split('/[\s,]+/', trim($this->getProblemList()));
   }
   
+  private function checkAuthor($username)
+  {
+    foreach ($this->getProblems() as $problem_id) {
+      try {
+        $problem = new Problem($problem_id);
+        if ($problem->getAuthor() == $username) {
+          return TRUE;
+        }
+      } catch (Exception $e) {
+        continue;
+      }
+    }
+    return FALSE;
+  }
+  
   /**
    * 如果 user_list 为空，则统计 registrations
    * 否则只统计 user_list
@@ -59,6 +84,11 @@ class Report extends fActiveRecord
       $usernames[] = $registration->getUsername();
     }
     return $usernames;
+  }
+  
+  private function checkRegistered($username)
+  {
+    return in_array($username, $this->getUsernames());
   }
   
   public function getUserPairs()
@@ -90,20 +120,29 @@ class Report extends fActiveRecord
   }
   
   /**
-   *  - 管理员可以看到所有提问
+   *  - 管理员和题目作者可以看到所有提问
    *  - 普通用户只能看到被回复的提问，以及自己的提问
    */
   public function fetchQuestions()
   {
-    if (User::can('view-any-report')) {
+    if ($this->allowAnswer()) {
       $conditions = array('report_id=' => $this->getId());
     } else {
       $conditions = array(
         'report_id=' => $this->getId(),
-        ''
+        'category>|username=' => array(0, fAuthorization::getUserToken())
       );
     }
-    // TODO
-    return array();
+    return fRecordSet::build('Question', $conditions);
+  }
+  
+  public function allowAnswer()
+  {
+    return User::isSuper() or $this->checkAuthor(fAuthorization::getUserToken());
+  }
+  
+  public function allowQuestion()
+  {
+    return $this->isRunning() and (User::isSuper() or $this->checkRegistered(fAuthorization::getUserToken()));
   }
 }

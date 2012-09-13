@@ -28,9 +28,25 @@ include(__DIR__ . '/../layout/header.php');
     </thead>
     <tbody>
       <?php foreach ($this->report->fetchQuestions() as $question): ?>
+        <tr>
+          <td><?php echo $question->getCategoryName(); ?></td>
+          <td><?php echo $question->getAskTime(); ?></td>
+          <td><?php echo fHTML::encode($question->getQuestion()); ?></td>
+          <?php if (!strlen($question->getAnswer()) and $this->report->allowAnswer()): ?>
+            <td colspan="2">
+              <form class="form-inline" action="<?php echo SITE_BASE; ?>/question/<?php echo $question->getId(); ?>/reply" method="POST">
+                <textarea name="reply"></textarea>
+                <button type="submit" class="btn btn-mini">回复</button>
+              </form>
+            </td>
+          <?php else: ?>
+            <td><?php echo $question->getAnswerTime(); ?></td>
+            <td><?php echo fHTML::prepare($question->getAnswer()); ?></td>
+          <?php endif; ?>
+        </tr>
       <?php endforeach; ?>
     </tbody>
-    <?php if (!$this->report->isFinished()): ?>
+    <?php if ($this->report->allowQuestion()): ?>
     <tfoot>
       <tr>
         <td colspan="5">
@@ -39,46 +55,47 @@ include(__DIR__ . '/../layout/header.php');
       </tr>
     </tfoot>
     <?php endif; ?>
-  </table>
-</div>
-<div id="question_modal" class="modal hide fade">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <h3>提问</h3>
-  </div><!-- /.modal-header -->
-  <form class="form-horizontal" method="POST" action="<?php echo SITE_BASE; ?>/contest/<?php echo $this->report->getId(); ?>/question">
-    <div class="modal-body">
-      <div class="control-group">
-        <label class="control-label" for="category">分类</label>
-        <div class="controls">
-          <select id="category" name="category">
-            <option value="0">（请选择）</option>
-            <?php foreach ($this->report->getProblems() as $problem_id): ?>
-              <option value="<?php echo $problem_id; ?>">题目：<?php echo $problem_id; ?></option>
-            <?php endforeach; ?>
-            <option value="<?php echo Question::ABOUT_CONTEST_HIDDEN; ?>">关于比赛</option>
-            <option value="<?php echo Question::ABOUT_SYSTEM_HIDDEN; ?>">关于系统使用</option>
-          </select>
+  </table><!-- /#questions -->
+  <div id="question_modal" class="modal hide fade">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h3>提问</h3>
+    </div><!-- /.modal-header -->
+    <form class="form-horizontal" method="POST" action="<?php echo SITE_BASE; ?>/contest/<?php echo $this->report->getId(); ?>/question">
+      <div class="modal-body">
+        <div class="control-group">
+          <label class="control-label" for="category">分类</label>
+          <div class="controls">
+            <select id="category" name="category">
+              <option value="0">（请选择）</option>
+              <?php foreach ($this->report->getProblems() as $problem_id): ?>
+                <option value="<?php echo $problem_id; ?>">题目：<?php echo $problem_id; ?></option>
+              <?php endforeach; ?>
+              <option value="<?php echo Question::ABOUT_CONTEST_HIDDEN; ?>">关于比赛</option>
+              <option value="<?php echo Question::ABOUT_SYSTEM_HIDDEN; ?>">关于系统使用</option>
+            </select>
+          </div>
         </div>
-      </div>
-      <div class="control-group">
-        <label class="control-label" for="question">问题</label>
-        <div class="controls">
-          <textarea id="question" rows="10" name="question" style="font-family: Monaco, Lucida Console, Courier New, Free Monospaced;"></textarea>
-          <p class="help-block">长度限制：500字节。</p>
+        <div class="control-group">
+          <label class="control-label" for="question">问题</label>
+          <div class="controls">
+            <textarea id="question" rows="10" name="question" style="font-family: Monaco, Lucida Console, Courier New, Free Monospaced;"></textarea>
+            <p class="help-block">长度限制：500字节。</p>
+          </div>
         </div>
-      </div>
-    </div><!-- /.modal-body -->
-    <div class="modal-footer">
-      <div class="control-group">
-        <div class="controls">
-          <button type="submit" class="btn btn-primary">提交</button>
-          <button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+      </div><!-- /.modal-body -->
+      <div class="modal-footer">
+        <div class="control-group">
+          <div class="controls">
+            <button type="submit" class="btn btn-primary">提交</button>
+            <button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+          </div>
         </div>
-      </div>
-    </div><!-- /.modal-footer -->
-  </form>
-</div><!-- /#question_modal -->
+      </div><!-- /.modal-footer -->
+    </form>
+  </div><!-- /#question_modal -->
+</div><!-- /#clarification -->
+<?php if ($this->report->isStarted() and count($this->report->getUsernames())): ?>
 <div class="row">
   <div class="progress progress-striped active span10">
     <div class="bar" style="width: <?php echo $this->report->getElapsedRatio(); ?>%;"></div>
@@ -118,7 +135,8 @@ include(__DIR__ . '/../layout/header.php');
   holding down the <strong>shift</strong> key and 
   clicking a second, third or even fourth column header!
 </div>
+<?php endif; ?>
 <?php
-$javascripts = array('jquery.tablesorter.min', 'board');
 $meta_refresh = Variable::getInteger('status-refresh', 30);
+$javascripts = array('jquery.tablesorter.min', 'board');
 include(__DIR__ . '/../layout/footer.php');

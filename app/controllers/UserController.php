@@ -77,6 +77,7 @@ class UserController extends ApplicationController
       }
     } catch (fException $e) {
       fMessaging::create('error', $e->getMessage());
+      fURL::redirect(fAuthorization::getRequestedURL(TRUE, Util::getReferer()));
     }
   }
   
@@ -84,7 +85,11 @@ class UserController extends ApplicationController
   {
     fAuthorization::destroyUserInfo();
     fMessaging::create('success', 'Logged out successfully.');
-    fURL::redirect(Util::getReferer());
+    if (strstr(Util::getReferer(), 'contest')) {
+      fURL::redirect(SITE_BASE);
+    } else {
+      fURL::redirect(Util::getReferer());
+    }
   }
   
   public function changeInfo()

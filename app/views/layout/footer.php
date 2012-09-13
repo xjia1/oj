@@ -12,14 +12,6 @@
 <script src="<?php echo SITE_BASE; ?>/js/jquery.min.js"></script>
 <script src="<?php echo SITE_BASE; ?>/js/bootstrap.min.js"></script>
 <script src="<?php echo SITE_BASE; ?>/js/prettify.js"></script>
-<?php if (isset($javascripts)): ?>
-  <?php foreach ($javascripts as $javascript): ?>
-    <script src="<?php echo SITE_BASE; ?>/js/<?php echo $javascript; ?>.js"></script>
-  <?php endforeach; ?>
-<?php endif; ?>
-<?php if (isset($this->nav_class)): ?>
-  <script> $(function(){ $('.nav-<?php echo $this->nav_class; ?>').addClass('active'); }); </script>
-<?php endif; ?>
 <?php if (isset($meta_refresh)): ?>
 <script>
 (function(){
@@ -42,6 +34,14 @@
   });
 })();
 </script>
+<?php endif; ?>
+<?php if (isset($javascripts)): ?>
+  <?php foreach ($javascripts as $javascript): ?>
+    <script src="<?php echo SITE_BASE; ?>/js/<?php echo $javascript; ?>.js"></script>
+  <?php endforeach; ?>
+<?php endif; ?>
+<?php if (isset($this->nav_class)): ?>
+  <script> $(function(){ $('.nav-<?php echo $this->nav_class; ?>').addClass('active'); }); </script>
 <?php endif; ?>
 </body>
 </html>

@@ -15,6 +15,11 @@ class User extends fActiveRecord
     return $permission_cache[$permission_name] = Permission::contains(fAuthorization::getUserToken(), $permission_name);
   }
   
+  public static function isSuper()
+  {
+    return User::can('view-any-report') and User::can('view-any-record') and User::can('view-any-problem');
+  }
+  
   private static $accepted_cache;
   
   public static function hasAccepted($problem)
