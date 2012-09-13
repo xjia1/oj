@@ -9,6 +9,7 @@ require_once(__DIR__ . '/init.php');
 require_once(__DIR__ . '/models/Permission.php');
 require_once(__DIR__ . '/models/Problem.php');
 require_once(__DIR__ . '/models/Profile.php');
+require_once(__DIR__ . '/models/Question.php');
 require_once(__DIR__ . '/models/Record.php');
 require_once(__DIR__ . '/models/Registration.php');
 require_once(__DIR__ . '/models/Report.php');
