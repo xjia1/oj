@@ -66,7 +66,7 @@
       <div class="nav-collapse">
         <ul class="nav">
           <li class="nav-home"><a href="<?php echo SITE_BASE; ?>/home">首页</a></li>
-          <li class="nav-sets"><a href="<?php echo SITE_BASE; ?>/sets">Problem Sets</a></li>
+          <!--<li class="nav-sets"><a href="<?php echo SITE_BASE; ?>/sets">Problem Sets</a></li>-->
           <li class="nav-problems"><a href="<?php echo SITE_BASE; ?>/problems">题库</a></li>
           <?php if (fAuthorization::checkLoggedIn()): ?>
             <li class="nav-submit"><a href="<?php echo SITE_BASE; ?>/submit">提交</a></li>
