@@ -50,4 +50,24 @@ class ReportController extends ApplicationController
       fURL::redirect(Util::getReferer());
     }
   }
+  
+  public function newRegistration($id)
+  {
+    try {
+      $report = new Report($id);
+      if (!$report->isRegistrable()) {
+        throw new fValidationException('This contest is not registrable.');
+      }
+      $registration = new Registration();
+      $registration->setUsername(fAuthorization::getUserToken());
+      $registration->setReportId($report->getId());
+      $registration->store();
+      fMessaging::create('success', 'Registered successfully.');
+    } catch (fExpectedException $e) {
+      fMessaging::create('warning', $e->getMessage());
+    } catch (fUnexpectedException $e) {
+      fMessaging::create('error', $e->getMessage());
+    }
+    fURL::redirect(Util::getReferer());
+  }
 }

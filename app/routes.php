@@ -108,6 +108,12 @@ $app->get('/ranklist', function () {
   $controller->ranklist();
 });
 
+$app->get('/contests', function () {
+  User::requireEmailVerified();
+  $controller = new ReportController();
+  $controller->index();
+});
+
 $app->get('/reports', function () {
   fAuthorization::requireLoggedIn();
   User::requireEmailVerified();
@@ -164,7 +170,8 @@ $app->post('/set/variable', function () {
 });
 
 $app->get('/problem', function () {
-  Util::redirect('/problem/' . fRequest::get('id', 'integer'));
+  $controller = new ProblemController();
+  $controller->show(fRequest::get('id', 'integer'));
 });
 
 $app->get('/problem/:id', function ($id) {
@@ -173,7 +180,10 @@ $app->get('/problem/:id', function ($id) {
 });
 
 $app->get('/record', function () {
-  Util::redirect('/record/' . fRequest::get('id', 'integer'));
+  fAuthorization::requireLoggedIn();
+  User::requireEmailVerified();
+  $controller = new RecordController();
+  $controller->show(fRequest::get('id', 'integer'));
 });
 
 $app->get('/record/:id', function ($id) {
@@ -184,7 +194,10 @@ $app->get('/record/:id', function ($id) {
 });
 
 $app->get('/report', function () {
-  Util::redirect('/report/' . fRequest::get('id', 'integer'));
+  fAuthorization::requireLoggedIn();
+  User::requireEmailVerified();
+  $controller = new ReportController();
+  $controller->show(fRequest::get('id', 'integer'));
 });
 
 $app->get('/report/:id', function ($id) {
@@ -192,6 +205,23 @@ $app->get('/report/:id', function ($id) {
   User::requireEmailVerified();
   $controller = new ReportController();
   $controller->show($id);
+});
+
+$app->get('/contest/:id', function ($id) {
+  User::requireEmailVerified();
+  $controller = new ReportController();
+  $controller->show($id);
+});
+
+$app->get('/contest/:id/register', function ($id) {
+  Util::redirect("/contest/{$id}");
+});
+
+$app->post('/contest/:id/register', function ($id) {
+  fAuthorization::requireLoggedIn();
+  User::requireEmailVerified();
+  $controller = new ReportController();
+  $controller->newRegistration($id);
 });
 
 $app->get('/polling/:secret', function ($secret) {

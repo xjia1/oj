@@ -68,13 +68,13 @@
           <li class="nav-home"><a href="<?php echo SITE_BASE; ?>/home">首页</a></li>
           <!--<li class="nav-sets"><a href="<?php echo SITE_BASE; ?>/sets">Problem Sets</a></li>-->
           <li class="nav-problems"><a href="<?php echo SITE_BASE; ?>/problems">题库</a></li>
+          <li class="nav-reports"><a href="<?php echo SITE_BASE; ?>/contests">比赛</a></li>
           <?php if (fAuthorization::checkLoggedIn()): ?>
             <li class="nav-submit"><a href="<?php echo SITE_BASE; ?>/submit">提交</a></li>
           <?php endif; ?>
           <li class="nav-status"><a href="<?php echo SITE_BASE; ?>/status">评测状态</a></li>
           <li class="nav-ranklist"><a href="<?php echo SITE_BASE; ?>/ranklist">排名</a></li>
           <?php if (fAuthorization::checkLoggedIn()): ?>
-            <li class="nav-reports"><a href="<?php echo SITE_BASE; ?>/reports">Reports</a></li>
             <?php if (User::can('manage-site')): ?>
               <li class="nav-dashboard dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">管理 <b class="caret"></b></a>

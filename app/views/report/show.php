@@ -13,6 +13,7 @@ include(__DIR__ . '/../layout/header.php');
       <?php echo $this->report->getEndDatetime(); ?>
       (<?php echo $this->report->getDuration(); ?>)
     </small>
+    <?php include(__DIR__ . '/_register_btn.php'); ?>
   </h1>
 </div>
 <div class="row">

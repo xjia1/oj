@@ -1,21 +1,22 @@
 <?php
-$title = 'Reports';
+$title = '比赛列表';
 include(__DIR__ . '/../layout/header.php');
 ?>
 <div class="page-header">
-  <h1>Reports</h1>
+  <h1><?php echo $title; ?></h1>
 </div>
 <table class="table table-bordered table-striped">
   <thead>
     <tr>
       <th>ID</th>
       <?php if (User::can('view-any-report')): ?>
-        <th>Visible</th>
+        <th>公开</th>
       <?php endif; ?>
-      <th>Title</th>
-      <th>Start Time</th>
-      <th>End Time</th>
-      <th>Duration</th>
+      <th>标题</th>
+      <th>开始时间</th>
+      <th>结束时间</th>
+      <th>比赛时长</th>
+      <th colspan="2">参赛人数</th>
     </tr>
   </thead>
   <tbody>
@@ -29,10 +30,15 @@ include(__DIR__ . '/../layout/header.php');
             <?php endif; ?>
           </td>
         <?php endif; ?>
-        <td><a href="<?php echo SITE_BASE; ?>/report/<?php echo $r->getId(); ?>"><?php echo fHTML::prepare($r->getTitle()); ?></a></td>
+        <td><a href="<?php echo SITE_BASE; ?>/contest/<?php echo $r->getId(); ?>"><?php echo fHTML::prepare($r->getTitle()); ?></a></td>
         <td><?php echo $r->getStartDatetime(); ?></td>
         <td><?php echo $r->getEndDatetime(); ?></td>
         <td><?php echo $r->getDuration(); ?></td>
+        <td><?php echo count($r->getUsernames()); ?></td>
+        <td><?php
+          $this->report = $r;
+          include(__DIR__ . '/_register_btn.php');
+        ?></td>
       </tr>
     <?php endforeach; ?>
   </tbody>
