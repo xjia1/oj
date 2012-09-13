@@ -1,5 +1,6 @@
 create table questions (
   id serial,
+  report_id bigint not null,
   general smallint not null, -- true/false
   problem_id bigint,
   ask_time timestamp not null,
