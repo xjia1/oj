@@ -30,6 +30,7 @@
   }
   $(function(){
     $('.modal').on('show', disable_refresh).on('hide', enable_refresh);
+    $('textarea').focus(disable_refresh).blur(enable_refresh);
     enable_refresh();
   });
 })();
