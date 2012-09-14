@@ -1,5 +1,4 @@
 <?php
-$meta_refresh = Variable::getInteger('status-refresh', 30);
 $title = '评测状态';
 $stylesheets = array('verdicts');
 include(__DIR__ . '/../layout/header.php');
@@ -86,4 +85,5 @@ include(__DIR__ . '/../layout/header.php');
   </tbody>
 </table>
 <?php
+$meta_refresh = Variable::getInteger('status-refresh', 30);
 include(__DIR__ . '/../layout/footer.php');

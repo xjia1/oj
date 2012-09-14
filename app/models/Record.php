@@ -3,12 +3,27 @@ class Record extends fActiveRecord
 {
   protected function configure()
   {
-    fORM::registerHookCallback($this, 'post::store()', 'Record::invalidateBoardCache');
+    fORM::registerHookCallback($this, 'post::store()', 'Record::invalidateCache');
   }
   
-  public static function invalidateBoardCache($object, &$values, &$old_values, &$related_records, &$cache)
+  public static function invalidateCache($object, &$values, &$old_values, &$related_records, &$cache)
   {
     BoardCacheInvalidator::invalidate($values['owner'], $values['problem_id'], $values['submit_datetime']);
+    
+    if (array_key_exists('id', $values)) {
+      static::invalidateScoreCache($values['id']);
+    }
+  }
+  
+  private static function buildScoreCacheKey($record_id)
+  {
+    return "record_{$record_id}_score";
+  }
+  
+  private static function invalidateScoreCache($record_id)
+  {
+    global $cache;
+    $cache->delete(static::buildScoreCacheKey($record_id));
   }
   
   public static function find($top, $owner, $problem_id, $language, $verdict, $page=1)
@@ -98,7 +113,7 @@ class Record extends fActiveRecord
     }
   }
   
-  private function getScore_()
+  private function calculateScore()
   {
     try {
       $manjudge_score = $this->getManjudgeScore();
@@ -112,14 +127,17 @@ class Record extends fActiveRecord
     }
   }
   
-  private $score = NULL;
-  
   public function getScore()  // cached
   {
-    if ($this->score == NULL) {
-      $this->score = $this->getScore_();
+    global $cache;
+    
+    $cache_key = static::buildScoreCacheKey($this->getId());
+    $cache_value = $cache->get($cache_key);
+    if ($cache_value === NULL) {
+      $cache_value = $this->calculateScore();
+      $cache->set($cache_key, $cache_value);
     }
-    return $this->score;
+    return $cache_value;
   }
   
   public function getProblem()
