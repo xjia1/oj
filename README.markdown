@@ -26,6 +26,14 @@ NOTE: I don't have enough time to document this. Just remember to install and st
     $ sudo pkill varnishd
     $ sudo varnishd -f /etc/varnish/default.vcl -s malloc,1G -T 127.0.0.1:2000
 
+Or to automatically start it, edit `/etc/default/varnish`:
+
+    DAEMON_OPTS="-a :80 \
+                 -T localhost:2000 \
+                 -f /etc/varnish/default.vcl \
+                 -S /etc/varnish/secret \
+                 -s malloc,2G"
+
 ## MySQL Configuration
 
 Remember to increase `max_connections`, `thread_stack` and `max_heap_table_size` in `my.cnf`:
