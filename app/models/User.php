@@ -39,24 +39,26 @@ class User extends fActiveRecord
   
   public static function getVerifiedEmail($username=NULL)
   {
-    if ($username == NULL) $username = fAuthorization::getUserToken();
-    try {
-      $ue = new UserEmail($username);
-      return $ue->getEmail();
-    } catch (fNotFoundException $e) {
+    if ($username == NULL) {
+      $username = fAuthorization::getUserToken();
+    }
+    $email = UserEmail::fetch($username);
+    if ($email === NULL) {
       return '点击此处进行邮件验证';
     }
+    return $email;
   }
   
   public static function hasEmailVerified($username=NULL)
   {
-    if ($username == NULL) $username = fAuthorization::getUserToken();
-    try {
-      $ue = new UserEmail($username);
-      return strlen($ue->getEmail()) > 0;
-    } catch (fNotFoundException $e) {
-      return false;
+    if ($username == NULL) {
+      $username = fAuthorization::getUserToken();
     }
+    $email = UserEmail::fetch($username);
+    if ($email === NULL) {
+      return FALSE;
+    }
+    return strlen($email) > 0;
   }
   
   public static function requireEmailVerified()
