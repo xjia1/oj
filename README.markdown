@@ -60,10 +60,10 @@ Or to automatically start it, edit `/etc/default/varnish`:
     }
     director oj_director round-robin {
         {
-            .backend = default
+            .backend = default;
         }
         {
-            .backend = backup
+            .backend = backup;
         }
     }
     sub vcl_recv {
