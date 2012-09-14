@@ -3,6 +3,11 @@ class RecordController extends ApplicationController
 {
   public function index()
   {
+    if (fAuthorization::checkLoggedIn()) {
+      $this->cache_control('private', '2');
+    } else {
+      $this->cache_control('public', '5');
+    }
     $top = fRequest::get('top', 'integer');
     $this->owner = trim(fRequest::get('owner'));
     $this->problem_id = trim(fRequest::get('problem'));
