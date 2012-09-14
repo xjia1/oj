@@ -31,8 +31,10 @@ $(function(){
     set_cookie(ts_cookie_name(), new_value, 1);
   }
   
+  var minimum_ts = '0000-00-00 00:00:00';
+  
   function page_ts() {
-    var latest = "0000-00-00 00:00:00";
+    var latest = minimum_ts;
     $('.timestamp').each(function(){
       var ts = $(this).text();
       if (ts > latest) {
@@ -45,7 +47,7 @@ $(function(){
   console.log("cookie_ts=" + cookie_ts());
   console.log("page_ts=" + page_ts());
   
-  if (cookie_ts() != page_ts()) {
+  if (cookie_ts() != page_ts() && page_ts() != minimum_ts) {
     update_cookie_ts(page_ts());
     window.alert("有新消息！");
     if (window.do_refresh) {
