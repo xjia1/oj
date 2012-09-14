@@ -9,7 +9,7 @@ class ApplicationController
   protected function cache_control($type, $seconds)
   {
     header_remove('Pragma');
-    header("Cache-Control: {$type},max-age={$seconds}");
+    header("Cache-Control: {$type}, max-age={$seconds}");
     header('Expires: ' . static::to_gmt(time() + $seconds) . ' GMT');
   }
   
