@@ -4,7 +4,7 @@ include(__DIR__ . '/../../layout/header.php');
 ?>
 <div class="row">
   <div class="span3">
-    <img src="<?php echo SITE_BASE; ?>/img/tickman.jpg">
+    <img src="<?php echo ASSET_CSS; ?>/img/tickman.jpg">
   </div>
   <div class="span9">
     <div class="page-header">

@@ -17,6 +17,10 @@ define('JUDGER_SECRET', 'secret');
 
 // Misc.
 define('HOST_URL', 'http://localhost');
-define('SITE_BASE', '/oj');
+define('SITE_BASE', '/OnlineJudge');
 define('TITLE_SUFFIX', ' | Online Judge');
+
+// Assets loading balancing
+define('ASSET_JS', 'http://localhost/OnlineJudge');
+define('ASSET_CSS', 'http://localhost/OnlineJudge');
 

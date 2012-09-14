@@ -10,16 +10,16 @@
   <?php if (isset($meta_author)): ?>
     <meta name="author" content="<?php echo $meta_author; ?>">
   <?php endif; ?>
-  <link href="<?php echo SITE_BASE; ?>/css/bootstrap.min.css" rel="stylesheet">
+  <link href="<?php echo ASSET_CSS; ?>/css/bootstrap.min.css" rel="stylesheet">
   <style> body { padding-top: 60px; } </style>
-  <link href="<?php echo SITE_BASE; ?>/css/bootstrap-responsive.min.css" rel="stylesheet">
-  <link href="<?php echo SITE_BASE; ?>/css/prettify.css" media="screen" rel="stylesheet">
+  <link href="<?php echo ASSET_CSS; ?>/css/bootstrap-responsive.min.css" rel="stylesheet">
+  <link href="<?php echo ASSET_CSS; ?>/css/prettify.css" media="screen" rel="stylesheet">
   <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
   <?php if (isset($stylesheets)): ?>
     <?php foreach ($stylesheets as $stylesheet): ?>
-      <link href="<?php echo SITE_BASE; ?>/css/<?php echo $stylesheet; ?>.css" rel="stylesheet">
+      <link href="<?php echo ASSET_CSS; ?>/css/<?php echo $stylesheet; ?>.css" rel="stylesheet">
     <?php endforeach; ?>
   <?php endif; ?>
 </head>

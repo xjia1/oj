@@ -9,9 +9,9 @@
   <?php profiler_dump(); ?>
 </footer>
 </div> <!-- /container -->
-<script src="<?php echo SITE_BASE; ?>/js/jquery.min.js"></script>
-<script src="<?php echo SITE_BASE; ?>/js/bootstrap.min.js"></script>
-<script src="<?php echo SITE_BASE; ?>/js/prettify.js"></script>
+<script src="<?php echo ASSET_JS; ?>/js/jquery.min.js"></script>
+<script src="<?php echo ASSET_JS; ?>/js/bootstrap.min.js"></script>
+<script src="<?php echo ASSET_JS; ?>/js/prettify.js"></script>
 <?php if (isset($contest_id)): ?>
 <script> window.contest_id = '<?php echo $contest_id; ?>'; </script>
 <?php endif; ?>
@@ -41,7 +41,7 @@
 <?php endif; ?>
 <?php if (isset($javascripts)): ?>
   <?php foreach ($javascripts as $javascript): ?>
-    <script src="<?php echo SITE_BASE; ?>/js/<?php echo $javascript; ?>.js"></script>
+    <script src="<?php echo ASSET_JS; ?>/js/<?php echo $javascript; ?>.js"></script>
   <?php endforeach; ?>
 <?php endif; ?>
 <?php if (isset($this->nav_class)): ?>
