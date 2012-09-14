@@ -20,11 +20,11 @@ class User extends fActiveRecord
     return User::can('view-any-report') and User::can('view-any-record') and User::can('view-any-problem');
   }
   
-  private static $accepted_cache;
+  private static $accepted_cache = NULL;
   
   public static function hasAccepted($problem)
   {
-    if (self::$accepted_cache == null) {
+    if (self::$accepted_cache === NULL) {
       $db = fORMDatabase::retrieve();
       $result = $db->translatedQuery(
         'SELECT DISTINCT problem_id FROM records WHERE owner=%s AND verdict=%i', fAuthorization::getUserToken(), Verdict::AC);
@@ -39,7 +39,7 @@ class User extends fActiveRecord
   
   public static function getVerifiedEmail($username=NULL)
   {
-    if ($username == NULL) {
+    if ($username === NULL) {
       $username = fAuthorization::getUserToken();
     }
     $email = UserEmail::fetch($username);
@@ -51,7 +51,7 @@ class User extends fActiveRecord
   
   public static function hasEmailVerified($username=NULL)
   {
-    if ($username == NULL) {
+    if ($username === NULL) {
       $username = fAuthorization::getUserToken();
     }
     $email = UserEmail::fetch($username);

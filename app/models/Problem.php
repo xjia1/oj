@@ -29,19 +29,19 @@ class Problem extends fActiveRecord
     }
   }
   
-  private static $accept_count_cache;
-  private static $submit_count_cache;
+  private static $accept_count_cache = NULL;
+  private static $submit_count_cache = NULL;
   
   private static function ensureCountCaches()
   {
     $db = fORMDatabase::retrieve();
-    if (self::$accept_count_cache == null) {
+    if (self::$accept_count_cache === NULL) {
       $result = $db->translatedQuery(
         'SELECT problem_id, COUNT(1) AS count FROM records WHERE verdict=%i GROUP BY problem_id', Verdict::AC);
       $result->unescape(array('problem_id' => 'integer', 'count' => 'integer'));
       static::populateCountCache(self::$accept_count_cache, $result);
     }
-    if (self::$submit_count_cache == null) {
+    if (self::$submit_count_cache === NULL) {
       $result = $db->translatedQuery('SELECT problem_id, COUNT(1) AS count FROM records GROUP BY problem_id');
       $result->unescape(array('problem_id' => 'integer', 'count' => 'integer'));
       static::populateCountCache(self::$submit_count_cache, $result);

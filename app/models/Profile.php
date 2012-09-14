@@ -5,11 +5,11 @@ class Profile extends fActiveRecord
   {
   }
   
-  private static $profile_cache;
+  private static $profile_cache = NULL;
   
   public static function fetch($username)
   {
-    if (self::$profile_cache == NULL) {
+    if (self::$profile_cache === NULL) {
       self::$profile_cache = array();
       $profiles = fRecordSet::build('Profile');
       foreach ($profiles as $profile) {
