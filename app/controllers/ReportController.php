@@ -3,6 +3,12 @@ class ReportController extends ApplicationController
 {
   public function index()
   {
+    if (fAuthorization::checkLoggedIn()) {
+      $this->cache_control('private', 10);
+    } else {
+      $this->cache_control('public', 300);
+    }
+    
     $conditions = array();
     if (!User::can('view-any-report')) {
       $conditions['visible='] = TRUE;
@@ -14,6 +20,12 @@ class ReportController extends ApplicationController
   
   public function show($id)
   {
+    if (fAuthorization::checkLoggedIn()) {
+      $this->cache_control('private', Variable::getInteger('status-refresh', 30));
+    } else {
+      $this->cache_control('public', 60);
+    }
+    
     try {
       $this->report = new Report($id);
       if (!$this->report->isReadable()) {

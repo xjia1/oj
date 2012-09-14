@@ -3,6 +3,7 @@ class SubmitController extends ApplicationController
 {
   public function index()
   {
+    $this->cache_control('public', 300);
     $this->current_language = fSession::get('last_language', 0);
     if (fMessaging::check('code', '/submit')) {
       $this->code = fMessaging::retrieve('code', '/submit');

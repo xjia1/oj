@@ -26,6 +26,7 @@ class RecordController extends ApplicationController
   
   public function show($id)
   {
+    $this->cache_control('private', 2);
     try {
       $this->record = new Record($id);
       if (!$this->record->isReadable()) {

@@ -3,6 +3,12 @@ class ProblemController extends ApplicationController
 {
   public function index()
   {
+    if (fAuthorization::checkLoggedIn()) {
+      $this->cache_control('private', 10);
+    } else {
+      $this->cache_control('public', 300);
+    }
+    
     if ($pid = fRequest::get('id', 'integer')) {
       Util::redirect('/problem/' . $pid);
     }
@@ -29,6 +35,12 @@ class ProblemController extends ApplicationController
   
   public function show($id)
   {
+    if (fAuthorization::checkLoggedIn()) {
+      $this->cache_control('public', 60);
+    } else {
+      $this->cache_control('public', 300);
+    }
+    
     try {
       $this->problem = new Problem($id);
       if ($this->problem->isSecretNow()) {
