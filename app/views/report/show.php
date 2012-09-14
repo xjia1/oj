@@ -30,7 +30,7 @@ include(__DIR__ . '/../layout/header.php');
       <?php foreach ($this->report->fetchQuestions() as $question): ?>
         <tr>
           <td><?php echo $question->getCategoryName(); ?></td>
-          <td><?php echo $question->getAskTime(); ?></td>
+          <td class="timestamp"><?php echo $question->getAskTime(); ?></td>
           <td><?php echo fHTML::encode($question->getQuestion()); ?></td>
           <?php if (!strlen($question->getAnswer()) and $this->report->allowAnswer()): ?>
             <td colspan="2">
@@ -40,7 +40,7 @@ include(__DIR__ . '/../layout/header.php');
               </form>
             </td>
           <?php else: ?>
-            <td><?php echo $question->getAnswerTime(); ?></td>
+            <td class="timestamp"><?php echo $question->getAnswerTime(); ?></td>
             <td><?php echo fHTML::prepare($question->getAnswer()); ?></td>
           <?php endif; ?>
         </tr>
@@ -137,6 +137,7 @@ include(__DIR__ . '/../layout/header.php');
 </div>
 <?php endif; ?>
 <?php
+$contest_id = $this->report->getId();
 $meta_refresh = Variable::getInteger('status-refresh', 30);
-$javascripts = array('jquery.tablesorter.min', 'board');
+$javascripts = array('jquery.tablesorter.min', 'board', 'ts-alert');
 include(__DIR__ . '/../layout/footer.php');

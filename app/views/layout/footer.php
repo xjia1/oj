@@ -12,6 +12,9 @@
 <script src="<?php echo SITE_BASE; ?>/js/jquery.min.js"></script>
 <script src="<?php echo SITE_BASE; ?>/js/bootstrap.min.js"></script>
 <script src="<?php echo SITE_BASE; ?>/js/prettify.js"></script>
+<?php if (isset($contest_id)): ?>
+<script> window.contest_id = '<?php echo $contest_id; ?>'; </script>
+<?php endif; ?>
 <?php if (isset($meta_refresh)): ?>
 <script>
 (function(){
