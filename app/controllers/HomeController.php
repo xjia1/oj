@@ -3,6 +3,7 @@ class HomeController extends ApplicationController
 {
   public function index()
   {
+    $this->cache_control('public', 5);
     $this->nav_class = 'home';
     $this->page_title = 'Home';
     $this->page_content = Variable::getString('home-markdown');

@@ -2,7 +2,8 @@
 $app = new Slim();
 
 $app->get('/', function () {
-  Util::redirect('/home');
+  $controller = new HomeController();
+  $controller->index();
 });
 
 $app->get('/email/verify', function () {
