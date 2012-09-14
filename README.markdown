@@ -10,6 +10,13 @@ See [https://github.com/stfairy/mail](https://github.com/stfairy/mail).
     $ sudo a2enmod headers
     $ sudo a2enmod expires
 
+## PHP Configuration
+
+`php.ini`:
+
+    zlib.output_compression = On
+    zlib.output_compression_level = 9
+
 ## MySQL Configuration
 
 Remember to increase `max_connections`, `thread_stack` and `max_heap_table_size` in `my.cnf`:
@@ -22,7 +29,9 @@ Also change default character set to UTF-8:
 
     default-character-set = utf8
 
-NOTE: OJ has already been migrated from MySQL to PostgreSQL.
+## PostgreSQL Configuration
+
+OJ has already been migrated from MySQL to PostgreSQL.
 
     sudo apt-get install ruby rubygems libmysqlclient-dev libpq-dev
     sudo gem install mysql pg mysql2psql
@@ -30,6 +39,12 @@ NOTE: OJ has already been migrated from MySQL to PostgreSQL.
     mysql2psql          # creates a .yml templae
     vim mysql2psql.yml  # edit the template
     mysql2psql          # connects to mysql database and write into postgres database
+
+`postgresql.conf`:
+
+    ssl = false
+    shared_buffers = 1024M
+    effective_cache_size = 2048M
 
 ## APC Configuration
 
