@@ -20,7 +20,9 @@ define('HOST_URL', 'http://localhost');
 define('SITE_BASE', '/OnlineJudge');
 define('TITLE_SUFFIX', ' | Online Judge');
 
-// Assets loading balancing
+// Assets load balancing
 define('ASSET_JS', 'http://localhost/OnlineJudge');
 define('ASSET_CSS', 'http://localhost/OnlineJudge');
 
+// Load balancing identifier
+define('INSTANCE_NAME', 'halu');

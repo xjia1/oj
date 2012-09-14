@@ -137,11 +137,9 @@ In case there are errors like this, copy corresponding files from `/Developer/SD
 
 APC configuration in `php.ini`:
 
-    apc.rfc1867=1
-    apc.include_once_override=1
     apc.stat=1
-    apc.max_file_size=5M
     apc.shm_size=256M
+    apc.max_file_size=10M
     apc.num_files_hint=10000
     apc.user_entries_hint=10000
 
@@ -178,9 +176,10 @@ Just go ahead and start the `memcached` daemon:
     -d tells it to start as a daemon
     (instead of -l and -p you can also use -s to use an unix domain socket)
 
-In production, should edit `/etc/memcached.conf`:
+In production, should edit `/etc/memcached.conf`: (`-l` is needed for PHP load balancing)
 
     -m 1024
+    -l 172.16.6.105
 
 ## APD Configuration
 
