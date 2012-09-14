@@ -40,7 +40,7 @@ Or to automatically start it, edit `/etc/default/varnish`:
         .host = "127.0.0.1";
         .port = "8088";
         .probe = {
-            .url = "/";
+            .url = "/OnlineJudge/";
             .interval = 5s;
             .timeout = 2s;
             .window = 5;
@@ -51,7 +51,7 @@ Or to automatically start it, edit `/etc/default/varnish`:
         .host = "172.16.6.106";
         .port = "8088";
         .probe = {
-            .url = "/";
+            .url = "/OnlineJudge/";
             .interval = 5s;
             .timeout = 2s;
             .window = 5;
@@ -176,10 +176,10 @@ Just go ahead and start the `memcached` daemon:
     -d tells it to start as a daemon
     (instead of -l and -p you can also use -s to use an unix domain socket)
 
-In production, should edit `/etc/memcached.conf`: (`-l` is needed for PHP load balancing)
+In production, should edit `/etc/memcached.conf`: (`-l` for PHP load balancing)
 
     -m 1024
-    -l 172.16.6.105
+    -l 172.16.6.107
 
 ## APD Configuration
 
