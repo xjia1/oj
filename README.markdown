@@ -34,6 +34,47 @@ Or to automatically start it, edit `/etc/default/varnish`:
                  -S /etc/varnish/secret \
                  -s malloc,2G"
 
+`/etc/varnish/default.vcl`: (see details here: https://www.varnish-cache.org/trac/wiki/LoadBalancing)
+
+    backend default {
+        .host = "127.0.0.1";
+        .port = "8088";
+        .probe = {
+            .url = "/";
+            .interval = 5s;
+            .timeout = 2s;
+            .window = 5;
+            .threshold = 3;
+        }
+    }
+    backend backup {
+        .host = "172.16.6.106";
+        .port = "8088";
+        .probe = {
+            .url = "/";
+            .interval = 5s;
+            .timeout = 2s;
+            .window = 5;
+            .threshold = 3;
+        }
+    }
+    director oj_director round-robin {
+        {
+            .backend = default
+        }
+        {
+            .backend = backup
+        }
+    }
+    sub vcl_recv {
+        if (req.url ~ "^/OnlineJudge/") {
+            set req.backend = oj_director;
+        }
+        else {
+            set req.backend = default;
+        }
+    }
+
 ## MySQL Configuration
 
 Remember to increase `max_connections`, `thread_stack` and `max_heap_table_size` in `my.cnf`:
