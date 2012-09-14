@@ -55,6 +55,13 @@ OJ has already been migrated from MySQL to PostgreSQL.
     shared_buffers = 1024M
     effective_cache_size = 2048M
 
+`/etc/sysctl.d/30-postgresql-shm.conf`:
+
+    # Maximum size of shared memory segment in bytes
+    kernel.shmmax = 2047483648
+    # Maximum total size of shared memory in pages (normally 4096 bytes)
+    kernel.shmall = 2097152
+
 ## APC Configuration
 
 On Ubuntu:
@@ -121,6 +128,10 @@ Just go ahead and start the `memcached` daemon:
     -l 127.0.0.1 -p 11211 is the ip and port to listen on
     -d tells it to start as a daemon
     (instead of -l and -p you can also use -s to use an unix domain socket)
+
+In production, should edit `/etc/memcached.conf`:
+
+    -m 1024
 
 ## APD Configuration
 
