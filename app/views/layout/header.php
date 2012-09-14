@@ -58,7 +58,7 @@
       <?php endif; ?>
       <div class="nav-collapse">
         <ul class="nav">
-          <li class="nav-home"><a href="<?php echo SITE_BASE; ?>/home">首页</a></li>
+          <li class="nav-home"><a href="<?php echo SITE_BASE; ?>/">首页</a></li>
           <!--<li class="nav-sets"><a href="<?php echo SITE_BASE; ?>/sets">Problem Sets</a></li>-->
           <li class="nav-problems"><a href="<?php echo SITE_BASE; ?>/problems">题库</a></li>
           <li class="nav-reports"><a href="<?php echo SITE_BASE; ?>/contests">比赛</a></li>
