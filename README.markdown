@@ -17,6 +17,15 @@ See [https://github.com/stfairy/mail](https://github.com/stfairy/mail).
     zlib.output_compression = On
     zlib.output_compression_level = 9
 
+## Varnish Configuration
+
+NOTE: I don't have enough time to document this. Just remember to install and start it:
+
+    $ sudo apt-get install varnish
+    $ sudo vim /etc/varnish/default.vcl
+    $ sudo pkill varnishd
+    $ sudo varnishd -f /etc/varnish/default.vcl -s malloc,1G -T 127.0.0.1:2000
+
 ## MySQL Configuration
 
 Remember to increase `max_connections`, `thread_stack` and `max_heap_table_size` in `my.cnf`:
