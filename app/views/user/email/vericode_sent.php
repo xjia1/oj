@@ -1,5 +1,5 @@
 <?php
-$title = 'Email Verification';
+$title = 'Email 验证';
 include(__DIR__ . '/../../layout/header.php');
 ?>
 <div class="row">
@@ -8,11 +8,11 @@ include(__DIR__ . '/../../layout/header.php');
   </div>
   <div class="span9">
     <div class="page-header">
-      <h1>Verification email is sent successfully</h1>
+      <h1>验证邮件发送成功</h1>
     </div>
-    <h3>Please check your inbox for our verification email.</h3>
-    <h3>If you cannot find it, examine your spam emails.</h3>
-    <h3>Thanks! :-)</h3>
+    <h3>请检查您的收件箱，以收取我们发送给您的验证邮件。</h3>
+    <h3>如果您在收件箱中找不到验证邮件，它可能被错误分类到了垃圾邮件中。</h3>
+    <h3>谢谢您的配合！ :-)</h3>
   </div>
 </div>
 <?php
