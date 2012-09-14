@@ -6,7 +6,7 @@ class UserController extends ApplicationController
    */
   public function ranklist()
   {
-    $this->cache_control('public', 300);
+    $this->cache_control('private', 300);
     $this->page = fRequest::get('page', 'integer', 1);
     if ($this->page <= 0) $this->page = 1;
     
@@ -128,7 +128,7 @@ class UserController extends ApplicationController
   
   public function changePassword()
   {
-    $this->cache_control('public', 300);
+    $this->cache_control('private', 300);
     $this->render('user/change_password');
   }
   
@@ -165,7 +165,7 @@ class UserController extends ApplicationController
   
   public function emailVerify()
   {
-    $this->cache_control('public', 300);
+    $this->cache_control('private', 300);
     fMessaging::create('referer', '/email/verify', Util::getReferer());
     $this->render('user/email/verify');
   }
@@ -208,7 +208,7 @@ class UserController extends ApplicationController
   
   public function vericodeSent()
   {
-    $this->cache_control('public', 300);
+    $this->cache_control('private', 300);
     $this->render('user/email/vericode_sent');
   }
   
