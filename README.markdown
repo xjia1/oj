@@ -332,6 +332,8 @@ Finally try `./scripts/pprofp` to see whether the configuration works.
     # git clone git@giti.me:ojcreator/oj.git
     # reboot
 
+NOTE: May need to increase memory limit in `java.py` in case of CE or RE. If the judger has 2G RAM, just set the memory limit to 2G (i.e. `2048 * 1024 * 1024`).
+
 ## License
 
     Copyright 2012 Xiao Jia
