@@ -28,7 +28,7 @@ include(__DIR__ . '/../layout/header.php');
 <div id="problems">
   <h2>题目</h2>
   <?php foreach ($this->report->getProblems() as $problem_id): ?>
-    <a class="btn" href="<?php echo SITE_BASE; ?>/problem/<?php echo $problem_id; ?>"><?php echo $problem_id; ?></a>
+    <a class="btn" target="_blank" href="<?php echo SITE_BASE; ?>/problem/<?php echo $problem_id; ?>"><?php echo $problem_id; ?></a>
   <?php endforeach; ?>
 </div>
 <hr>
