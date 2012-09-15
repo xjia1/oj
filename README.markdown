@@ -43,6 +43,9 @@ See [https://github.com/stfairy/mail](https://github.com/stfairy/mail).
 
     zlib.output_compression = On
     zlib.output_compression_level = 9
+    [Session]
+    session.save_handler = memcache
+    session.save_path = "tcp://172.16.6.107:11211"
 
 ## Varnish Configuration
 
