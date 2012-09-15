@@ -89,6 +89,12 @@ Or to automatically start it, edit `/etc/default/varnish`:
             set req.backend = default;
         }
     }
+    sub vcl_hash {
+        # enable per-user caches
+        if (req.http.Cookie) {
+            hash_data(req.http.Cookie);
+        }
+    }
 
 ## MySQL Configuration
 
