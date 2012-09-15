@@ -278,7 +278,7 @@ Finally try `./scripts/pprofp` to see whether the configuration works.
 
 ## Rejudger Configuration
 
-    $ sudo apt-get install build-essential tcl-dev git
+    $ sudo apt-get install build-essential tcl-dev git python-pycurl
     
     $ cd
     $ scp -r xjia@172.16.9.36:big_dog_guard/ .
@@ -289,6 +289,7 @@ Finally try `./scripts/pprofp` to see whether the configuration works.
     
     $ cd
     $ scp -r xjia@172.16.9.36:rejudger/ .
+    $ sudo mkdir -p /var/cache/rejudger
     $ sudo mkdir -p /etc/rejudger/
     $ sudo touch /etc/rejudger/java.policy
     
