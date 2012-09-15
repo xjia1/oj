@@ -4,9 +4,9 @@ class ReportController extends ApplicationController
   public function index()
   {
     if (fAuthorization::checkLoggedIn()) {
-      $this->cache_control('private', 10);
+      $this->cache_control('private', 5);
     } else {
-      $this->cache_control('private', 60);
+      $this->cache_control('private', 10);
     }
     
     $conditions = array();

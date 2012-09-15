@@ -8,9 +8,9 @@ class ApplicationController
   
   protected function cache_control($type, $seconds)
   {
-    // header_remove('Pragma');
-    // header("Cache-Control: {$type}, max-age={$seconds}");
-    // header('Expires: ' . static::to_gmt(time() + $seconds) . ' GMT');
+    header_remove('Pragma');
+    header("Cache-Control: {$type}, max-age={$seconds}");
+    header('Expires: ' . static::to_gmt(time() + $seconds) . ' GMT');
   }
   
   protected function render($name)
@@ -18,9 +18,9 @@ class ApplicationController
     // before output page
     // if the visitor is anonymous
     // do NOT send Set-Cookie to enable caching of Varnish
-    // if (!fAuthorization::checkLoggedIn()) {
-    //   header_remove('Set-Cookie');
-    // }
+    if (!fAuthorization::checkLoggedIn()) {
+      header_remove('Set-Cookie');
+    }
     // then output page
     include(__DIR__ . '/../views/' . $name . '.php');
   }
