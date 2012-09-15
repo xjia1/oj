@@ -297,7 +297,7 @@ Finally try `./scripts/pprofp` to see whether the configuration works.
 
 ## Rejudger Configuration
 
-    $ sudo apt-get install build-essential tcl-dev git python-pycurl
+    $ sudo apt-get install build-essential tcl-dev git python-pycurl openjdk-6-jdk
     
     $ cd
     $ scp -r xjia@172.16.9.36:big_dog_guard/ .
@@ -322,6 +322,9 @@ Finally try `./scripts/pprofp` to see whether the configuration works.
     exit 0
     
     $ sudo -i
+    # cat > /etc/ld.so.conf.d/java.conf
+    /usr/lib/jvm/java-6-openjdk-amd64/jre/lib/amd64/jli/libjli.so
+    # /usr/sbin/ldconfig
     # ssh-keygen
     (* add root@ACMGrader-n public key to xjia@giti.me *)
     # mkdir -p /data
