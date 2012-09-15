@@ -276,6 +276,39 @@ Finally try `./scripts/pprofp` to see whether the configuration works.
         -t          Display compressed call tree.
         -T          Display uncompressed call tree.
 
+## Rejudger Configuration
+
+    $ sudo apt-get install build-essential tcl-dev git
+    
+    $ cd
+    $ scp -r xjia@172.16.9.36:big_dog_guard/ .
+    $ cd big_dog_guard/
+    $ make
+    $ sudo mkdir -p /root/big_dog_guard/
+    $ sudo make install
+    
+    $ cd
+    $ scp -r xjia@172.16.9.36:rejudger/ .
+    $ sudo mkdir -p /etc/rejudger/
+    $ sudo touch /etc/rejudger/java.policy
+    
+    $ sudo touch /var/log/rejudger.log
+    $ sudo chmod +rw /var/log/rejudger.log
+    
+    $ sudo vim /etc/rc.local
+    #!/bin/sh -e
+    # ...
+    /home/xjia/rejudger/rdaemon &
+    exit 0
+    
+    $ sudo -i
+    # ssh-keygen
+    (* add root@ACMGrader-n public key to xjia@giti.me *)
+    # mkdir -p /data
+    # cd /data
+    # git clone git@giti.me:ojcreator/oj.git
+    # reboot
+
 ## License
 
     Copyright 2012 Xiao Jia
