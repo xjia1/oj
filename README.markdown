@@ -323,8 +323,8 @@ Finally try `./scripts/pprofp` to see whether the configuration works.
     
     $ sudo -i
     # cat > /etc/ld.so.conf.d/java.conf
-    /usr/lib/jvm/java-6-openjdk-amd64/jre/lib/amd64/jli/libjli.so
-    # /usr/sbin/ldconfig
+    /usr/lib/jvm/java-6-openjdk-amd64/jre/lib/amd64/jli
+    # ldconfig
     # ssh-keygen
     (* add root@ACMGrader-n public key to xjia@giti.me *)
     # mkdir -p /data
