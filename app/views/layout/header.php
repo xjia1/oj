@@ -48,6 +48,9 @@
             <li><a href="<?php echo SITE_BASE; ?>/logout">登出</a></li>
           </ul>
         </div>
+        <div class="navbar-text pull-right">
+          <time>服务器时间：<?php echo new fTimestamp(); ?></time>
+        </div>
       <?php else: ?>
         <form action="<?php echo SITE_BASE; ?>/login" method="POST" class="form-inline pull-right" style="margin: 0">
           <input type="text" class="input-small" placeholder="用户名" name="username" maxlength="80">
