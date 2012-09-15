@@ -66,7 +66,7 @@
             <li class="nav-submit"><a href="<?php echo SITE_BASE; ?>/submit">提交</a></li>
           <?php endif; ?>
           <li class="nav-status"><a href="<?php echo SITE_BASE; ?>/status">评测状态</a></li>
-          <li class="nav-ranklist"><a href="<?php echo SITE_BASE; ?>/ranklist">排名</a></li>
+          <!--<li class="nav-ranklist"><a href="<?php echo SITE_BASE; ?>/ranklist">排名</a></li>-->
           <?php if (fAuthorization::checkLoggedIn()): ?>
             <?php if (User::can('manage-site')): ?>
               <li class="nav-dashboard dropdown">

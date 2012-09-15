@@ -104,10 +104,10 @@ $app->get('/status', function () {
   $controller->index();
 });
 
-$app->get('/ranklist', function () {
-  $controller = new UserController();
-  $controller->ranklist();
-});
+// $app->get('/ranklist', function () {
+//   $controller = new UserController();
+//   $controller->ranklist();
+// });
 
 $app->get('/contests', function () {
   User::requireEmailVerified();
