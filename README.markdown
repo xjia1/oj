@@ -35,6 +35,25 @@ See [https://github.com/stfairy/mail](https://github.com/stfairy/mail).
         MaxRequestsPerChild    0
     </IfModule>
 
+## Nginx Configuration (for static assets)
+
+    server {
+      listen 80;
+      server_name js.giti.me;
+      root /var/www/js.giti.me/;
+
+      location ~* \.(?:ico|css|js|jpg|jpeg|gif|png|swf|htm|html)$ {
+        expires max;
+        add_header Pragma public;
+        add_header Cache-Control "public, must-revalidate, proxy-revalidate";
+        access_log off;
+        log_not_found off;
+      }
+      location = /robots.txt  { access_log off; log_not_found off; }
+      location = /favicon.ico { access_log off; log_not_found off; }
+      location ~ /\.          { access_log off; log_not_found off; deny all; }
+    }
+
 ## PHP Configuration
 
     $ sudo apt-get install libapache2-mod-php5 php5-mysql php5-pgsql php5-curl php5-gd php5-mcrypt
