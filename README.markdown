@@ -9,8 +9,23 @@ See [https://github.com/stfairy/mail](https://github.com/stfairy/mail).
     $ sudo a2enmod rewrite
     $ sudo a2enmod headers
     $ sudo a2enmod expires
+    $ sudo apt-get install libapache2-mod-rpaf
+
+`/etc/apache2/sites-available/default`:
+
+    <VirtualHost *:*>
+      ####
+        <IfModule mod_rpaf.c>
+          RPAFenable On
+          RPAFsethostname On
+          RPAFproxy_ips 172.16.15.254 172.16.6.105 127.0.0.1
+        </IfModule>
+      ####
+    </VirtualHost>
 
 ## PHP Configuration
+
+    $ sudo apt-get install libapache2-mod-php5 php5-mysql php5-pgsql php5-curl php5-gd php5-mcrypt
 
 `php.ini`:
 
