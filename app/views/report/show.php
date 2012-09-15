@@ -15,7 +15,14 @@ include(__DIR__ . '/../layout/header.php');
     <?php include(__DIR__ . '/_register_btn.php'); ?>
   </h1>
 </div>
+<div id="problems">
+  <h2>题目</h2>
+  <?php foreach ($this->report->getProblems() as $problem_id): ?>
+    <a href="<?php echo SITE_BASE; ?>/problem/<?php echo $problem_id; ?>"><?php echo $problem_id; ?></a>
+  <?php endforeach; ?>
+</div>
 <div id="clarification">
+  <h2>Q &amp; A</h2>
   <table id="questions" class="table table-striped">
     <thead>
       <tr>
@@ -96,6 +103,7 @@ include(__DIR__ . '/../layout/header.php');
   </div><!-- /#question_modal -->
 </div><!-- /#clarification -->
 <?php if ($this->report->isStarted() and count($this->report->getUsernames())): ?>
+<!--
 <div class="row">
   <div class="progress progress-striped active span10">
     <div class="bar" style="width: <?php echo $this->report->getElapsedRatio(); ?>%;"></div>
@@ -105,6 +113,8 @@ include(__DIR__ . '/../layout/header.php');
     时间：已经过 <?php echo $this->report->getElapsedRatio(); ?>%
   </div>
 </div>
+-->
+<h2>排名</h2>
 <table id="userscores" class="tablesorter table table-bordered table-striped">
   <thead>
     <tr>

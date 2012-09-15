@@ -32,7 +32,7 @@ class ReportController extends ApplicationController
       
       $this->board = $cache->get($this->report->getBoardCacheKey());
       
-      if ($this->board == NULL) {
+      if ($this->board === NULL) {
         $p  = $this->report->getProblems();
         $un = $this->report->getUsernames();
         $up = $this->report->getUserPairs();
