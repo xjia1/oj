@@ -18,9 +18,8 @@
 <?php if (isset($meta_refresh)): ?>
 <script>
 (function(){
-  var this_url = unescape(window.location.pathname);
   window.do_refresh = function() {
-    window.location.href = this_url;
+    window.location.reload(true);
   }
   var timer;
   function enable_refresh() {
