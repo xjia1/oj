@@ -13,12 +13,17 @@ class PollingController extends ApplicationController
   public function fetchRecord()
   {
     try {
+      $lock = Lock::acquire('getPendingRecord');
+      
       if (($r = $this->getPendingRecord()) == NULL) {
         throw new fExpectedException('No pending record.');
       }
 		  $p = $r->getProblem();
 		  $r->setJudgeStatus(JudgeStatus::WAITING);
 		  $r->store();
+		  
+		  Lock::release($lock);
+		  
 		  echo json_encode(array(
 		    'id'            =>  $r->getId(),
 		    'problem_id'    =>  $p->getId(),
