@@ -3,11 +3,7 @@ class ProblemController extends ApplicationController
 {
   public function index()
   {
-    if (fAuthorization::checkLoggedIn()) {
-      $this->cache_control('private', 10);
-    } else {
-      $this->cache_control('private', 300);
-    }
+    $this->cache_control('private', 5);
     
     if ($pid = fRequest::get('id', 'integer')) {
       Util::redirect('/problem/' . $pid);
@@ -36,9 +32,9 @@ class ProblemController extends ApplicationController
   public function show($id)
   {
     if (fAuthorization::checkLoggedIn()) {
-      $this->cache_control('private', 60);
+      $this->cache_control('private', 30);
     } else {
-      $this->cache_control('private', 300);
+      $this->cache_control('private', 60);
     }
     
     try {

@@ -6,7 +6,7 @@ class ReportController extends ApplicationController
     if (fAuthorization::checkLoggedIn()) {
       $this->cache_control('private', 10);
     } else {
-      $this->cache_control('private', 300);
+      $this->cache_control('private', 60);
     }
     
     $conditions = array();
@@ -20,11 +20,7 @@ class ReportController extends ApplicationController
   
   public function show($id)
   {
-    if (fAuthorization::checkLoggedIn()) {
-      $this->cache_control('private', Variable::getInteger('status-refresh', 30));
-    } else {
-      $this->cache_control('private', Variable::getInteger('status-refresh', 30) * 2);
-    }
+    $this->cache_control('private', Variable::getInteger('status-refresh', 30));
     
     try {
       $this->report = new Report($id);
