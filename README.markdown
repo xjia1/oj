@@ -73,17 +73,25 @@ Or to automatically start it, edit `/etc/default/varnish`:
             .threshold = 3;
         }
     }
-    director oj_director round-robin {
+    director oj_director client {
         {
             .backend = default;
+            .weight = 1;
         }
         {
             .backend = backup;
+            .weight = 1;
         }
     }
     sub vcl_recv {
         if (req.url ~ "^/OnlineJudge/") {
             set req.backend = oj_director;
+            if (req.http.Cookie) {
+                set client.identity = req.http.Cookie;
+            }
+            else {
+                set client.identity = "" + client.ip + req.http.user-agent;
+            }
         }
         else {
             set req.backend = default;
@@ -93,6 +101,9 @@ Or to automatically start it, edit `/etc/default/varnish`:
         # enable per-user caches
         if (req.http.Cookie) {
             hash_data(req.http.Cookie);
+        }
+        else {
+            hash_data(req.http.user-agent);
         }
     }
 
