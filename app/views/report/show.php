@@ -15,10 +15,19 @@ include(__DIR__ . '/../layout/header.php');
     <?php include(__DIR__ . '/_register_btn.php'); ?>
   </h1>
 </div>
+<div class="row">
+  <div class="progress progress-striped active span10">
+    <div class="bar" style="width: <?php echo $this->report->getElapsedRatio(); ?>%;"></div>
+  </div>
+  <div class="span2">
+    <i class="icon-time"></i>
+    时间：已经过 <?php echo $this->report->getElapsedRatio(); ?>%
+  </div>
+</div>
 <div id="problems">
   <h2>题目</h2>
   <?php foreach ($this->report->getProblems() as $problem_id): ?>
-    <a href="<?php echo SITE_BASE; ?>/problem/<?php echo $problem_id; ?>"><?php echo $problem_id; ?></a>
+    <a class="btn" href="<?php echo SITE_BASE; ?>/problem/<?php echo $problem_id; ?>"><?php echo $problem_id; ?></a>
   <?php endforeach; ?>
 </div>
 <div id="clarification">
@@ -103,17 +112,6 @@ include(__DIR__ . '/../layout/header.php');
   </div><!-- /#question_modal -->
 </div><!-- /#clarification -->
 <?php if ($this->report->isStarted() and count($this->report->getUsernames())): ?>
-<!--
-<div class="row">
-  <div class="progress progress-striped active span10">
-    <div class="bar" style="width: <?php echo $this->report->getElapsedRatio(); ?>%;"></div>
-  </div>
-  <div class="span2">
-    <i class="icon-time"></i>
-    时间：已经过 <?php echo $this->report->getElapsedRatio(); ?>%
-  </div>
-</div>
--->
 <h2>排名</h2>
 <table id="userscores" class="tablesorter table table-bordered table-striped">
   <thead>
