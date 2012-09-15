@@ -19,7 +19,7 @@
 <script>
 (function(){
   window.do_refresh = function() {
-    window.location.reload(true);
+    window.location.reload(false);
   }
   var timer;
   function enable_refresh() {
