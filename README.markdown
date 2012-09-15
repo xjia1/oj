@@ -23,6 +23,18 @@ See [https://github.com/stfairy/mail](https://github.com/stfairy/mail).
       ####
     </VirtualHost>
 
+`/etc/apache2/apache2.conf`:
+
+    KeepAliveTimeout 2
+    ServerLimit 5000
+    <IfModule mpm_prefork_module>
+        StartServers           5
+        MinSpareServers        5
+        MaxSpareServers       10
+        MaxClients           500
+        MaxRequestsPerChild    0
+    </IfModule>
+
 ## PHP Configuration
 
     $ sudo apt-get install libapache2-mod-php5 php5-mysql php5-pgsql php5-curl php5-gd php5-mcrypt
@@ -57,7 +69,7 @@ Or to automatically start it, edit `/etc/default/varnish`:
         .probe = {
             .url = "/OnlineJudge/";
             .interval = 5s;
-            .timeout = 2s;
+            .timeout = 3s;
             .window = 5;
             .threshold = 3;
         }
@@ -68,30 +80,22 @@ Or to automatically start it, edit `/etc/default/varnish`:
         .probe = {
             .url = "/OnlineJudge/";
             .interval = 5s;
-            .timeout = 2s;
+            .timeout = 3s;
             .window = 5;
             .threshold = 3;
         }
     }
-    director oj_director client {
+    director oj_director round-robin {
         {
             .backend = default;
-            .weight = 1;
         }
         {
             .backend = backup;
-            .weight = 1;
         }
     }
     sub vcl_recv {
         if (req.url ~ "^/OnlineJudge/") {
             set req.backend = oj_director;
-            if (req.http.Cookie) {
-                set client.identity = req.http.Cookie;
-            }
-            else {
-                set client.identity = "" + client.ip + req.http.user-agent;
-            }
         }
         else {
             set req.backend = default;
@@ -101,9 +105,6 @@ Or to automatically start it, edit `/etc/default/varnish`:
         # enable per-user caches
         if (req.http.Cookie) {
             hash_data(req.http.Cookie);
-        }
-        else {
-            hash_data(req.http.user-agent);
         }
     }
 
