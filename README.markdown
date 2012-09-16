@@ -58,10 +58,10 @@ See [https://github.com/stfairy/mail](https://github.com/stfairy/mail).
 
     $ sudo apt-get install libapache2-mod-php5 php5-mysql php5-pgsql php5-curl php5-gd php5-mcrypt
 
-`php.ini`:
+`php.ini`: (Turn off zlib compression to make it faster! We have Varnish now!)
 
-    zlib.output_compression = On
-    zlib.output_compression_level = 9
+    zlib.output_compression = Off
+    zlib.output_compression_level = -1
     [Session]
     session.save_handler = memcache
     session.save_path = "tcp://172.16.6.107:11211"
