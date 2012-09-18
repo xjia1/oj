@@ -226,7 +226,7 @@ class UserController extends ApplicationController
       $ue->store();
       
       fMessaging::create('success', 'Your email address is verified successfully.');
-      $referer = fMessaging::retrieve('referer', '/email/verify');
+      $referer = fMessaging::retrieve('referer', SITE_BASE . '/email/verify');
       if ($referer == NULL) $referer = SITE_BASE;
       fURL::redirect($referer);
     } catch (fException $e) {
