@@ -74,7 +74,7 @@ class UserController extends ApplicationController
           $user->store();
           fAuthorization::setUserToken($user->getUsername());
           fMessaging::create('success', 'Registered successfully.');
-          fURL::redirect('/email/verify');
+          Util::redirect('/email/verify');
         }
       }
     } catch (fException $e) {
