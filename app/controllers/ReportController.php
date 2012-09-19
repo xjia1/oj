@@ -30,9 +30,9 @@ class ReportController extends ApplicationController
       
       global $cache;
       
-//      $this->board = $cache->get($this->report->getBoardCacheKey());
+      $this->board = $cache->get($this->report->getBoardCacheKey());
       
-//      if ($this->board === NULL) {
+      if ($this->board === NULL) {
         $p  = $this->report->getProblems();
         $un = $this->report->getUsernames();
         $up = $this->report->getUserPairs();
@@ -44,9 +44,9 @@ class ReportController extends ApplicationController
         $et = $this->report->getEndDatetime();
         
         $this->board = new BoardTable(ReportGenerator::headers($p), $up, ReportGenerator::scores($p, $un, $st, $et));
-        
-//        $cache->set($this->report->getBoardCacheKey(), $this->board, Variable::getInteger('status-refresh', 30));
-//      }
+       
+        $cache->set($this->report->getBoardCacheKey(), $this->board, 10);
+      }
       
       $this->nav_class = 'reports';
       $this->render('report/show');
