@@ -86,7 +86,7 @@ class Util
     }
     $headers[] = "Subject: {$subject}";
     $headers[] = "X-Mailer: PHP/" . phpversion();
-    return mail($to, $subject, $message, implode("\r\n", $headers));
+    return mail($to, $subject, $message, implode("\r\n", $headers), "-f {$from_user}");
   }
   
   public static function sendHtmlMail($from_user, $from_email, $to, $subject, $message, $reply_user='', $reply_email='')
@@ -110,6 +110,6 @@ class Util
     }
     $headers[] = "Subject: {$subject}";
     $headers[] = "X-Mailer: PHP/" . phpversion();
-    return mail($to, $subject, $html, implode("\r\n", $headers));
+    return mail($to, $subject, $html, implode("\r\n", $headers), "-f {$from_user}");
   }
 }
