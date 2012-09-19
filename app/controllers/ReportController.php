@@ -45,7 +45,7 @@ class ReportController extends ApplicationController
         
         $this->board = new BoardTable(ReportGenerator::headers($p), $up, ReportGenerator::scores($p, $un, $st, $et));
         
-        $cache->set($this->report->getBoardCacheKey(), $this->board);
+        $cache->set($this->report->getBoardCacheKey(), $this->board, Variable::getInteger('status-refresh', 30));
       }
       
       $this->nav_class = 'reports';
