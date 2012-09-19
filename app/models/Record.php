@@ -8,7 +8,7 @@ class Record extends fActiveRecord
   
   public static function invalidateCache($object, &$values, &$old_values, &$related_records, &$cache)
   {
-    BoardCacheInvalidator::invalidate($values['owner'], $values['problem_id'], $values['submit_datetime']);
+//    BoardCacheInvalidator::invalidate($values['owner'], $values['problem_id'], $values['submit_datetime']);
     
     if (array_key_exists('id', $values)) {
       static::invalidateScoreCache($values['id']);
