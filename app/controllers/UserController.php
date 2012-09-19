@@ -197,7 +197,7 @@ class UserController extends ApplicationController
 
         Please verify that you own this email address ({$email}) by clicking this link:
         
-        <a href=\"{$verilink}\" target=\"_blank\">{$verilink}</a>
+        {$verilink}
 
         ---
 
