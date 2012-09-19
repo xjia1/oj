@@ -30,23 +30,23 @@ class ReportController extends ApplicationController
       
       global $cache;
       
-      $this->board = $cache->get($this->report->getBoardCacheKey());
+//      $this->board = $cache->get($this->report->getBoardCacheKey());
       
-      if ($this->board === NULL) {
+//      if ($this->board === NULL) {
         $p  = $this->report->getProblems();
         $un = $this->report->getUsernames();
         $up = $this->report->getUserPairs();
         
         $un[] = '';
-        $up[] = array('id' => '', 'name' => 'Average');
+        $up[] = array('id' => '', 'name' => '平均');
         
         $st = $this->report->getStartDatetime();
         $et = $this->report->getEndDatetime();
         
         $this->board = new BoardTable(ReportGenerator::headers($p), $up, ReportGenerator::scores($p, $un, $st, $et));
         
-        $cache->set($this->report->getBoardCacheKey(), $this->board, Variable::getInteger('status-refresh', 30));
-      }
+//        $cache->set($this->report->getBoardCacheKey(), $this->board, Variable::getInteger('status-refresh', 30));
+//      }
       
       $this->nav_class = 'reports';
       $this->render('report/show');
