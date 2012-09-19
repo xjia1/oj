@@ -189,14 +189,21 @@ class UserController extends ApplicationController
       $id = $v->getId();
       $verilink = HOST_URL . SITE_BASE . "/email/vericode/{$id}/{$vericode}";
       
-      Util::sendHtmlMail(
+      Util::sendTextMail(
         'SJTU Online Judge', 'noreply@acm.sjtu.edu.cn',
         $email,
-        'Email Verification (电子邮件验证)',
-        "<p>Hi {$username},</p>
-<p>Please verify that you own this email address ({$email}) by clicking this link:</p>
-<p><a href=\"{$verilink}\" target=\"_blank\">{$verilink}</a></p>
-<p>Regards,<br>SJTU Online Judge</p>",
+        'Email Verification',
+        "Hi {$username},
+
+        Please verify that you own this email address ({$email}) by clicking this link:
+        
+        <a href=\"{$verilink}\" target=\"_blank\">{$verilink}</a>
+
+        ---
+
+        Regards,
+
+        SJTU Online Judge",
         $username, $email
       );
       Util::redirect('/email/verify/sent');
