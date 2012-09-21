@@ -150,5 +150,9 @@ include(__DIR__ . '/../layout/header.php');
 <?php
 $contest_id = $this->report->getId();
 $meta_refresh = Variable::getInteger('status-refresh', 30);
-$javascripts = array('jquery.tablesorter.min', 'board', 'ts-alert');
+if (fAuthorization::checkLoggedIn()) {
+  $javascripts = array('jquery.tablesorter.min', 'board', 'ts-alert');
+} else {
+  $javascripts = array('jquery.tablesorter.min', 'board');
+}
 include(__DIR__ . '/../layout/footer.php');
