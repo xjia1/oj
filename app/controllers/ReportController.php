@@ -139,7 +139,7 @@ class ReportController extends ApplicationController
     Util::redirect("/contest/{$report_id}");
   }
   
-  public function toggleQuestionVisiblity($id)
+  public function toggleQuestionVisibility($id)
   {
     try {
       $question = new Question($id);
