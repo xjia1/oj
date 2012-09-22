@@ -66,7 +66,7 @@ include(__DIR__ . '/../layout/header.php');
           <?php endif; ?>
           <?php if ($this->report->allowAnswer()): ?>
             <td>
-              <form class="form-inline" action="<?php echo SITE_BASE; ?>/question/<?php echo $question-getId(); ?>/toggle" method="POST">
+              <form class="form-inline" action="<?php echo SITE_BASE; ?>/question/<?php echo $question->getId(); ?>/toggle" method="POST">
                 <button type="submit" class="btn btn-mini">T</button>
               </form>
             </td>
