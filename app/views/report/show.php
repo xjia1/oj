@@ -67,7 +67,11 @@ include(__DIR__ . '/../layout/header.php');
           <?php if ($this->report->allowAnswer()): ?>
             <td>
               <form class="form-inline" action="<?php echo SITE_BASE; ?>/question/<?php echo $question->getId(); ?>/toggle" method="POST">
-                <button type="submit" class="btn btn-mini">T</button>
+                <?php if ($question->getCategory() > 0): ?>
+                  <button type="submit" class="btn btn-mini btn-inverse">隐藏</button>
+                <?php else: ?>
+                  <button type="submit" class="btn btn-mini">显示</button>
+                <?php endif; ?>
               </form>
             </td>
           <?php endif; ?>
