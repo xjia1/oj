@@ -42,6 +42,9 @@ include(__DIR__ . '/../layout/header.php');
         <th>问题</th>
         <th>回复时间</th>
         <th>回复</th>
+        <?php if ($this->report->allowAnswer()): ?>
+          <th></th>
+        <?php endif; ?>
       </tr>
     </thead>
     <tbody>
@@ -60,6 +63,13 @@ include(__DIR__ . '/../layout/header.php');
           <?php else: ?>
             <td class="timestamp"><?php echo $question->getAnswerTime(); ?></td>
             <td><?php echo fHTML::prepare($question->getAnswer()); ?></td>
+          <?php endif; ?>
+          <?php if ($this->report->allowAnswer()): ?>
+            <td>
+              <form class="form-inline" action="<?php echo SITE_BASE; ?>/question/<?php echo $question-getId(); ?>/toggle" method="POST">
+                <button type="submit" class="btn btn-mini">T</button>
+              </form>
+            </td>
           <?php endif; ?>
         </tr>
       <?php endforeach; ?>

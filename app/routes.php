@@ -238,6 +238,12 @@ $app->post('/question/:id/reply', function ($id) {
   $controller->replyQuestion($id);
 });
 
+$app->post('/question/:id/toggle', function ($id) {
+  fAuthorization::requireLoggedIn();
+  $controller = new ReportController();
+  $controller->toggleQuestionVisibility($id);
+});
+
 $app->get('/polling/:secret', function ($secret) {
   if (JUDGER_SECRET != $secret) exit();
   

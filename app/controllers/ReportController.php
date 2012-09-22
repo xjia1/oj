@@ -127,11 +127,29 @@ class ReportController extends ApplicationController
       if (!$report->allowAnswer()) {
         throw new fValidationException('Not allowed to answer question.');
       }
-      $question->setCategory(-$question->getCategory());
       $question->setAnswerTime(new fTimestamp());
       $question->setAnswer(trim(fRequest::get('reply')));
       $question->store();
       fMessaging::create('success', 'Question answered.');
+    } catch (fExpectedException $e) {
+      fMessaging::create('warning', $e->getMessage());
+    } catch (fUnexpectedException $e) {
+      fMessaging::create('error', $e->getMessage());
+    }
+    Util::redirect("/contest/{$report_id}");
+  }
+  
+  public function toggleQuestionVisiblity($id)
+  {
+    try {
+      $question = new Question($id);
+      $report = new Report($report_id = $question->getReportId());
+      if (!$report->allowAnswer()) {
+        throw new fValidationException('Not allowed to toggle question visiblity.');
+      }
+      $question->setCategory(-$question->getCategory());
+      $question->store();
+      fMessaging::create('success', 'Visibility toggled.');
     } catch (fExpectedException $e) {
       fMessaging::create('warning', $e->getMessage());
     } catch (fUnexpectedException $e) {
