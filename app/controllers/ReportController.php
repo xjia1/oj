@@ -145,7 +145,7 @@ class ReportController extends ApplicationController
       $question = new Question($id);
       $report = new Report($report_id = $question->getReportId());
       if (!$report->allowAnswer()) {
-        throw new fValidationException('Not allowed to toggle question visiblity.');
+        throw new fValidationException('Not allowed to toggle question visibility.');
       }
       $question->setCategory(-$question->getCategory());
       $question->store();
