@@ -17,7 +17,7 @@ $(function() {
         // accepted with penalty
         return 1e8 - this.getInteger(s);
       }
-      return this.getInteger(s) + 1e4;
+      return this.getInteger(s);
     },
     getInteger: function(s) {
       var n = 0, i = 0;
