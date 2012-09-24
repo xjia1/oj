@@ -9,6 +9,17 @@ $(function() {
       return true;
     },
     format : function(s) {
+      if (/^\(-\d+\)/.test(s)) {
+        // tried but failed
+        return 1e4 - this.getInteger(s);
+      }
+      if (/^\d+\(-\d+\)/.test(s)) {
+        // accepted with penalty
+        return 1e8 - this.getInteger(s);
+      }
+      return this.getInteger(s) + 1e4;
+    },
+    getInteger: function(s) {
       var n = 0, i = 0;
       while (i < s.length && !isDigit(s[i])) {
         i = i + 1;
