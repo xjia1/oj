@@ -38,7 +38,7 @@ class ProfileController extends ApplicationController
 
   public function profile()
   {
-    $this->cache_control('privite',300);
+    $this->cache_control('private', 2);
     $this->page_url = SITE_BASE . '/profile';
     $this->solved = self::accepted();
     $this->fails = self::failed();
@@ -46,4 +46,3 @@ class ProfileController extends ApplicationController
     $this->render('user/profile');
   }
 }
-?>

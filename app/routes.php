@@ -7,8 +7,8 @@ $app->get('/', function () {
 });
 
 $app->get('/profile',function () {
-    $controller = new ProfileController();
-    $controller->profile();
+  $controller = new ProfileController();
+  $controller->profile();
 });
 
 $app->get('/email/verify', function () {
@@ -109,10 +109,10 @@ $app->get('/status', function () {
   $controller->index();
 });
 
- $app->get('/ranklist', function () {
-   $controller = new UserController();
-   $controller->ranklist();
- });
+// $app->get('/ranklist', function () {
+//   $controller = new UserController();
+//   $controller->ranklist();
+// });
 
 $app->get('/contests', function () {
   User::requireEmailVerified();

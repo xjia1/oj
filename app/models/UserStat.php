@@ -20,10 +20,10 @@ class UserStat extends fActiveRecord
         );
       }
     }
-    if (array_key_exists($username,self::$stat_cache)) {
+    if (array_key_exists($username, self::$stat_cache)) {
         return self::$stat_cache[$username];
     }
-    return array('solved' => '0', 'tried' => '0', 'submissions' => '0');
+    return array('solved' => 0, 'tried' => 0, 'submissions' => 0);
   }
 
   public static function fetchSolved($username)
