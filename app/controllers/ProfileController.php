@@ -36,12 +36,13 @@ class ProfileController extends ApplicationController
     return self::$failed_cache;
   }
 
-  public function profile()
+  public function profile($username)
   {
     $this->cache_control('private', 2);
     $this->page_url = SITE_BASE . '/profile';
     $this->solved = self::accepted();
     $this->fails = self::failed();
+    $this->username = $username;
     $this->nav_class = 'profile';
     $this->render('user/profile');
   }

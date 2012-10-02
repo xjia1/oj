@@ -5,31 +5,48 @@ include(__DIR__ . '/../layout/header.php');
 <div class="page-header">
   <h1><?php echo $title; ?></h1>
 </div>
+<?php
+  $UserToken = fAuthorization::getUserToken();
+  if (User::can('edit-any-profile') and !empty($this->username)) {
+    $UserToken = $this->username;
+  }
+?>
 <form action="<?php echo SITE_BASE; ?>/change/info" method="POST" class="form-horizontal">
   <fieldset>
     <div class="control-group">
+      <?php if (User::can('edit-any-profile')): ?>
+      <label class="control-label" for="username">用户名</label>
+      <div class="controls">
+        <input type="text" class="input-large" id="username" name="username" placeholder="用户名" value="<?php echo $UserToken; ?>">
+        <p>&nbsp;</p>
+      </div>
+      <?php endif; ?>
       <label class="control-label" for="realname">姓名</label>
       <div class="controls">
-        <input type="text" class="input-large" id="realname" name="realname" placeholder="姓名" value="<?php echo Profile::fetchRealName(fAuthorization::getUserToken()); ?>">
+        <input type="text" class="input-large" id="realname" name="realname" placeholder="姓名" value="<?php echo Profile::fetchRealName($UserToken); ?>">
         <p class="help-block">ACM队成员请在姓名后加星号“*”，比如“张三*”。</p>
       </div>
     </div>
     <div class="control-group">
       <label class="control-label" for="class_name">班级</label>
       <div class="controls">
-        <input type="text" class="input-large" id="class_name" name="class_name" placeholder="班级" value="<?php echo Profile::fetchClassName(fAuthorization::getUserToken()); ?>">
+        <input type="text" class="input-large" id="class_name" name="class_name" placeholder="班级" value="<?php echo Profile::fetchClassName($UserToken); ?>">
         <p class="help-block">比如“F0903028”。</p>
       </div>
     </div>
     <div class="control-group">
       <label class="control-label" for="phone_number">手机</label>
       <div class="controls">
-        <input type="text" class="input-large" id="phone_number" name="phone_number" placeholder="手机" value="<?php echo Profile::fetchPhoneNumber(fAuthorization::getUserToken()); ?>">
-        <p class="help-block">比如“15212345678”。</p>
+        <input type="text" class="input-large" id="phone_number" name="phone_number" placeholder="手机" value="<?php echo Profile::fetchPhoneNumber($UserToken); ?>">
+        <p class="help-block">比如“15212345678”。（此项仅管理员可见）</p>
       </div>
     </div>
     <div class="form-actions">
+      <?php if ($this->username != $UserToken): ?>
+      <button type="submit" class="btn btn-success">修改他的个人信息</button>
+      <?php else: ?>
       <button type="submit" class="btn btn-success">修改我的个人信息</button>
+      <?php endif; ?>
       <a class="btn" href="javascript:history.go(-1);void(0);">取消</a>
     </div>
   </fieldset>
