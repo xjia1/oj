@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
@@ -42,6 +42,7 @@
           <ul class="dropdown-menu">
             <li><a href="<?php echo SITE_BASE; ?>/email/verify">Email：<?php echo User::getVerifiedEmail(); ?></a></li>
             <li class="divider"></li>
+            <li><a href="<?php echo SITE_BASE; ?>/profile">个人信息</a></li>
             <li><a href="<?php echo SITE_BASE; ?>/change/info">修改个人信息</a></li>
             <li><a href="<?php echo SITE_BASE; ?>/change/password">修改密码</a></li>
             <li class="divider"></li>
@@ -107,6 +108,16 @@
                       <li><a href="<?php echo SITE_BASE; ?>/dashboard#permissions">Add Permission</a></li>
                     <?php else: ?>
                       <li><a href="<?php echo SITE_BASE; ?>/dashboard#permissions">Remove Permission</a></li>
+                    <?php endif; ?>
+                  <?php endif; ?>
+                  <?php if (User::can('view-any-profile') or User::can('edit-any-profile')): ?>
+                    <li class="divider"></li>
+                    <li class="nav-header">Profiles</li>
+                    <?php if (User::can('view-any-profile')): ?>
+                      <li><a href="<?php echo SITE_BASE; ?>/dashboard#view-profiles">View Profiles</a></li>
+                    <?php endif; ?>
+                    <?php if (User::can('edit-any-profile')): ?>
+                      <li><a href="<?php echo SITE_BASE; ?>/dashboard#edit-profiles">Edit Profiles</a></li>
                     <?php endif; ?>
                   <?php endif; ?>
                   <li class="divider"></li>

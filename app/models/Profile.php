@@ -4,10 +4,10 @@ class Profile extends fActiveRecord
   protected function configure()
   {
   }
-  
+
   private static $profile_cache = NULL;
-  
-  public static function fetch($username)
+
+  public static function fetchProfile($username)
   {
     if (self::$profile_cache === NULL) {
       self::$profile_cache = array();
@@ -25,22 +25,23 @@ class Profile extends fActiveRecord
     }
     return array('realname' => '', 'class_name' => '', 'phone_number' => '');
   }
-  
+
   public static function fetchRealName($username)
   {
-    $cached_profile = Profile::fetch($username);
+    $cached_profile = Profile::fetchProfile($username);
     return $cached_profile['realname'];
   }
-  
+
   public static function fetchClassName($username)
   {
-    $cached_profile = Profile::fetch($username);
+    $cached_profile = Profile::fetchProfile($username);
     return $cached_profile['class_name'];
   }
-  
+
   public static function fetchPhoneNumber($username)
   {
-    $cached_profile = Profile::fetch($username);
+    $cached_profile = Profile::fetchProfile($username);
     return $cached_profile['phone_number'];
   }
+
 }

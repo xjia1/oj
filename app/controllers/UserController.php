@@ -94,24 +94,31 @@ class UserController extends ApplicationController
     }
   }
   
-  public function changeInfo()
+  public function changeInfo($username)
   {
     $this->cache_control('private', 300);
+    $this->username = $username;
     $this->render('user/change_info');
   }
   
   public function updateInfo()
   {
     try {
+      $username = trim(fRequest::get('username'));//
       $realname = trim(fRequest::get('realname'));
       $class_name = trim(fRequest::get('class_name'));
       $phone_number = trim(fRequest::get('phone_number'));
       
-      try {
-        $profile = new Profile(fAuthorization::getUserToken());
-      } catch (fNotFoundException $e) {
-        $profile = new Profile();
-        $profile->setUsername(fAuthorization::getUserToken());
+      if (isset($username) && User::can('edit-any-profile')) {
+        $profile = new Profile($username);
+      }
+      else {
+        try {
+          $profile = new Profile(fAuthorization::getUserToken());
+        } catch (fNotFoundException $e) {
+          $profile = new Profile();
+          $profile->setUsername(fAuthorization::getUserToken());
+        }
       }
       $profile->setRealname($realname);
       $profile->setClassName($class_name);
@@ -119,7 +126,12 @@ class UserController extends ApplicationController
       $profile->store();
       
       fMessaging::create('success', 'Information updated successfully.');
-      fURL::redirect(Util::getReferer());
+      if (empty($username)) {
+        Util::redirect('/change/info');
+      }
+      else {
+        Util::redirect('/change/info/'.$username);
+      }
     } catch (fException $e) {
       fMessaging::create('error', $e->getMessage());
       Util::redirect('/change/info');
