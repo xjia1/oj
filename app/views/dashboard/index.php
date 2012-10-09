@@ -166,7 +166,6 @@ include(__DIR__ . '/../layout/header.php');
           <option value="view-any-record">View Any Record</option>
           <option value="view-any-report">View Any Report</option>
           <option value="view-any-profile">View Any Profile</option>
-          <option value="edit-any-profile">Edit Any Profile</option>
           <option value="create-report">Create Report</option>
           <option value="remove-report">Remove Report</option>
           <option value="rejudge-record">Rejudge Record</option>
@@ -222,20 +221,6 @@ include(__DIR__ . '/../layout/header.php');
       <div class="controls">
         <input type="text" id="username" name="username" placeholder="Username">
         <input type="submit" name="action" value="View" class="btn btn-primary">
-      </div>
-    </div>
-  </fieldset>
-</form>
-<?php endif; ?>
-<?php if (User::can('edit-any-profile')): ?>
-<form id="edit-profiles" class="well form-horizontal" method="POST" action="<?php echo SITE_BASE; ?>/change/info">
-  <fieldset>
-    <legend>Edit Profiles</legend>
-    <div class="control-group">
-      <label class="control-label" for="username">User</label>
-      <div class="controls">
-        <input type="text" id="username" name="username" placeholder="Username">
-        <input type="submit" name="action" value="Edit" class="btn btn-primary">
       </div>
     </div>
   </fieldset>

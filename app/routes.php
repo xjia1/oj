@@ -6,17 +6,17 @@ $app->get('/', function () {
   $controller->index();
 });
 
-$app->get('/profile',function () {
+$app->get('/profile', function () {
   $controller = new ProfileController();
   $controller->profile('');
 });
 
-$app->post('/profile',function () {
+$app->post('/profile', function () {
   $controller = new ProfileController();
-  $controller->profile(fRequest::get('username','string'));
+  $controller->profile(fRequest::get('username', 'string'));
 });
 
-$app->get('/profile/:username',function ($username) {
+$app->get('/profile/:username', function ($username) {
   $controller = new ProfileController();
   $controller->profile($username);
 });
@@ -63,21 +63,16 @@ $app->get('/change/info', function () {
   $controller->changeInfo('');
 });
 
-$app->get('/change/info/:username', function ($username) {
-  fAuthorization::requireLoggedIn();
-  $controller = new UserController();
-  $controller->changeInfo($username);
-});
-
+##$app->get('/change/info/:username', function ($username) {
+##  fAuthorization::requireLoggedIn();
+##  $controller = new UserController();
+##  $controller->changeInfo($username);
+##});
+##
 $app->post('/change/info', function () {
   fAuthorization::requireLoggedIn();
   $controller = new UserController();
-  if (fRequest::get('action','string')=='Edit') {
-    $controller->changeInfo(fRequest::get('username','string'));
-  }
-  else {
-    $controller->updateInfo();
-  }
+  $controller->updateInfo();
 });
 
 $app->get('/change/password', function () {
