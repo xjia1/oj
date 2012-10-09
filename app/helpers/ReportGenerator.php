@@ -16,9 +16,9 @@ class ReportGenerator
     return $record->getResult() == Verdict::$NAMES[Verdict::AC];
   }
   
-  private static function done($record)
+  private static function notDone($record)
   {
-    return $record->getJudgeStatus() == Judge::DONE;
+    return $record->getJudgeStatus() != Judge::DONE;
   }
    
   public static function headers($problem_ids)
@@ -55,9 +55,6 @@ class ReportGenerator
 
       if ($score[$user_i][$prob_i] === NULL) {
         $score[$user_i][$prob_i] = $records[$i]->getScore();
-      } 
-      else if !(static::done($records[$i])) {
-        $score[$user_i][$prob_i] = NULL;
       } else {
         $score[$user_i][$prob_i] =
           max($score[$user_i][$prob_i], $records[$i]->getScore());
@@ -179,6 +176,8 @@ class ReportGenerator
     $p_size = count($problem_ids);
     
     $records = static::queryRecords($usernames, $problem_ids, $start_time, $end_time);
+
+    $records = array_filter($records, "notDone");
 
     $first_accepted_index = Util::allocateArray($u_size, $p_size, NULL);
     $num_trial            = Util::allocateArray($u_size, $p_size, 0);
