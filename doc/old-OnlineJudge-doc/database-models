@@ -1,0 +1,39 @@
+Database Models for ACM Online Judge
+====================================
+
+Overview
+--------
+Problem(id, title, description, author, case_count, case_score, time_limit, memory_limit, secret_before)
+Record(id, owner, problem_id, submit_code, code_language, submit_datetime, judge_status, judge_message, verdict)
+Report(id, visible, title, problem_list, user_list, start_datetime, end_datetime)
+Permission(user_name, permission_name)
+Variable(name, value)
+
+Problem Details
+---------------
+author 题目作者或来源（owner是系统中创建该model的用户名，不一定是作者）
+case_count 测试点的数目
+case_score 每个测试点的分值
+time_limit 每个测试点的时间限制（按毫秒计）
+memory_limit 每个测试点的内存限制（按KB计）
+secret_before 保密时间（此时间以后可以看到该题目的内容）
+
+Record Details
+--------------
+judge_status
+	评测状态，分为Pending（尚未分配评测机） Waiting（已分配评测机但尚未开始运行） Running（正在运行） Done（评测完毕）
+	显示的时候，如果为Done，则显示`verdict'字段的内容
+judge_message
+	评测信息，如果编译错误则为编译错误报告，否则格式如下：
+		Accepted (Time: 15ms, Memory: 34020kb)
+		Accepted (Time: 0ms, Memory: 34024kb)
+		Accepted (Time: 0ms, Memory: 34020kb)
+		Accepted (Time: 0ms, Memory: 34024kb)
+		Time Limit Exceeded (Time: 1109ms, Memory: 704kb)
+		Accepted (Time: 0ms, Memory: 34024kb)
+		Accepted (Time: 0ms, Memory: 34020kb)
+		Wrong Answer (Time: 0ms, Memory: 34024kb)
+		Wrong Answer (Time: 15ms, Memory: 34020kb)
+		Wrong Answer (Time: 0ms, Memory: 34020kb)
+verdict
+	最终裁决，比如 AC  WA  ...  [TODO 参考POJ的FAQ]

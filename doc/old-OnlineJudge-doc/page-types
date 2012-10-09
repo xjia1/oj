@@ -1,0 +1,14 @@
+Home             -- basic show (Markdown)
+Problem Sets     -- basic show (Markdown)
+All Problems     -- table with number pagination and search
+Submit           -- form
+Status           -- table with prev/next pagination and search
+Reports          -- table
+Read Problem     -- basic show (Markdown)
+View Record      -- basic show (table)
+View Report      -- table
+// Dashboard pages are not considered
+
+basic show
+table (pagination, search)
+form

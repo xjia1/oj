@@ -1,0 +1,46 @@
+RewriteEngine On
+
+# Some hosts may require you to use the `RewriteBase` directive.
+# If you need to use the `RewriteBase` directive, it should be the
+# absolute physical path to the directory that contains this htaccess file.
+#
+RewriteBase /OnlineJudge
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [QSA,L]
+
+php_value error_log /var/log/apache2/OnlineJudge.error.log
+
+# Set Cache-Control and Expires headers
+<FilesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|swf|mp3|mp4)$">
+  Header set Cache-Control "max-age=2592000, private"
+</FilesMatch>
+<FilesMatch "\.(css|css.gz)$">
+  Header set Cache-Control "max-age=604800, private"
+</FilesMatch>
+<FilesMatch "\.(js|js.gz)$">
+  Header set Cache-Control "max-age=604800, private"
+</FilesMatch>
+<FilesMatch "\.(xml|txt)$">
+  Header set Cache-Control "max-age=216000, private, must-revalidate"
+</FilesMatch>
+<FilesMatch "\.(html|htm)$">
+  Header set Cache-Control "max-age=7200, private, must-revalidate"
+</FilesMatch>
+
+# Turn off ETags
+FileETag None
+Header unset ETag
+
+# Set Expires headers
+ExpiresActive On
+ExpiresDefault "access plus 1 year"
+ExpiresByType text/html "access plus 1 second"
+ExpiresByType image/gif "access plus 2592000 seconds"
+ExpiresByType image/jpeg "access plus 2592000 seconds"
+ExpiresByType image/png "access plus 2592000 seconds"
+ExpiresByType image/x-icon "access plus 2592000 seconds"
+ExpiresByType text/css "access plus 604800 seconds"
+ExpiresByType text/javascript "access plus 604800 seconds"
+ExpiresByType application/x-javascript "access plus 604800 seconds"

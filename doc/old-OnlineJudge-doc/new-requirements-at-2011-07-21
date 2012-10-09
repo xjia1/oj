@@ -1,0 +1,112 @@
+//==============================================\\
+||NOTE: This document has not been finished yet.||
+\\==============================================//
+
+New functionalities should not affect existing data models.
+
+
+Validator
+---------
+The backend judger should provide default validator if no validator is specified
+for the problem to be judged. Validators are just attached to problems if needed.
+
+Validators are stored in the database directly. The table should have these fields:
+
+* id
+* code
+* update_time
+
+And an joint table between validators and problems should be created. It looks like:
+
+* problem_id
+* validator_id
+
+Notice that the problem_id is the primary key since it is unique in the context.
+
+SQL statements added:
+
+	CREATE TABLE `online_judge`.`validators` (
+		`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+		`code` LONGTEXT NOT NULL ,
+		`update_time` TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL
+	) ENGINE = MYISAM ;
+
+	CREATE TABLE `online_judge`.`problems_validators` (
+		`problem_id` BIGINT NOT NULL ,
+		`validator_id` BIGINT NOT NULL ,
+		PRIMARY KEY ( `problem_id` ) ,
+		INDEX ( `validator_id` )
+	) ENGINE = MYISAM ;
+
+The backend judger should cache validator codes just like caching test data.
+Use the field update_time to check whether there is a need to update cached code.
+
+Validator codes are supposed to be C++ codes. They often start with the following:
+
+    char* user_output_file = argv[1];
+    char* std_output_file  = argv[2];
+    char* input_file       = argv[3];
+    char* source_file      = argv[4];
+    int   time_used        = atoi(argv[5]);
+    int   memory_used      = atoi(argv[6]);
+    int   time_limit       = atoi(argv[7]);
+    int   memory_limit     = atoi(argv[8]);
+    int   case_score       = atoi(argv[9]);
+
+Validators are compiled once and executed multiple times for each test case. It
+should print to stdout a single line formatted liked the following:
+
+    AC 10
+
+or
+
+    WA 0
+
+The single line can be separated by the white space to get the two parts. The 
+first part is the verdict acronym. The second part is the judged score. The 
+backend judger should accumulate the scores of the test cases, and append the 
+final score of the record to the judge message in the last line. Record model's
+getScore() method should concern about this special case of the judge message.
+
+
+Mail
+----
+* id
+* to_user
+* from_user
+* title
+* content
+* new_mail
+* in_date
+
+CREATE TABLE `online_judge`.`mail` (
+	`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+	`to_user` VARCHAR( 100 ) NOT NULL ,
+	`from_user` VARCHAR( 100 ) NOT NULL ,
+	`title` VARCHAR( 100 ) NOT NULL ,
+	`content` TEXT NOT NULL ,
+	`new_mail` TINYINT NOT NULL ,
+	`in_date` DATETIME NOT NULL ,
+	INDEX ( `to_user` , `from_user` )
+) ENGINE = MYISAM ;
+
+
+RecordGuard
+------------
+Prevent viewing results when participating a contest
+TODO
+
+
+InstantMessage
+--------------
+* jGrowl
+
+
+Others
+------
+人工Judge接口
+User Status
+Code Preprocessor
+Long polling
+Import Old Records
+Log Viewer

@@ -1,0 +1,6 @@
+tmp/
+.DS_Store
+*.tmp
+*.log
+settings.php
+cache-settings.php
