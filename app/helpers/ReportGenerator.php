@@ -122,7 +122,7 @@ class ReportGenerator
           $cell[$user_i][$prob_i] =
             '<font color="green">' .
             round($penalty) . '<br>' .
-            '(-' . $num_trial[$user_i][$prob_i] . ')' .
+            '(' . $num_trial[$user_i][$prob_i] . 'Y)' ./*Modified by chenhao94*/
             '</font>';
         }
         else if ($score[$user_i][$prob_i] === NULL) {
@@ -133,7 +133,7 @@ class ReportGenerator
           // tried but failed
           $cell[$user_i][$prob_i] =
             '<font color="red">' .
-            '(-' . $num_trial[$user_i][$prob_i] . ')' .
+            '(' . $num_trial[$user_i][$prob_i] . 'Y)' ./*Modified by chenhao94*/
             '</font>';
         }
       }
