@@ -15,11 +15,6 @@ class ReportGenerator
   {
     return $record->getResult() == Verdict::$NAMES[Verdict::AC];
   }
-  
-  private static function notDone($record)
-  {
-    return $record->getJudgeStatus() != Judge::DONE;
-  }
    
   public static function headers($problem_ids)
   {
@@ -176,6 +171,11 @@ class ReportGenerator
     $p_size = count($problem_ids);
     
     $records = static::queryRecords($usernames, $problem_ids, $start_time, $end_time);
+
+    function notDone($record) 
+    {
+      return $record->getJudgeStatus() != JudgeStatus::DONE;
+    }
 
     $records = array_filter($records, "notDone");
 
