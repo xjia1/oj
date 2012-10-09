@@ -42,7 +42,7 @@ class ProfileController extends ApplicationController
     $this->fails = self::calculateFailed($username);
     $this->username = $username;
     if (!(User::can('edit-any-profile')) and ($username != fAuthorization::getUserToken())) {
-      $this->cache_control('private', 300);
+      $this->cache_control('public', 300);
     }
     $this->nav_class = 'profile';
     $this->render('user/profile');
