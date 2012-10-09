@@ -16,6 +16,11 @@ class ReportGenerator
     return $record->getResult() == Verdict::$NAMES[Verdict::AC];
   }
   
+  private static function done($record)
+  {
+    return $record->getJudgeStatus() == Judge::DONE;
+  }
+   
   public static function headers($problem_ids)
   {
     $headers = array();
@@ -50,6 +55,9 @@ class ReportGenerator
 
       if ($score[$user_i][$prob_i] === NULL) {
         $score[$user_i][$prob_i] = $records[$i]->getScore();
+      } 
+      else if !(static::done($records[$i])) {
+        $score[$user_i][$prob_i] = NULL;
       } else {
         $score[$user_i][$prob_i] =
           max($score[$user_i][$prob_i], $records[$i]->getScore());
