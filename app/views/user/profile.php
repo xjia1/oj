@@ -13,7 +13,7 @@ include(__DIR__ . '/../layout/header.php');
     <li><label class="control-lab"><h3>用户名：<?php echo $this->username; ?></h3></label></li>
     <li><label class="control-lab"><h3>姓名：<?php echo Profile::fetchRealName($this->username); ?></h3></label></li>
     <li><label class="control-lab"><h3>班级：<?php echo Profile::fetchClassName($this->username); ?></h3></label></li>
-    <?php if (User::can('view-any-profile') or $this->username == fAuthorization::getUserToken()): ?>
+    <?php if (User::can('view-any-profile') or $this->username==fAuthorization::getUserToken()): ?>
     <li><label class="control-lab"><h3>手机：<?php echo Profile::fetchPhoneNumber($this->username); ?></h3></label></li>
     <li><label class="control-lab"><h3>邮箱：<?php echo UserEmail::fetch($this->username); ?></h3></label></li>
     <?php endif; ?>
