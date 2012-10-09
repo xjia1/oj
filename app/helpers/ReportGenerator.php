@@ -15,7 +15,7 @@ class ReportGenerator
   {
     return $record->getResult() == Verdict::$NAMES[Verdict::AC];
   }
-  
+   
   public static function headers($problem_ids)
   {
     $headers = array();
@@ -171,6 +171,13 @@ class ReportGenerator
     $p_size = count($problem_ids);
     
     $records = static::queryRecords($usernames, $problem_ids, $start_time, $end_time);
+
+    function notDone($record) 
+    {
+      return $record->getJudgeStatus() != JudgeStatus::DONE;
+    }
+
+    $records = array_filter($records, "notDone");
 
     $first_accepted_index = Util::allocateArray($u_size, $p_size, NULL);
     $num_trial            = Util::allocateArray($u_size, $p_size, 0);
