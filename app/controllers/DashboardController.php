@@ -126,7 +126,7 @@ class DashboardController extends ApplicationController
       throw new fValidationException('题目内存限制在设置文件problem.conf中没有指出');
     }
     if (!array_key_exists('secret_before', $ini) or empty($ini['secret_before'])) {
-      throw new fValidationException('题目的secret-before时间在设置文件problem.conf中没有指出');
+      throw new fValidationException('题目的保密截止时间在设置文件problem.conf中没有指出');
     }
     
     if (empty($ini['author'])) {
