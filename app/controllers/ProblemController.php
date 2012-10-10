@@ -41,7 +41,7 @@ class ProblemController extends ApplicationController
       $this->problem = new Problem($id);
       if ($this->problem->isSecretNow()) {
         if (!User::can('view-any-problem')) {
-          throw new fAuthorizationException('问题现在是隐私状态.');
+          throw new fAuthorizationException('题目现在是隐藏状态.');
         }
       }
       $this->nav_class = 'problems';

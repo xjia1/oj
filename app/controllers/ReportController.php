@@ -110,7 +110,7 @@ class ReportController extends ApplicationController
         throw new fValidationException('问题过长 (最大 500 字节).');
       }
       $question->store();
-      fMessaging::create('success', 'Question saved.');
+      fMessaging::create('success', '问题已保存.');
     } catch (fExpectedException $e) {
       fMessaging::create('warning', $e->getMessage());
     } catch (fUnexpectedException $e) {
@@ -125,7 +125,7 @@ class ReportController extends ApplicationController
       $question = new Question($id);
       $report = new Report($report_id = $question->getReportId());
       if (!$report->allowAnswer()) {
-        throw new fValidationException('没有权限回答问题的权限.');
+        throw new fValidationException('没有回答问题的权限.');
       }
       $question->setAnswerTime(new fTimestamp());
       $question->setAnswer(trim(fRequest::get('reply')));

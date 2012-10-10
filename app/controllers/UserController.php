@@ -195,7 +195,7 @@ class UserController extends ApplicationController
         'Email Verification',
         "你好 {$username},
 
-        请点击以下链接来确认你的邮箱地址： ({$email})
+        请点击以下链接来验证你的邮箱地址： ({$email})
         
         {$verilink}
 

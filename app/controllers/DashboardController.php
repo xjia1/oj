@@ -44,7 +44,7 @@ class DashboardController extends ApplicationController
   { 
     $data_base_dir = Variable::getString('data-base-path');
     if (!is_dir($data_base_dir)) {
-      throw new fValidationException("数据库 {$data_base_dir} 不存在.");
+      throw new fValidationException("数据目录 {$data_base_dir} 不存在.");
     }
     $pwd = getcwd();
     chdir($data_base_dir);
@@ -93,14 +93,14 @@ class DashboardController extends ApplicationController
     
     $data_dir = "{$problem_dir}/data";
     if (!is_dir($data_dir)) {
-      throw new fValidationException("题目 {$id} 在数据库 {$data_dir} 中没有数据");
+      throw new fValidationException("题目 {$id} 在数据目录 {$data_dir} 中没有数据");
     }
     
     $properties_content = file_get_contents($problem_conf);
     $ini_content = str_replace(': ', ' = ', $properties_content);
     $ini = parse_ini_string($ini_content);
     if (!array_key_exists('title', $ini) or empty($ini['title'])) {
-      throw new fValidationException('题目在设置文件problem.conf中没有命名');
+      throw new fValidationException('题目名称在设置文件problem.conf中没有指出');
     }
     if (!array_key_exists('author', $ini)) {
       throw new fValidationException('题目作者在设置文件problem.conf中没有指出');
@@ -140,11 +140,11 @@ class DashboardController extends ApplicationController
     for ($t = 1; $t <= $problem->getCaseCount(); $t++) {
       $input = "{$data_dir}/$t.in";
       if (!is_file($input)) {
-        throw new fValidationException("在{$data_dir}没有找到数据输入文件{$input} ");
+        throw new fValidationException("在{$data_dir}没有找到数据的输入文件{$input} ");
       }
       $output = "{$data_dir}/$t.out";
       if (!is_file($output)) {
-        throw new fValidationException("在{$data_dir}没有找到数据输出文件{$output}");
+        throw new fValidationException("在{$data_dir}没有找到数据的输出文件{$output}");
       }
     }
     
@@ -223,7 +223,7 @@ class DashboardController extends ApplicationController
   {
     try {
       if (!User::can('rejudge-record')) {
-        throw new fAuthorizationException('你没有权限重判记录.');
+        throw new fAuthorizationException('你没有权限重判该记录.');
       }
       $old_record = new Record($id);
       $new_record = new Record();
@@ -236,7 +236,7 @@ class DashboardController extends ApplicationController
       $new_record->setJudgeMessage('Rejudging... PROB=' . $old_record->getProblemId() . ' LANG=' . $old_record->getLanguageName());
       $new_record->setVerdict(Verdict::UNKNOWN);
       $new_record->store();
-      fMessaging::create('success', "Record {$id} rejudged.");
+      fMessaging::create('success', "记录{$id} 已重判.");
     } catch (fException $e) {
       fMessaging::create('error', $e->getMessage());
     }
@@ -247,7 +247,7 @@ class DashboardController extends ApplicationController
   {
     try {
       if (!User::can('rejudge-record')) {
-        throw new fAuthorizationException('你没有权限重判记录.');
+        throw new fAuthorizationException('你没有权限重判该记录.');
       }
       if ($score < 0) {
         throw new fValidationException('分数不能为负.');
@@ -293,7 +293,7 @@ class DashboardController extends ApplicationController
           $report->store();
           fMessaging::create('success', "比赛 {$id} 显示成功.");
         } else {
-          throw new fAuthorizationException('你没有创建比赛的权限.');
+          throw new fAuthorizationException('你没有显示比赛的权限.');
         }
       } else if ($action == 'Hide') {
         if (User::can('view-any-report')) {
