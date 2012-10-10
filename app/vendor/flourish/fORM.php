@@ -568,8 +568,9 @@ class fORM
 				str_replace('%', '%%', self::$record_names[$class])
 			);
 		}
+		
 		return self::$record_names[$class];
-		}
+	}
 	
 	
 	/**

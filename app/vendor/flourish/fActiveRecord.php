@@ -1800,7 +1800,7 @@ abstract class fActiveRecord
 			
 		} catch (fExpectedException $e) {
 			throw new fNotFoundException(
-				'%s没有找到.',
+				'The %s requested could not be found',
 				fORM::getRecordName($class)
 			);
 		}
@@ -1912,7 +1912,7 @@ abstract class fActiveRecord
 			
 		} catch (fExpectedException $e) {
 			throw new fNotFoundException(
-				'%s没有找到.',
+				'The %s requested could not be found',
 				fORM::getRecordName($class)
 			);
 		}

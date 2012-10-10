@@ -66,7 +66,6 @@ class User extends fActiveRecord
     if (!fAuthorization::checkLoggedIn()) return;
     if (User::hasEmailVerified()) return;
     fMessaging::create('warning', '请先验证你的邮箱地址.');
-   // Util::redirect('/email/verify');
-
+    Util::redirect('/email/verify');
   }
 }

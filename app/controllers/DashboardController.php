@@ -93,14 +93,22 @@ class DashboardController extends ApplicationController
     
     $data_dir = "{$problem_dir}/data";
     if (!is_dir($data_dir)) {
+<<<<<<< HEAD
       throw new fValidationException("题目 {$id} 在数据目录 {$data_dir} 中没有数据");
+=======
+      throw new fValidationException("题目 {$id} 在数据库 {$data_dir} 中没有数据");
+>>>>>>> 6c1d415856f9e5e59c7c508a3edaa7302f0f733f
     }
     
     $properties_content = file_get_contents($problem_conf);
     $ini_content = str_replace(': ', ' = ', $properties_content);
     $ini = parse_ini_string($ini_content);
     if (!array_key_exists('title', $ini) or empty($ini['title'])) {
+<<<<<<< HEAD
       throw new fValidationException('题目名称在设置文件problem.conf中没有指出');
+=======
+      throw new fValidationException('题目在设置文件problem.conf中没有命名');
+>>>>>>> 6c1d415856f9e5e59c7c508a3edaa7302f0f733f
     }
     if (!array_key_exists('author', $ini)) {
       throw new fValidationException('题目作者在设置文件problem.conf中没有指出');
@@ -236,7 +244,7 @@ class DashboardController extends ApplicationController
       $new_record->setJudgeMessage('Rejudging... PROB=' . $old_record->getProblemId() . ' LANG=' . $old_record->getLanguageName());
       $new_record->setVerdict(Verdict::UNKNOWN);
       $new_record->store();
-      fMessaging::create('success', "记录{$id} 已重判.");
+      fMessaging::create('success', "记录 {$id} 已重判.");
     } catch (fException $e) {
       fMessaging::create('error', $e->getMessage());
     }

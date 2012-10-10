@@ -193,15 +193,15 @@ class UserController extends ApplicationController
         'SJTU Online Judge', 'noreply@acm.sjtu.edu.cn',
         $email,
         'Email Verification',
-        "你好 {$username},
+        "Hi {$username},
 
-        请点击以下链接来验证你的邮箱地址： ({$email})
+        Please verify that you own this email address ({$email}) by clicking this link:
         
         {$verilink}
 
         ---
 
-        祝好,
+        Regards,
 
         SJTU Online Judge",
         $username, $email
