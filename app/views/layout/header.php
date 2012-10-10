@@ -138,7 +138,7 @@
 <?php if (fMessaging::check('success')): ?>
 <div class="alert alert-success">
   <a class="close" data-dismiss="alert">&times;</a>
-  <strong>好的!</strong> <?php echo fMessaging::retrieve('success'); ?>
+  <strong>啊哈!</strong> <?php echo fMessaging::retrieve('success'); ?>
 </div>
 <?php endif; ?>
 <?php if (fMessaging::check('info')): ?>

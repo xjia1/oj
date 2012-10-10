@@ -61,7 +61,7 @@ class DashboardController extends ApplicationController
     try {
       $problem = new Problem($id);
       if ($problem->exists()) {
-        throw new fValidationException("问题 {$id} 已存在.");
+        throw new fValidationException("题目 {$id} 已存在.");
       }
     } catch (fNotFoundException $e) {
       // fall through
@@ -69,7 +69,7 @@ class DashboardController extends ApplicationController
     
     $data_base_dir = Variable::getString('data-base-path');
     if (!is_dir($data_base_dir)) {
-      throw new fValidationException("数据库 {$data_base_dir} 不存在.");
+      throw new fValidationException("数据目录 {$data_base_dir} 不存在.");
     }
     
     if (!$ignore_git) {
@@ -83,42 +83,42 @@ class DashboardController extends ApplicationController
     
     $problem_conf = "{$problem_dir}/problem.conf";
     if (!is_file($problem_conf)) {
-      throw new fValidationException("问题设置文件 {$problem_conf} 不存在.");
+      throw new fValidationException("题目设置文件 {$problem_conf} 不存在.");
     }
     
     $problem_text = "{$problem_dir}/problem.text";
     if (!is_file($problem_text)) {
-      throw new fValidationException("问题描述文件 {$problem_text} 不存在.");
+      throw new fValidationException("题目描述文件 {$problem_text} 不存在.");
     }
     
     $data_dir = "{$problem_dir}/data";
     if (!is_dir($data_dir)) {
-      throw new fValidationException("问题 {$id} 在数据库 {$data_dir} 中没有数据");
+      throw new fValidationException("题目 {$id} 在数据库 {$data_dir} 中没有数据");
     }
     
     $properties_content = file_get_contents($problem_conf);
     $ini_content = str_replace(': ', ' = ', $properties_content);
     $ini = parse_ini_string($ini_content);
     if (!array_key_exists('title', $ini) or empty($ini['title'])) {
-      throw new fValidationException('问题在设置文件problem.conf中没有命名');
+      throw new fValidationException('题目在设置文件problem.conf中没有命名');
     }
     if (!array_key_exists('author', $ini)) {
-      throw new fValidationException('问题作者在设置文件problem.conf中没有指出');
+      throw new fValidationException('题目作者在设置文件problem.conf中没有指出');
     }
     if (!array_key_exists('case_count', $ini) or empty($ini['case_count'])) {
-      throw new fValidationException('问题数据组数在设置文件problem.conf中没有指出');
+      throw new fValidationException('题目数据组数在设置文件problem.conf中没有指出');
     }
     if (!array_key_exists('case_score', $ini) or empty($ini['case_score'])) {
-      throw new fValidationException('问题每组数据分数在设置文件problem.conf中没有指出');
+      throw new fValidationException('题目每组数据分数在设置文件problem.conf中没有指出');
     }
     if (!array_key_exists('time_limit', $ini) or empty($ini['time_limit'])) {
-      throw new fValidationException('问题时间限制在设置文件problem.conf中没有指出');
+      throw new fValidationException('题目时间限制在设置文件problem.conf中没有指出');
     }
     if (!array_key_exists('memory_limit', $ini) or empty($ini['memory_limit'])) {
-      throw new fValidationException('问题内存限制在设置文件problem.conf中没有指出');
+      throw new fValidationException('题目内存限制在设置文件problem.conf中没有指出');
     }
     if (!array_key_exists('secret_before', $ini) or empty($ini['secret_before'])) {
-      throw new fValidationException('问题的secret-before时间在设置文件problem.conf中没有指出');
+      throw new fValidationException('题目的secret-before时间在设置文件problem.conf中没有指出');
     }
     
     if (empty($ini['author'])) {
@@ -198,20 +198,20 @@ class DashboardController extends ApplicationController
   {
     try {
       if (!User::can('manage-site')) {
-        throw new fAuthorizationException('你没有管理问题的权限.');
+        throw new fAuthorizationException('你没有管理题目的权限.');
       }
       if ($action == 'Show') {
         $this->showProblem($id);
-        fMessaging::create('success', "问题 {$id} 显示成功 .");
+        fMessaging::create('success', "题目 {$id} 显示成功 .");
       } else if ($action == 'Hide') {
         $this->hideProblem($id);
-        fMessaging::create('success', "问题 {$id} 隐藏成功.");
+        fMessaging::create('success', "题目 {$id} 隐藏成功.");
       } else if ($action == 'Refresh') {
         $this->refreshProblem($id);
-        fMessaging::create('success', "问题 {$id} 刷新成功.");
+        fMessaging::create('success', "题目 {$id} 刷新成功.");
       } else if ($action == 'Refresh All' and User::can('refresh-all')) {
         $this->refreshAllProblems();
-        fMessaging::create('success', '所有问题已成功刷新.');
+        fMessaging::create('success', '所有题目已成功刷新.');
       }
     } catch (fException $e) {
       fMessaging::create('error', $e->getMessage());
