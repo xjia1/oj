@@ -30,7 +30,7 @@ class RecordController extends ApplicationController
     try {
       $this->record = new Record($id);
       if (!$this->record->isReadable()) {
-        throw new fAuthorizationException('你没有查看此记录的权限.');
+        throw new fAuthorizationException('你没有查看此记录的权限。');
       }
       $this->nav_class = 'status';
       $this->render('record/show');

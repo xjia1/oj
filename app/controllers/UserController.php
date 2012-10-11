@@ -46,34 +46,34 @@ class UserController extends ApplicationController
         $user = new User($username);
         if ($user->getPassword() == $password_hash) {
           fAuthorization::setUserToken($user->getUsername());
-          fMessaging::create('success', '登录成功.');
+          fMessaging::create('success', '登录成功。');
           fURL::redirect(fAuthorization::getRequestedURL(TRUE, Util::getReferer()));
         } else {
-          throw new fValidationException('密码错误.');
+          throw new fValidationException('密码错误。');
         }
       } else if (fRequest::get('action') == '注册') {
         if (strlen($username) < 4) {
-          throw new fValidationException('用户名过短.');
+          throw new fValidationException('用户名过短。');
         }
         if (strlen($username) > 20) {
-          throw new fValidationException('用户名过长.');
+          throw new fValidationException('用户名过长。');
         }
         if (strlen($password) < 6) {
-          throw new fValidationException('密码过短.');
+          throw new fValidationException('密码过短。');
         }
         if (Util::contains('`~!@#$%^&*()-+=[]\\;\',/{}|:"<>?', $username) or preg_match('/\s/', $username)) {
-          throw new fValidationException('用户名包含非法字符.');
+          throw new fValidationException('用户名包含非法字符。');
         }
         try {
           $user = new User($username);
-          throw new fValidationException('用户已存在.');
+          throw new fValidationException('用户已存在。');
         } catch (fNotFoundException $e) {
           $user = new User();
           $user->setUsername($username);
           $user->setPassword($password_hash);
           $user->store();
           fAuthorization::setUserToken($user->getUsername());
-          fMessaging::create('success', '注册成功.');
+          fMessaging::create('success', '注册成功。');
           Util::redirect('/email/verify');
         }
       }
@@ -86,7 +86,7 @@ class UserController extends ApplicationController
   public function logout()
   {
     fAuthorization::destroyUserInfo();
-    fMessaging::create('success', '注销成功.');
+    fMessaging::create('success', '注销成功。');
     if (strstr(Util::getReferer(), 'contest')) {
       fURL::redirect(SITE_BASE);
     } else {
@@ -118,7 +118,7 @@ class UserController extends ApplicationController
       $profile->setPhoneNumber($phone_number);
       $profile->store();
       
-      fMessaging::create('success', '信息更新成功.');
+      fMessaging::create('success', '信息更新成功。');
       fURL::redirect(Util::getReferer());
     } catch (fException $e) {
       fMessaging::create('error', $e->getMessage());
@@ -139,23 +139,23 @@ class UserController extends ApplicationController
       $new_password = fRequest::get('new_password');
       $repeat_password = fRequest::get('repeat_password');
       if (strlen($old_password) < 6) {
-        throw new fValidationException('旧密码过短.');
+        throw new fValidationException('旧密码过短。');
       }
       if (strlen($new_password) < 6) {
-        throw new fValidationException('新密码过短.');
+        throw new fValidationException('新密码过短。');
       }
       if ($new_password != $repeat_password) {
-        throw new fValidationException('两次输入密码不相同.');
+        throw new fValidationException('两次输入密码不相同。');
       }
       $user = new User(fAuthorization::getUserToken());
       $old_password_hash = static::hashPassword($old_password);
       if ($user->getPassword() != $old_password_hash) {
-        throw new fValidationException('旧密码错误.');
+        throw new fValidationException('旧密码错误。');
       }
       $new_password_hash = static::hashPassword($new_password);
       $user->setPassword($new_password_hash);
       $user->store();
-      fMessaging::create('success', '密码更改成功.');
+      fMessaging::create('success', '密码更改成功。');
       fURL::redirect(Util::getReferer());
     } catch (fException $e) {
       fMessaging::create('error', $e->getMessage());
@@ -178,7 +178,7 @@ class UserController extends ApplicationController
     try {
       $email = fRequest::get('email', 'string');
       if (filter_var($email, FILTER_VALIDATE_EMAIL) == FALSE) {
-        throw new fValidationException('邮箱地址不可用.');
+        throw new fValidationException('邮箱地址不可用。');
       }
       
       $v = new Vericode();
@@ -224,7 +224,7 @@ class UserController extends ApplicationController
     try {
       $v = new Vericode($id);
       if ($v->getUsername() != fAuthorization::getUserToken() or $v->getVericode() != $vericode) {
-        throw new fValidationException('无效验证码.');
+        throw new fValidationException('无效验证码。');
       }
       
       $ue = new UserEmail();
@@ -232,7 +232,7 @@ class UserController extends ApplicationController
       $ue->setEmail($v->getEmail());
       $ue->store();
       
-      fMessaging::create('success', '你的邮箱已成功验证.');
+      fMessaging::create('success', '你的邮箱已成功验证。');
       $referer = fMessaging::retrieve('referer', SITE_BASE . '/email/verify');
       if ($referer == NULL) $referer = SITE_BASE;
       fURL::redirect($referer);

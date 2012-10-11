@@ -58,7 +58,7 @@ class User extends fActiveRecord
     if ($email === NULL) {
      return FALSE;
     }
-  return strlen($email) > 0;
+    return strlen($email) > 0;
   }
   
   public static function requireEmailVerified()
