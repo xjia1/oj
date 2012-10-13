@@ -159,7 +159,8 @@ class ReportGenerator
       'submit_datetime>=' => $start_time,
       'submit_datetime<=' => $end_time,
       'owner=' => $usernames,
-      'problem_id=' => $problem_ids
+      'problem_id=' => $problem_ids,
+      'judge_status=' => JudgeStatus::DONE
     ), array(
       'submit_datetime' => 'asc'
     ))->getRecords();
@@ -171,13 +172,6 @@ class ReportGenerator
     $p_size = count($problem_ids);
     
     $records = static::queryRecords($usernames, $problem_ids, $start_time, $end_time);
-
-    function notDone($record) 
-    {
-      return $record->getJudgeStatus() != JudgeStatus::DONE;
-    }
-
-    $records = array_filter($records, "notDone");
 
     $first_accepted_index = Util::allocateArray($u_size, $p_size, NULL);
     $num_trial            = Util::allocateArray($u_size, $p_size, 0);
