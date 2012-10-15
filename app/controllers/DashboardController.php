@@ -4,7 +4,7 @@ class DashboardController extends ApplicationController
   public function index()
   {
     if (!User::can('manage-site')) {
-      fMessaging::create('error', T('You are not allowed to view the dashboard.'));
+      fMessaging::create('error', 'You are not allowed to view the dashboard.');
       fURL::redirect(Util::getReferer());
     }
     
@@ -100,25 +100,25 @@ class DashboardController extends ApplicationController
     $ini_content = str_replace(': ', ' = ', $properties_content);
     $ini = parse_ini_string($ini_content);
     if (!array_key_exists('title', $ini) or empty($ini['title'])) {
-      throw new fValidationException(T('Problem title is not specified in problem.conf'));
+      throw new fValidationException('Problem title is not specified in problem.conf');
     }
     if (!array_key_exists('author', $ini)) {
-      throw new fValidationException(T('Problem author is not specified in problem.conf'));
+      throw new fValidationException('Problem author is not specified in problem.conf');
     }
     if (!array_key_exists('case_count', $ini) or empty($ini['case_count'])) {
-      throw new fValidationException(T('Problem case count is not specified in problem.conf'));
+      throw new fValidationException('Problem case count is not specified in problem.conf');
     }
     if (!array_key_exists('case_score', $ini) or empty($ini['case_score'])) {
-      throw new fValidationException(T('Problem case score is not specified in problem.conf'));
+      throw new fValidationException('Problem case score is not specified in problem.conf');
     }
     if (!array_key_exists('time_limit', $ini) or empty($ini['time_limit'])) {
-      throw new fValidationException(T('Problem time limit is not specified in problem.conf'));
+      throw new fValidationException('Problem time limit is not specified in problem.conf');
     }
     if (!array_key_exists('memory_limit', $ini) or empty($ini['memory_limit'])) {
-      throw new fValidationException(T('Problem memory limit is not specified in problem.conf'));
+      throw new fValidationException('Problem memory limit is not specified in problem.conf');
     }
     if (!array_key_exists('secret_before', $ini) or empty($ini['secret_before'])) {
-      throw new fValidationException(T('Problem secret-before time is not specified in problem.conf'));
+      throw new fValidationException('Problem secret-before time is not specified in problem.conf');
     }
     
     if (empty($ini['author'])) {
@@ -198,7 +198,7 @@ class DashboardController extends ApplicationController
   {
     try {
       if (!User::can('manage-site')) {
-        throw new fAuthorizationException(T('You are not allowed to manage problems.'));
+        throw new fAuthorizationException('You are not allowed to manage problems.');
       }
       if ($action == 'Show') {
         $this->showProblem($id);
@@ -211,7 +211,7 @@ class DashboardController extends ApplicationController
         fMessaging::create('success', "Problem {$id} refreshed successfully.");
       } else if ($action == 'Refresh All' and User::can('refresh-all')) {
         $this->refreshAllProblems();
-        fMessaging::create('success', T('All problems refreshed successfully.'));
+        fMessaging::create('success', 'All problems refreshed successfully.');
       }
     } catch (fException $e) {
       fMessaging::create('error', $e->getMessage());
@@ -223,7 +223,7 @@ class DashboardController extends ApplicationController
   {
     try {
       if (!User::can('rejudge-record')) {
-        throw new fAuthorizationException(T('You are not allowed to rejudge records.'));
+        throw new fAuthorizationException('You are not allowed to rejudge records.');
       }
       $old_record = new Record($id);
       $new_record = new Record();
@@ -247,10 +247,10 @@ class DashboardController extends ApplicationController
   {
     try {
       if (!User::can('rejudge-record')) {
-        throw new fAuthorizationException(T('You are not allowed to rejudge records.'));
+        throw new fAuthorizationException('You are not allowed to rejudge records.');
       }
       if ($score < 0) {
-        throw new fValidationException(T('Score cannot be negative.'));
+        throw new fValidationException('Score cannot be negative.');
       }
       $record = new Record($id);
       $record->manjudge($score);
@@ -266,7 +266,7 @@ class DashboardController extends ApplicationController
   {
     try {
       if (!User::can('create-report')) {
-        throw new fAuthorizationException(T('You are not allowed to create reports.'));
+        throw new fAuthorizationException('You are not allowed to create reports.');
       }
       $report = new Report();
       $report->setVisible(fRequest::get('visible', 'integer'));
@@ -276,7 +276,7 @@ class DashboardController extends ApplicationController
       $report->setStartDatetime(fRequest::get('start_time', 'timestamp'));
       $report->setEndDatetime(fRequest::get('end_time', 'timestamp'));
       $report->store();
-      fMessaging::create('success', T('Report created successfully.'));
+      fMessaging::create('success', 'Report created successfully.');
     } catch (fException $e) {
       fMessaging::create('error', $e->getMessage());
     }
@@ -293,7 +293,7 @@ class DashboardController extends ApplicationController
           $report->store();
           fMessaging::create('success', "Report {$id} showed successfully.");
         } else {
-          throw new fAuthorizationException(T('You are not allowed to show this report.'));
+          throw new fAuthorizationException('You are not allowed to show this report.');
         }
       } else if ($action == 'Hide') {
         if (User::can('view-any-report')) {
@@ -301,14 +301,14 @@ class DashboardController extends ApplicationController
           $report->store();
           fMessaging::create('success', "Report {$id} hidden successfully.");
         } else {
-          throw new fAuthorizationException(T('You are not allowed to hide this report.'));
+          throw new fAuthorizationException('You are not allowed to hide this report.');
         }
       } else if ($action == 'Remove') {
         if (User::can('remove-report')) {
           $report->delete();
           fMessaging::create('success', "Report {$id} removed successfully.");
         } else {
-          throw new fAuthorizationException(T('You are not allowed to remove this report.'));
+          throw new fAuthorizationException('You are not allowed to remove this report.');
         }
       }
     } catch (fException $e) {
@@ -328,17 +328,17 @@ class DashboardController extends ApplicationController
           $permission->setUserName($user_name);
           $permission->setPermissionName($permission_name);
           $permission->store();
-          fMessaging::create('success', T('Permission added successfully.'));
+          fMessaging::create('success', 'Permission added successfully.');
         } else {
-          throw new fAuthorizationException(T('You are not allowed to add permissions.'));
+          throw new fAuthorizationException('You are not allowed to add permissions.');
         }
       } else if ($action == 'Remove') {
         if (User::can('remove-permission')) {
           $permission = new Permission(array('user_name' => $user_name, 'permission_name' => $permission_name));
           $permission->delete();
-          fMessaging::create('success', T('Permission removed successfully.'));
+          fMessaging::create('success', 'Permission removed successfully.');
         } else {
-          throw new fAuthorizationException(T('You are not allowed to remove permissions.'));
+          throw new fAuthorizationException('You are not allowed to remove permissions.');
         }
       }
     } catch (fException $e) {
@@ -353,7 +353,7 @@ class DashboardController extends ApplicationController
       if (fRequest::get('remove', 'boolean')) {
         $variable = new Variable(fRequest::get('name'));
         $variable->delete();
-        fMessaging::create('success', T('Variable removed successfully.'));
+        fMessaging::create('success', 'Variable removed successfully.');
       } else {
         try {
           $variable = new Variable(fRequest::get('name'));
@@ -363,7 +363,7 @@ class DashboardController extends ApplicationController
         }
         $variable->setValue(fRequest::get('value'));
         $variable->store();
-        fMessaging::create('success', T('Variable set successfully.'));
+        fMessaging::create('success', 'Variable set successfully.');
       }
     } catch (fException $e) {
       fMessaging::create('error', $e->getMessage());

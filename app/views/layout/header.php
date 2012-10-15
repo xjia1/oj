@@ -126,7 +126,7 @@
 <?php if (fMessaging::check('warning')): ?>
 <div class="alert">
   <a class="close" data-dismiss="alert">&times;</a>
-  <strong>小心!</strong> <?php echo fMessaging::retrieve('warning'); ?>
+  <strong>Warning!</strong> <?php echo fMessaging::retrieve('warning'); ?>
 </div>
 <?php endif; ?>
 <?php if (fMessaging::check('error')): ?>
@@ -138,12 +138,12 @@
 <?php if (fMessaging::check('success')): ?>
 <div class="alert alert-success">
   <a class="close" data-dismiss="alert">&times;</a>
-  <strong>啊哈!</strong> <?php echo fMessaging::retrieve('success'); ?>
+  <strong>Well done!</strong> <?php echo fMessaging::retrieve('success'); ?>
 </div>
 <?php endif; ?>
 <?php if (fMessaging::check('info')): ?>
 <div class="alert alert-info">
   <a class="close" data-dismiss="alert">&times;</a>
-  <strong>提醒!</strong> <?php echo fMessaging::retrieve('info'); ?>
+  <strong>Heads up!</strong> <?php echo fMessaging::retrieve('info'); ?>
 </div>
 <?php endif; ?>

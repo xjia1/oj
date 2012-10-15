@@ -30,7 +30,7 @@ class RecordController extends ApplicationController
     try {
       $this->record = new Record($id);
       if (!$this->record->isReadable()) {
-        throw new fAuthorizationException(T('You are not allowed to read this record.'));
+        throw new fAuthorizationException('You are not allowed to read this record.');
       }
       $this->nav_class = 'status';
       $this->render('record/show');

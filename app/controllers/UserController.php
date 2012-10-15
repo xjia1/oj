@@ -46,34 +46,34 @@ class UserController extends ApplicationController
         $user = new User($username);
         if ($user->getPassword() == $password_hash) {
           fAuthorization::setUserToken($user->getUsername());
-          fMessaging::create('success', T('Logged in successfully.'));
+          fMessaging::create('success', 'Logged in successfully.');
           fURL::redirect(fAuthorization::getRequestedURL(TRUE, Util::getReferer()));
         } else {
-          throw new fValidationException(T('Password mismatch.'));
+          throw new fValidationException('Password mismatch.');
         }
       } else if (fRequest::get('action') == '注册') {
         if (strlen($username) < 4) {
-          throw new fValidationException(T('Username is too short.'));
+          throw new fValidationException('Username is too short.');
         }
         if (strlen($username) > 20) {
-          throw new fValidationException(T('Username is too long.'));
+          throw new fValidationException('Username is too long.');
         }
         if (strlen($password) < 6) {
-          throw new fValidationException(T('Password is too short.'));
+          throw new fValidationException('Password is too short.');
         }
         if (Util::contains('`~!@#$%^&*()-+=[]\\;\',/{}|:"<>?', $username) or preg_match('/\s/', $username)) {
-          throw new fValidationException(T('Username is illegal.'));
+          throw new fValidationException('Username is illegal.');
         }
         try {
           $user = new User($username);
-          throw new fValidationException(T('User already exists.'));
+          throw new fValidationException('User already exists.');
         } catch (fNotFoundException $e) {
           $user = new User();
           $user->setUsername($username);
           $user->setPassword($password_hash);
           $user->store();
           fAuthorization::setUserToken($user->getUsername());
-          fMessaging::create('success', T('Registered successfully.'));
+          fMessaging::create('success', 'Registered successfully.');
           Util::redirect('/email/verify');
         }
       }
@@ -86,7 +86,7 @@ class UserController extends ApplicationController
   public function logout()
   {
     fAuthorization::destroyUserInfo();
-    fMessaging::create('success', T('Logged out successfully.'));
+    fMessaging::create('success', 'Logged out successfully.');
     if (strstr(Util::getReferer(), 'contest')) {
       fURL::redirect(SITE_BASE);
     } else {
@@ -118,7 +118,7 @@ class UserController extends ApplicationController
       $profile->setPhoneNumber($phone_number);
       $profile->store();
       
-      fMessaging::create('success', T('Information updated successfully.'));
+      fMessaging::create('success', 'Information updated successfully.');
       fURL::redirect(Util::getReferer());
     } catch (fException $e) {
       fMessaging::create('error', $e->getMessage());
@@ -139,23 +139,23 @@ class UserController extends ApplicationController
       $new_password = fRequest::get('new_password');
       $repeat_password = fRequest::get('repeat_password');
       if (strlen($old_password) < 6) {
-        throw new fValidationException(T('Old password is too short.'));
+        throw new fValidationException('Old password is too short.');
       }
       if (strlen($new_password) < 6) {
-        throw new fValidationException(T('New password is too short.'));
+        throw new fValidationException('New password is too short.');
       }
       if ($new_password != $repeat_password) {
-        throw new fValidationException(T('Repeat password mismatch.'));
+        throw new fValidationException('Repeat password mismatch.');
       }
       $user = new User(fAuthorization::getUserToken());
       $old_password_hash = static::hashPassword($old_password);
       if ($user->getPassword() != $old_password_hash) {
-        throw new fValidationException(T('Old password mismatch.'));
+        throw new fValidationException('Old password mismatch.');
       }
       $new_password_hash = static::hashPassword($new_password);
       $user->setPassword($new_password_hash);
       $user->store();
-      fMessaging::create('success', T('Password updated successfully.'));
+      fMessaging::create('success', 'Password updated successfully.');
       fURL::redirect(Util::getReferer());
     } catch (fException $e) {
       fMessaging::create('error', $e->getMessage());
@@ -224,7 +224,7 @@ class UserController extends ApplicationController
     try {
       $v = new Vericode($id);
       if ($v->getUsername() != fAuthorization::getUserToken() or $v->getVericode() != $vericode) {
-        throw new fValidationException(T('Invalid verification code.'));
+        throw new fValidationException('Invalid verification code.');
       }
       
       $ue = new UserEmail();
@@ -232,12 +232,12 @@ class UserController extends ApplicationController
       $ue->setEmail($v->getEmail());
       $ue->store();
       
-      fMessaging::create('success', T('Your email address is verified successfully.'));
+      fMessaging::create('success', 'Your email address is verified successfully.');
       $referer = fMessaging::retrieve('referer', SITE_BASE . '/email/verify');
       if ($referer == NULL) $referer = SITE_BASE;
       fURL::redirect($referer);
     } catch (fException $e) {
-      fMessaging::create('error', T('Email verification failed: ') . $e->getMessage());
+      fMessaging::create('error', 'Email verification failed: ' . $e->getMessage());
       Util::redirect('/email/verify');
     }
   }
