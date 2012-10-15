@@ -1,0 +1,85 @@
+Basic Page Flow for ACM Online Judge
+====================================
+
+Page Hierarchy
+--------------
+
+-XXX means no authentication needed
++XXX means authentication needed (and possibly authorization needed)
+
+Authentication is handled by Yale CAS.
+
+-Home(Welcome, News, F.A.Q.)
+	Problem Sets
+	All Problems
+	Submit
+	Status
+	Reports
+	Dashboard(if has permission `manage-site', show in top-right corner)
+
+-Problem Sets(list of problem sets)
+	View Problem Set
+
+-All Problems(list of all problems with pagination and search form)
+	Read Problem
+
++Submit(just a form for submission, both file upload and text area available)
+
+-Status(list of all submission records with pagination and search form)
+	View Record
+
++Reports(list of public reports)
+	View Report
+
+-Read Problem(Plain Text | Restricted HTML | Markdown | MathJax; problem must be PUBLISHED and SECRET_DATE expired; if has permission `view-any-problem', pass)
+	Submit
+	Status(related)
+
++View Record(if own, pass; if has permission `view-any-record', pass)
+
++View Report(Scoreboard and submission statistics; if public, pass; if has permission `view-any-report', pass)
+
++Dashboard(all actions need authorization)
+
+.	Show Problem(textfield for ID, and a button)
+.	Hide Problem(textfield for ID, and a button)
+.	Rejudge Record(textfield for ID, and a button)
+
+.	Create Report(if has permission `create-report', pass)
+.	Remove Report(if has permission `remove-report', pass)
+
+.	Add Permission(textfield for user and permission name, and a button)
+.	Remove Permission(textfield for user and permission name, and a button)
+
+t	List Variables(with `value')
+.	Set Variable(textfield for `name', textarea for `value')
+
+	// user lists are stored in variables for the sake of simplicity
+
+* Items marked with `.' are in-place actions. After submitting the small form, page goes back to dashboard.
+* Items marked with `t' will open up new page to show a table for results.
+* Items marked with `f' will open up new page to show a form to satisfy later interactions.
+
+Permissions
+-----------
+manage-site
+view-any-problem
+view-any-record
+view-any-report
+create-report
+remove-report
+rejudge-record
+add-permission
+remove-permission
+list-variables
+set-variable
+
+Variables
+---------
+home-markdown        ; => just a markdown text
+records-per-page     ; => 50
+problems-per-page    ; => 100
+data-base-path        ; => path where you put your data, e.g.  /data/oj-git
+problem-sets         ; => just a markdown text
+page-title-XXXX      ; =>  /OnlineJudge/page/XXXX
+page-content-XXXX    ; =>  /OnlineJudge/page/XXXX

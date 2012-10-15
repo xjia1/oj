@@ -1,0 +1,69 @@
+Long Polling Mechanism for Integrating Web Frontend and Judger Backend
+======================================================================
+
+Author: Xiao Jia
+Date: 2011-07-03
+
+
+Citation from Wikipedia
+-----------------------
+
+Long polling is a variation of the traditional polling technique and 
+allows emulation of an information push from a server to a client. 
+With long polling, the client requests information from the server 
+in a similar way to a normal poll. However, if the server does not 
+have any information available for the client, instead of sending 
+an empty response, the server holds the request and waits for some 
+information to be available. Once the information becomes available 
+(or after a suitable timeout), a complete response is sent to the 
+client. The client will normally then immediately re-request 
+information from the server, so that the server will almost always 
+have an available waiting request that it can use to deliver data 
+in response to an event.
+
+Long polling is itself not a push technology, but can be used 
+under circumstances where a real push is not possible.
+
+
+Technology Availability & Effectiveness
+---------------------------------------
+
+I have used long polling technology in one of my final course projects 
+which requires all browser clients connected to the web frontend to 
+refresh when one of the clients submit a new record and it should be 
+displayed instantly in all the browsers. I implemented that mechanism 
+in several hours and it worked perfectly.
+
+
+Why Do We Need Long Polling
+---------------------------
+
+- Submitted solutions are supposed to be judged instantly.
+- A judger `repeatly' polls to check whether there is a new solution.
+- There are many judgers running at the same time to share loads.
+
+
+Techniques & Details
+--------------------
+
+All pending records are kept separately to form a pending queue. On  
+each time some judger polls, the frontend checks whether the queue is 
+empty. If not, it sends back some record details and supposed that 
+record will be judged. If the queue is empty, the frontend loops and 
+sleeps alternatively and checks whether there is a new record there. 
+If there is still no record after a long time (possibly timeout), 
+the frontend returns immediately and indicates the judger should fire 
+another polling request later.
+
+One of the potential mistakes in implementing this mechanism is that 
+if the web server shutdowns abnormally, the pending queue is lost. A 
+work-around is that the web server loads pending records into the 
+queue on startup, for instance, in `init()'.
+
+Another point to be noticed is that all operations about the queue 
+should be synchronized in Java. Otherwise it will cause uncertainty.
+
+A potential improvement in performance is that when the frontend sends 
+back some record details, it may send all the information needed to 
+judge that record in order to reduce the cost of network communication.
+
