@@ -159,7 +159,8 @@ class ReportGenerator
       'submit_datetime>=' => $start_time,
       'submit_datetime<=' => $end_time,
       'owner=' => $usernames,
-      'problem_id=' => $problem_ids
+      'problem_id=' => $problem_ids,
+      'judge_status=' => JudgeStatus::DONE
     ), array(
       'submit_datetime' => 'asc'
     ))->getRecords();
