@@ -22,6 +22,7 @@ require_once(__DIR__ . '/models/Vericode.php');
 require_once(__DIR__ . '/controllers/ApplicationController.php');
 require_once(__DIR__ . '/controllers/HomeController.php');
 require_once(__DIR__ . '/controllers/ProblemController.php');
+require_once(__DIR__ . '/controllers/ProfileController.php');
 require_once(__DIR__ . '/controllers/RecordController.php');
 require_once(__DIR__ . '/controllers/ReportController.php');
 require_once(__DIR__ . '/controllers/SubmitController.php');

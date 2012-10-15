@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
@@ -42,6 +42,7 @@
           <ul class="dropdown-menu">
             <li><a href="<?php echo SITE_BASE; ?>/email/verify">Email：<?php echo User::getVerifiedEmail(); ?></a></li>
             <li class="divider"></li>
+            <li><a href="<?php echo SITE_BASE; ?>/profile/<?php echo fAuthorization::getUserToken(); ?>">个人信息</a></li>
             <li><a href="<?php echo SITE_BASE; ?>/change/info">修改个人信息</a></li>
             <li><a href="<?php echo SITE_BASE; ?>/change/password">修改密码</a></li>
             <li class="divider"></li>
@@ -108,6 +109,11 @@
                     <?php else: ?>
                       <li><a href="<?php echo SITE_BASE; ?>/dashboard#permissions">Remove Permission</a></li>
                     <?php endif; ?>
+                  <?php endif; ?>
+                  <?php if (User::can('view-any-profile')): ?>
+                    <li class="divider"></li>
+                    <li class="nav-header">Profiles</li>
+                      <li><a href="<?php echo SITE_BASE; ?>/dashboard#view-profiles">View Profiles</a></li>
                   <?php endif; ?>
                   <li class="divider"></li>
                   <li class="nav-header">Variables</li>

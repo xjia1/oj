@@ -6,6 +6,21 @@ $app->get('/', function () {
   $controller->index();
 });
 
+$app->get('/profile', function () {
+  $controller = new ProfileController();
+  $controller->profile('');
+});
+
+$app->post('/profile', function () {
+  $controller = new ProfileController();
+  $controller->profile(fRequest::get('username', 'string'));
+});
+
+$app->get('/profile/:username', function ($username) {
+  $controller = new ProfileController();
+  $controller->profile($username);
+});
+
 $app->get('/email/verify', function () {
   $controller = new UserController();
   $controller->emailVerify();
@@ -45,9 +60,15 @@ $app->get('/logout', function () {
 $app->get('/change/info', function () {
   fAuthorization::requireLoggedIn();
   $controller = new UserController();
-  $controller->changeInfo();
+  $controller->changeInfo('');
 });
 
+##$app->get('/change/info/:username', function ($username) {
+##  fAuthorization::requireLoggedIn();
+##  $controller = new UserController();
+##  $controller->changeInfo($username);
+##});
+##
 $app->post('/change/info', function () {
   fAuthorization::requireLoggedIn();
   $controller = new UserController();
