@@ -27,11 +27,11 @@ class SubmitController extends ApplicationController
       fSession::set('last_language', $language);
       $code = trim(fRequest::get('code', 'string'));
       if (strlen($code) == 0) {
-        throw new fValidationException('Code cannot be empty.');
+        throw new fValidationException(T('Code cannot be empty.'));
       }
       if ($problem->isSecretNow()) {
         if (!User::can('view-any-problem')) {
-          throw new fAuthorizationException('Problem is secret now. You are not allowed to submit this problem.');
+          throw new fAuthorizationException(T('Problem is secret now. You are not allowed to submit this problem.'));
         }
       }
       
