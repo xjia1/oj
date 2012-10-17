@@ -104,7 +104,7 @@ function T($english)
 	
 	//app/controllers/SubmitController.php
 	'Code cannot be empty.'=>'代码不能为空。',
-	'Problem is secret now. You are not allowed to submit this problem.'=>'问题现在是隐藏状态，你不能提交此题目。'，
+	'Problem is secret now. You are not allowed to submit this problem.'=>'题目现在处于隐藏状态，不能提交此题目。',
 	
 		
 	//app/models/User.php
