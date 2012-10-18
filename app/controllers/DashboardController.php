@@ -202,13 +202,13 @@ class DashboardController extends ApplicationController
       }
       if ($action == 'Show') {
         $this->showProblem($id);
-        fMessaging::create('success', "Problem {$id} showed successfully.");
+        fMessaging::create('success', T('Problem %s showed successfully.',$id));
       } else if ($action == 'Hide') {
         $this->hideProblem($id);
-        fMessaging::create('success', "Problem {$id} hidden successfully.");
+        fMessaging::create('success', T('Problem %s hidden successfully.',$id));
       } else if ($action == 'Refresh') {
         $this->refreshProblem($id);
-        fMessaging::create('success', "Problem {$id} refreshed successfully.");
+        fMessaging::create('success', T('Problem %s refreshed successfully.',$id));
       } else if ($action == 'Refresh All' and User::can('refresh-all')) {
         $this->refreshAllProblems();
         fMessaging::create('success', T('All problems refreshed successfully.'));
@@ -236,7 +236,7 @@ class DashboardController extends ApplicationController
       $new_record->setJudgeMessage('Rejudging... PROB=' . $old_record->getProblemId() . ' LANG=' . $old_record->getLanguageName());
       $new_record->setVerdict(Verdict::UNKNOWN);
       $new_record->store();
-      fMessaging::create('success', "Record {$id} rejudged.");
+      fMessaging::create('success', T('Record %s rejudged.',$id));
     } catch (fException $e) {
       fMessaging::create('error', $e->getMessage());
     }
@@ -255,7 +255,7 @@ class DashboardController extends ApplicationController
       $record = new Record($id);
       $record->manjudge($score);
       $record->store();
-      fMessaging::create('success', "Record {$id} manually judged.");
+      fMessaging::create('success', T('Record %s manually judged.',$id));
     } catch (fException $e) {
       fMessaging::create('error', $e->getMessage());
     }
@@ -291,7 +291,7 @@ class DashboardController extends ApplicationController
         if (User::can('view-any-report')) {
           $report->setVisible(1);
           $report->store();
-          fMessaging::create('success', "Report {$id} showed successfully.");
+          fMessaging::create('success', T('Report %s showed successfully.',$id));
         } else {
           throw new fAuthorizationException(T('You are not allowed to show this report.'));
         }
@@ -299,14 +299,14 @@ class DashboardController extends ApplicationController
         if (User::can('view-any-report')) {
           $report->setVisible(0);
           $report->store();
-          fMessaging::create('success', "Report {$id} hidden successfully.");
+          fMessaging::create('success', T('Report %s hidden successfully.',$id));
         } else {
           throw new fAuthorizationException(T('You are not allowed to hide this report.'));
         }
       } else if ($action == 'Remove') {
         if (User::can('remove-report')) {
           $report->delete();
-          fMessaging::create('success', "Report {$id} removed successfully.");
+          fMessaging::create('success', T('Report %s removed successfully.',$id));
         } else {
           throw new fAuthorizationException(T('You are not allowed to remove this report.'));
         }

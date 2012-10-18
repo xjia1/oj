@@ -33,6 +33,7 @@ function translate($string)
 
 function T($english)
 {
+  $numargs=func_num_args();
   static $translations = array(
     'chinese' => array(
 
@@ -69,8 +70,14 @@ function T($english)
 	'Problem %s does not have a data directory at %s.'=>'题目 %s 在 %s 没有数据目录。',
 	'Case input file %s is not found in %s.'=>'数据输入文件 %s 在 %s 没有找到。',
 	'Case output file %s is not found in %s.'=>'数据输出文件 %s 在 %s 没有找到。',
-	'Problem %s showed successfully.'=>'题目 " . func_get_args(1) . " 显示成功。',
+	'Problem %s showed successfully.'=>'题目 %s 显示成功。',
 	'Problem %s hidden successfully.'=>'题目 %s 隐藏成功。',
+	'Problem %s refreshed successfully.'=>'题目 %s 刷新成功。',
+	'Record %s rejudged.'=>'提交记录 %s 已重判。',
+	'Record %s manually judged.'=>'提交记录 %s 已人工判定。',
+	'Report %s showed successfully.'=>'比赛 %s 已成功显示。',
+	'Report %s hidden successfully.'=>'比赛 %s 已成功隐藏。',
+	'Report %s removed successfully.'=>'比赛 %s 已成功移除。',
 	'User'=>'用户',
 	'Record'=>'比赛记录',
 
@@ -129,6 +136,19 @@ function T($english)
   );
   $language = 'chinese';  // 这里先固定为 chinese，以后会修改成根据用户来决定语言
   if (isset($translations[$language][$english])) {
+    if($numargs==2){
+    $arg2=func_get_arg(1);
+    $t=$translations[$language][$english];
+    $translation=sprintf("$t",$arg2);
+    return $translation;
+    }
+    if($numargs==3){
+    $arg2=func_get_arg(1);
+    $arg3=func_get_arg(2);
+    $t=$translations[$language][$english];
+    $translation=sprintf("$t",$arg2,$arg3);
+    return $translation;
+    }
     return $translations[$language][$english];
   }
   return $english;
