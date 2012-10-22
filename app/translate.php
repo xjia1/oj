@@ -61,7 +61,6 @@ function T($english)
     'You are not allowed to remove permissions.'=>'你没有删除权限的权限。',
     'Variable removed successfully.'=>'变量删除成功。',
     'Variable set successfully.'=>'变量设置成功。',
-
     'Data base directory %s does not exist.'=>'数据目录 %s 不存在。',
     'Problem %s already exists.'=>'题目 %s 已存在。',
     'Problem directory %s does not exist.'=>'题目目录 %s 不存在。',
@@ -78,11 +77,14 @@ function T($english)
     'Report %s showed successfully.'=>'比赛 %s 已成功显示。',
     'Report %s hidden successfully.'=>'比赛 %s 已成功隐藏。',
     'Report %s removed successfully.'=>'比赛 %s 已成功移除。',
-    'User'=>'用户',
-    'Record'=>'比赛记录',
+    'The Record requested could not be found'=>'提交记录不存在。',
+    'The Report requested could not be found'=>'比赛不存在。',
+    'The Permission requested could not be found'=>'权限不存在。',
+    'The Variable requested could not be found'=>'变量不存在。',
 
     //app/controllers/ProblemController.php
     'Problem is secret now.'=>'题目现在处于隐藏状态。',
+    'The Problem requested could not be found'=>'题目不存在。',
 
     //app/controllers/RecordController.php
     'You are not allowed to read this record.'=>'你没有查看此记录的权限。', 
@@ -100,6 +102,7 @@ function T($english)
     'Question answered.'=>'问题已回答。',
     'Not allowed to toggle question visibility.'=>'没有更改此问题可见度的权限。',
     'Visibility toggled.'=>'可见度已更改。',
+    'The Question requested could not be found'=>'问题不存在。',
 
     //app/controllers/UserController.php
     'Logged in successfully.'=>'登录成功。',
@@ -121,10 +124,12 @@ function T($english)
     'Invalid verification code.'=>'验证码无效。',
     'Your email address is verified successfully.'=>'你的邮箱已成功验证。',
     'Email verification failed: '=>'邮箱验证失败: ',
+    'The User requested could not be found'=>'用户不存在。',
 
     //app/controllers/SubmitController.php
     'Code cannot be empty.'=>'代码不能为空。',
     'Problem is secret now. You are not allowed to submit this problem.'=>'题目现在处于隐藏状态，不能提交此题目。',
+    'Invalid language.'=>'无效语言。',
 	
     //app/models/User.php
     'Click here to verify your email address.'=>'点击此处验证你的邮箱地址。',

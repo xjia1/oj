@@ -47,7 +47,7 @@ class ProblemController extends ApplicationController
       $this->nav_class = 'problems';
       $this->render('problem/show');
     } catch (fExpectedException $e) {
-      fMessaging::create('warning', $e->getMessage());
+      fMessaging::create('warning', T($e->getMessage()));
       fURL::redirect(Util::getReferer());
     } catch (fUnexpectedException $e) {
       fMessaging::create('error', $e->getMessage());

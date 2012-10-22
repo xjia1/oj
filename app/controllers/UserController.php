@@ -78,7 +78,7 @@ class UserController extends ApplicationController
         }
       }
     } catch (fException $e) {
-      fMessaging::create('error', $e->getMessage());
+      fMessaging::create('error', T($e->getMessage()));
       fURL::redirect(fAuthorization::getRequestedURL(TRUE, Util::getReferer()));
     }
   }
@@ -121,7 +121,7 @@ class UserController extends ApplicationController
       fMessaging::create('success', T('Information updated successfully.'));
       fURL::redirect(Util::getReferer());
     } catch (fException $e) {
-      fMessaging::create('error', $e->getMessage());
+      fMessaging::create('error', T($e->getMessage()));
       Util::redirect('/change/info');
     }
   }
@@ -158,7 +158,7 @@ class UserController extends ApplicationController
       fMessaging::create('success', T('Password updated successfully.'));
       fURL::redirect(Util::getReferer());
     } catch (fException $e) {
-      fMessaging::create('error', $e->getMessage());
+      fMessaging::create('error', T($e->getMessage()));
       Util::redirect('/change/password');
     }
   }
@@ -178,7 +178,7 @@ class UserController extends ApplicationController
     try {
       $email = fRequest::get('email', 'string');
       if (filter_var($email, FILTER_VALIDATE_EMAIL) == FALSE) {
-        throw new fValidationException('Invalid email address.');
+        throw new fValidationException(T('Invalid email address.'));
       }
       
       $v = new Vericode();
@@ -208,7 +208,7 @@ class UserController extends ApplicationController
       );
       Util::redirect('/email/verify/sent');
     } catch (fException $e) {
-      fMessaging::create('error', $e->getMessage());
+      fMessaging::create('error', T($e->getMessage()));
       Util::redirect('/email/verify');
     }
   }

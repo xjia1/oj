@@ -51,7 +51,7 @@ class ReportController extends ApplicationController
       $this->nav_class = 'reports';
       $this->render('report/show');
     } catch (fExpectedException $e) {
-      fMessaging::create('warning', $e->getMessage());
+      fMessaging::create('warning', T($e->getMessage()));
       fURL::redirect(Util::getReferer());
     } catch (fUnexpectedException $e) {
       fMessaging::create('error', $e->getMessage());
@@ -73,7 +73,7 @@ class ReportController extends ApplicationController
       BoardCacheInvalidator::invalidateByReport($report);
       fMessaging::create('success', T('Registered successfully.'));
     } catch (fExpectedException $e) {
-      fMessaging::create('warning', $e->getMessage());
+      fMessaging::create('warning', T($e->getMessage()));
     } catch (fUnexpectedException $e) {
       fMessaging::create('error', $e->getMessage());
     }
@@ -112,7 +112,7 @@ class ReportController extends ApplicationController
       $question->store();
       fMessaging::create('success', T('Question saved.'));
     } catch (fExpectedException $e) {
-      fMessaging::create('warning', $e->getMessage());
+      fMessaging::create('warning', T($e->getMessage()));
     } catch (fUnexpectedException $e) {
       fMessaging::create('error', $e->getMessage());
     }
@@ -132,7 +132,7 @@ class ReportController extends ApplicationController
       $question->store();
       fMessaging::create('success', T('Question answered.'));
     } catch (fExpectedException $e) {
-      fMessaging::create('warning', $e->getMessage());
+      fMessaging::create('warning', T($e->getMessage()));
     } catch (fUnexpectedException $e) {
       fMessaging::create('error', $e->getMessage());
     }
@@ -151,7 +151,7 @@ class ReportController extends ApplicationController
       $question->store();
       fMessaging::create('success', T('Visibility toggled.'));
     } catch (fExpectedException $e) {
-      fMessaging::create('warning', $e->getMessage());
+      fMessaging::create('warning', T($e->getMessage()));
     } catch (fUnexpectedException $e) {
       fMessaging::create('error', $e->getMessage());
     }

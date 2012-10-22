@@ -214,7 +214,7 @@ class DashboardController extends ApplicationController
         fMessaging::create('success', T('All problems refreshed successfully.'));
       }
     } catch (fException $e) {
-      fMessaging::create('error', $e->getMessage());
+      fMessaging::create('error', T($e->getMessage()));
     }
     fURL::redirect(Util::getReferer());
   }
@@ -238,7 +238,7 @@ class DashboardController extends ApplicationController
       $new_record->store();
       fMessaging::create('success', T('Record %s rejudged.',$id));
     } catch (fException $e) {
-      fMessaging::create('error', $e->getMessage());
+      fMessaging::create('error', T($e->getMessage()));
     }
     fURL::redirect(Util::getReferer());
   }
@@ -257,7 +257,7 @@ class DashboardController extends ApplicationController
       $record->store();
       fMessaging::create('success', T('Record %s manually judged.',$id));
     } catch (fException $e) {
-      fMessaging::create('error', $e->getMessage());
+      fMessaging::create('error', T($e->getMessage()));
     }
     fURL::redirect(Util::getReferer());
   }
@@ -278,7 +278,7 @@ class DashboardController extends ApplicationController
       $report->store();
       fMessaging::create('success', T('Report created successfully.'));
     } catch (fException $e) {
-      fMessaging::create('error', $e->getMessage());
+      fMessaging::create('error', T($e->getMessage()));
     }
     fURL::redirect(Util::getReferer());
   }
@@ -312,7 +312,7 @@ class DashboardController extends ApplicationController
         }
       }
     } catch (fException $e) {
-      fMessaging::create('error', $e->getMessage());
+      fMessaging::create('error', T($e->getMessage()));
     }
     fURL::redirect(Util::getReferer());
   }
@@ -342,7 +342,7 @@ class DashboardController extends ApplicationController
         }
       }
     } catch (fException $e) {
-      fMessaging::create('error', $e->getMessage());
+      fMessaging::create('error', T($e->getMessage()));
     }
     fURL::redirect(Util::getReferer());
   }
@@ -366,7 +366,7 @@ class DashboardController extends ApplicationController
         fMessaging::create('success', T('Variable set successfully.'));
       }
     } catch (fException $e) {
-      fMessaging::create('error', $e->getMessage());
+      fMessaging::create('error', T($e->getMessage()));
     }
     fURL::redirect(Util::getReferer());
   }
