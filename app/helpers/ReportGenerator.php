@@ -76,20 +76,18 @@ class ReportGenerator
       $score[$row_average][$col_score] = 0;
     }
     else {
+      $totalsum = 0;
       // this is the normal case, calculate average scores
       for ($prob_i = 0; $prob_i < $p_size; $prob_i++) {
         $sum = 0;
         for ($user_i = 0; $user_i < $row_average; $user_i++) {
           $sum += $score[$user_i][$prob_i];
         }
+        $totalsum += $sum;
         $score[$row_average][$prob_i] = round($sum / ($u_size - 1));
       }
       // calculate average total score
-      $sum = 0;
-      for ($user_i = 0; $user_i < $row_average; $user_i++) {
-        $sum += $score[$user_i][$col_score];
-      }
-      $score[$row_average][$col_score] = round($sum / ($u_size - 1));
+      $score[$row_average][$col_score] = round($totalsum / ($u_size - 1));
     }
   }
   
