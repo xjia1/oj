@@ -14,6 +14,7 @@ include(__DIR__ . '/../layout/header.php');
   </aside>
   <aside class="span3">
     <div class="well">
+      //还需加上：若用户登录则显示该用户的记录，若没有登录则显示此题所有记录
       <a class="btn btn-success btn-large" href="<?php echo SITE_BASE; ?>/status?owner=&problem=<?php echo $this->problem->getId(); ?>">提交记录</a>
     </div>
   </aside>
