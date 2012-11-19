@@ -44,7 +44,7 @@ class User extends fActiveRecord
     }
     $email = UserEmail::fetch($username);
     if ($email === NULL) {
-      return '点击此处进行邮件验证';
+      return T('Click here to verify your email address.');
     }
     return $email;
   }
@@ -65,7 +65,7 @@ class User extends fActiveRecord
   {
     if (!fAuthorization::checkLoggedIn()) return;
     if (User::hasEmailVerified()) return;
-    fMessaging::create('warning', 'You are required to verify your email address before doing this action.');
+    fMessaging::create('warning', T('You are required to verify your email address before doing this action.'));
     Util::redirect('/email/verify');
   }
 }
