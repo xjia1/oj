@@ -65,7 +65,12 @@ class ReportController extends ApplicationController
         $cache->set($this->report->getBoardCacheKey(), $this->board, 10);
       }
       
-      $this->nav_class = 'reports';
+      if ($this->report->isHomework()) {
+        $this->nav_class = 'homework';
+      } else {
+        $this->nav_class = 'reports';
+      }
+      
       $this->render('report/show');
     } catch (fExpectedException $e) {
       fMessaging::create('warning', $e->getMessage());
