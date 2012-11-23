@@ -163,11 +163,8 @@ include(__DIR__ . '/../layout/header.php');
 <?php endif; ?>
 <?php
 $contest_id = $this->report->getId();
-//$meta_refresh = Variable::getInteger('status-refresh', 30);
 if ($this->report->getElapsedRatio() < 100) {
-//if ($this->report->isRunning) {
   $meta_refresh = Variable::getInteger('status-refresh', 30);
-//$meta_refresh = Variable::getInterger('status-refresh',300000);
 }
 if (fAuthorization::checkLoggedIn() and $this->report->isRunning()) {
   $javascripts = array('jquery.tablesorter.min', 'board', 'ts-alert');
