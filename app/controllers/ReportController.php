@@ -9,7 +9,7 @@ class ReportController extends ApplicationController
       $this->cache_control('private', 10);
     }
     
-    $conditions = array();
+    $conditions = array('title!~' => array('homework', '作业'));
     if (!User::can('view-any-report')) {
       $conditions['visible='] = TRUE;
     }
@@ -17,7 +17,24 @@ class ReportController extends ApplicationController
     $this->nav_class = 'reports';
     $this->render('report/index');
   }
-  
+
+  public function homework()
+  {
+    if (fAuthorization::checkLoggedIn()) {
+      $this->cache_control('private', 5);
+    } else {
+      $this->cache_control('private', 10);
+    }
+    
+    $conditions = array('title~' => array('homework', '作业'));
+    if (!User::can('view-any-report')) {
+      $conditions['visible='] = TRUE;
+    }
+    $this->reports = fRecordSet::build('Report', $conditions, array('id' => 'desc'));
+    $this->nav_class = 'homework';
+    $this->render('report/homework');
+  }
+
   public function show($id)
   {
     $this->cache_control('private', Variable::getInteger('status-refresh', 30));
