@@ -78,6 +78,7 @@ class ReportGenerator
     else {
       $totalsum = 0;
       // this is the normal case, calculate average scores
+      $totalsum = 0;
       for ($prob_i = 0; $prob_i < $p_size; $prob_i++) {
         $sum = 0;
         for ($user_i = 0; $user_i < $row_average; $user_i++) {
@@ -86,7 +87,11 @@ class ReportGenerator
         $totalsum += $sum;
         $score[$row_average][$prob_i] = round($sum / ($u_size - 1));
       }
+<<<<<<< HEAD
       // calculate average total score
+=======
+      // calculate average total score 
+>>>>>>> upstream/master
       $score[$row_average][$col_score] = round($totalsum / ($u_size - 1));
     }
   }
@@ -120,7 +125,7 @@ class ReportGenerator
           $cell[$user_i][$prob_i] =
             '<font color="green">' .
             round($penalty) . '<br>' .
-            '(-' . $num_trial[$user_i][$prob_i] . ')' .
+            '(' . $num_trial[$user_i][$prob_i] . 'Y)' .
             '</font>';
         }
         else if ($score[$user_i][$prob_i] === NULL) {

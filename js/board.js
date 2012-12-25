@@ -13,7 +13,7 @@ $(function() {
         // tried but failed
         return 1e4 - this.getInteger(s);
       }
-      if (/^\d+\(-\d+\)/.test(s)) {
+      if (/^\d+\(\d+Y\)/.test(s)) {
         // accepted with penalty
         return 1e8 - this.getInteger(s);
       }

@@ -65,6 +65,7 @@
           <!--<li class="nav-sets"><a href="<?php echo SITE_BASE; ?>/sets">Problem Sets</a></li>-->
           <li class="nav-problems"><a href="<?php echo SITE_BASE; ?>/problems">题库</a></li>
           <li class="nav-reports"><a href="<?php echo SITE_BASE; ?>/contests">比赛</a></li>
+          <li class="nav-homework"><a href="<?php echo SITE_BASE; ?>/homework">作业</a></li>
           <?php if (fAuthorization::checkLoggedIn()): ?>
             <li class="nav-submit"><a href="<?php echo SITE_BASE; ?>/submit">提交</a></li>
           <?php endif; ?>

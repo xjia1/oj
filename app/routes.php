@@ -115,6 +115,12 @@ $app->get('/contests', function () {
   $controller->index();
 });
 
+$app->get('/homework', function () {
+  User::requireEmailVerified();
+  $controller = new ReportController();
+  $controller->homework();
+});
+
 $app->get('/reports', function () {
   fAuthorization::requireLoggedIn();
   User::requireEmailVerified();
