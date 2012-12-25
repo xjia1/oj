@@ -42,7 +42,7 @@ class ReportController extends ApplicationController
     try {
       $this->report = new Report($id);
       if (!$this->report->isReadable()) {
-        throw new fAuthorizationException(T('You are not allowed to view this report.'));
+        throw new fAuthorizationException('You are not allowed to view this report.');
       }
       
       global $cache;
@@ -73,7 +73,7 @@ class ReportController extends ApplicationController
       
       $this->render('report/show');
     } catch (fExpectedException $e) {
-      fMessaging::create('warning', T($e->getMessage()));
+      fMessaging::create('warning', $e->getMessage());
       fURL::redirect(Util::getReferer());
     } catch (fUnexpectedException $e) {
       fMessaging::create('error', $e->getMessage());
@@ -86,16 +86,16 @@ class ReportController extends ApplicationController
     try {
       $report = new Report($id);
       if (!$report->isRegistrable()) {
-        throw new fValidationException(T('This contest is not registrable.'));
+        throw new fValidationException('This contest is not registrable.');
       }
       $registration = new Registration();
       $registration->setUsername(fAuthorization::getUserToken());
       $registration->setReportId($report->getId());
       $registration->store();
       BoardCacheInvalidator::invalidateByReport($report);
-      fMessaging::create('success', T('Registered successfully.'));
+      fMessaging::create('success', 'Registered successfully.');
     } catch (fExpectedException $e) {
-      fMessaging::create('warning', T($e->getMessage()));
+      fMessaging::create('warning', $e->getMessage());
     } catch (fUnexpectedException $e) {
       fMessaging::create('error', $e->getMessage());
     }
@@ -107,11 +107,11 @@ class ReportController extends ApplicationController
     try {
       $report = new Report($id);
       if (!$report->allowQuestion()) {
-        throw new fValidationException(T('Not allowed to ask question.'));
+        throw new fValidationException('Not allowed to ask question.');
       }
       $category = fRequest::get('category', 'integer');
       if ($category == 0) {
-        throw new fValidationException(T('Please choose a category.'));
+        throw new fValidationException('Please choose a category.');
       }
       $question = new Question();
       $question->setUsername(fAuthorization::getUserToken());
@@ -126,15 +126,15 @@ class ReportController extends ApplicationController
       $question->setAskTime(new fTimestamp());
       $question->setQuestion(trim(fRequest::get('question')));
       if (strlen($question->getQuestion()) < 10) {
-        throw new fValidationException(T('Question too short (minimum 10 bytes).'));
+        throw new fValidationException('Question too short (minimum 10 bytes).');
       }
       if (strlen($question->getQuestion()) > 500) {
-        throw new fValidationException(T('Question too long (maximum 500 bytes).'));
+        throw new fValidationException('Question too long (maximum 500 bytes).');
       }
       $question->store();
-      fMessaging::create('success', T('Question saved.'));
+      fMessaging::create('success', 'Question saved.');
     } catch (fExpectedException $e) {
-      fMessaging::create('warning', T($e->getMessage()));
+      fMessaging::create('warning', $e->getMessage());
     } catch (fUnexpectedException $e) {
       fMessaging::create('error', $e->getMessage());
     }
@@ -147,14 +147,14 @@ class ReportController extends ApplicationController
       $question = new Question($id);
       $report = new Report($report_id = $question->getReportId());
       if (!$report->allowAnswer()) {
-        throw new fValidationException(T('Not allowed to answer question.'));
+        throw new fValidationException('Not allowed to answer question.');
       }
       $question->setAnswerTime(new fTimestamp());
       $question->setAnswer(trim(fRequest::get('reply')));
       $question->store();
-      fMessaging::create('success', T('Question answered.'));
+      fMessaging::create('success', 'Question answered.');
     } catch (fExpectedException $e) {
-      fMessaging::create('warning', T($e->getMessage()));
+      fMessaging::create('warning', $e->getMessage());
     } catch (fUnexpectedException $e) {
       fMessaging::create('error', $e->getMessage());
     }
@@ -167,13 +167,13 @@ class ReportController extends ApplicationController
       $question = new Question($id);
       $report = new Report($report_id = $question->getReportId());
       if (!$report->allowAnswer()) {
-        throw new fValidationException(T('Not allowed to toggle question visibility.'));
+        throw new fValidationException('Not allowed to toggle question visibility.');
       }
       $question->setCategory(-$question->getCategory());
       $question->store();
-      fMessaging::create('success', T('Visibility toggled.'));
+      fMessaging::create('success', 'Visibility toggled.');
     } catch (fExpectedException $e) {
-      fMessaging::create('warning', T($e->getMessage()));
+      fMessaging::create('warning', $e->getMessage());
     } catch (fUnexpectedException $e) {
       fMessaging::create('error', $e->getMessage());
     }

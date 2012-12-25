@@ -8,7 +8,7 @@
     <meta name="description" content="<?php echo $meta_description; ?>">
   <?php endif; ?>
   <?php if (isset($meta_author)): ?>
-    <meta name="author" content="<?php echo $meta_author; ?>">
+    <meta name="author" content="root">
   <?php endif; ?>
   <link href="<?php echo ASSET_CSS; ?>/css/bootstrap.min.css" rel="stylesheet">
   <style> body { padding-top: 60px; } </style>
@@ -55,8 +55,8 @@
         <form action="<?php echo SITE_BASE; ?>/login" method="POST" class="form-inline pull-right" style="margin: 0">
           <input type="text" class="input-small" placeholder="用户名" name="username" maxlength="80">
           <input type="password" class="input-small" placeholder="密码" name="password" maxlength="80">
-          <input type="submit" class="btn btn-primary" name="action" value="登录"><?php
-          ?><a class="btn btn-success" href="<?php echo SITE_BASE; ?>/login">注册</a>
+          <button type="submit" class="btn btn-small" name="action" value="登录"><i class="icon-user"></i>登录</button><?php
+          ?><button type="submit" class="btn btn-small" name="action" value="注册"><i class="icon-user"></i>注册</button>
         </form>
       <?php endif; ?>
       <div class="nav-collapse">
@@ -127,24 +127,24 @@
 <?php if (fMessaging::check('warning')): ?>
 <div class="alert">
   <a class="close" data-dismiss="alert">&times;</a>
-  <strong>警告!</strong> <?php echo fMessaging::retrieve('warning'); ?>
+  <strong>Warning!</strong> <?php echo fMessaging::retrieve('warning'); ?>
 </div>
 <?php endif; ?>
 <?php if (fMessaging::check('error')): ?>
 <div class="alert alert-error">
   <a class="close" data-dismiss="alert">&times;</a>
-  <strong>喔唷!</strong> <?php echo fMessaging::retrieve('error'); ?>
+  <strong>Oh snap!</strong> <?php echo fMessaging::retrieve('error'); ?>
 </div>
 <?php endif; ?>
 <?php if (fMessaging::check('success')): ?>
 <div class="alert alert-success">
   <a class="close" data-dismiss="alert">&times;</a>
-  <strong>很好!</strong> <?php echo fMessaging::retrieve('success'); ?>
+  <strong>Well done!</strong> <?php echo fMessaging::retrieve('success'); ?>
 </div>
 <?php endif; ?>
 <?php if (fMessaging::check('info')): ?>
 <div class="alert alert-info">
   <a class="close" data-dismiss="alert">&times;</a>
-  <strong>注意!</strong> <?php echo fMessaging::retrieve('info'); ?>
+  <strong>Heads up!</strong> <?php echo fMessaging::retrieve('info'); ?>
 </div>
 <?php endif; ?>

@@ -22,8 +22,8 @@ include(__DIR__ . '/../layout/header.php');
       </div>
     </div>
     <div class="form-actions">
-      <input type="submit" class="btn btn-primary btn-large" name="action" value="登录">
-      <input type="submit" class="btn btn-success btn-large" name="action" value="注册">
+      <button type="submit" class="btn btn-large" name="action" value="登录"><i class="icon-user"></i>登录</button>
+      <button type="submit" class="btn btn-large" name="action" value="注册"><i class="icon-user"></i>注册</button>
     </div>
   </fieldset>
 </form>

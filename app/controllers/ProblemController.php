@@ -41,13 +41,13 @@ class ProblemController extends ApplicationController
       $this->problem = new Problem($id);
       if ($this->problem->isSecretNow()) {
         if (!User::can('view-any-problem')) {
-          throw new fAuthorizationException(T('Problem is secret now.'));
+          throw new fAuthorizationException('Problem is secret now.');
         }
       }
       $this->nav_class = 'problems';
       $this->render('problem/show');
     } catch (fExpectedException $e) {
-      fMessaging::create('warning', T($e->getMessage()));
+      fMessaging::create('warning', $e->getMessage());
       fURL::redirect(Util::getReferer());
     } catch (fUnexpectedException $e) {
       fMessaging::create('error', $e->getMessage());

@@ -76,7 +76,6 @@ class ReportGenerator
       $score[$row_average][$col_score] = 0;
     }
     else {
-      $totalsum = 0;
       // this is the normal case, calculate average scores
       $totalsum = 0;
       for ($prob_i = 0; $prob_i < $p_size; $prob_i++) {
@@ -87,11 +86,7 @@ class ReportGenerator
         $totalsum += $sum;
         $score[$row_average][$prob_i] = round($sum / ($u_size - 1));
       }
-<<<<<<< HEAD
-      // calculate average total score
-=======
       // calculate average total score 
->>>>>>> upstream/master
       $score[$row_average][$col_score] = round($totalsum / ($u_size - 1));
     }
   }
