@@ -4,6 +4,12 @@ class Report extends fActiveRecord
   protected function configure()
   {
   }
+
+  public function isHomework()
+  {
+    return (stripos($this->getTitle(), 'homework') !== FALSE)
+        or (strpos($this->getTitle(), '作业') !== FALSE);
+  }
   
   public function isReadable()
   {

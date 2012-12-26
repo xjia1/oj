@@ -9,8 +9,7 @@ include(__DIR__ . '/../layout/header.php');
   <article class="span9"><?php echo Markdown($this->problem->getDescription()); ?></article>
   <aside class="span3">
     <div class="well">
-      <a class="btn btn-primary btn-large"
-         href="<?php echo SITE_BASE; ?>/submit?problem=<?php echo $this->problem->getId(); ?>">提交此题<a>
+      <a class="btn btn-primary btn-large" href="<?php echo SITE_BASE; ?>/submit?problem=<?php echo $this->problem->getId(); ?>">提交此题</a>
     </div>
   </aside>
 </div>

@@ -315,10 +315,16 @@ Finally try `./scripts/pprofp` to see whether the configuration works.
     $ sudo touch /var/log/rejudger.log
     $ sudo chmod +rw /var/log/rejudger.log
     
+    $ cd
+    $ git clone git://github.com/visionmedia/mon.git
+    $ cd mon
+    $ make
+    $ sudo make install
+    
     $ sudo vim /etc/rc.local
     #!/bin/sh -e
     # ...
-    /home/xjia/rejudger/rdaemon &
+    /usr/local/bin/mon -d "/home/xjia/rejudger/rdaemon" -p "/tmp/rejudger.pid"
     exit 0
     
     $ sudo -i
