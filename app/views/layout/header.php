@@ -123,6 +123,7 @@
     </div>
   </div>
 </div>
+<div id="wrap">
 <div class="container">
 <?php if (fMessaging::check('warning')): ?>
 <div class="alert">
