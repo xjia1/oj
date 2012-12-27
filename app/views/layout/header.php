@@ -14,6 +14,7 @@
   <style> body { padding-top: 60px; } </style>
   <link href="<?php echo ASSET_CSS; ?>/css/bootstrap-responsive.min.css" rel="stylesheet">
   <link href="<?php echo ASSET_CSS; ?>/css/prettify.css" media="screen" rel="stylesheet">
+  <link href="<?php echo ASSET_CSS; ?>/css/footer.css" media="screen" rel="stylesheet">
   <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
@@ -124,28 +125,28 @@
   </div>
 </div>
 <div id="wrap">
-<div class="container">
-<?php if (fMessaging::check('warning')): ?>
-<div class="alert">
-  <a class="close" data-dismiss="alert">&times;</a>
-  <strong>Warning!</strong> <?php echo fMessaging::retrieve('warning'); ?>
-</div>
-<?php endif; ?>
-<?php if (fMessaging::check('error')): ?>
-<div class="alert alert-error">
-  <a class="close" data-dismiss="alert">&times;</a>
-  <strong>Oh snap!</strong> <?php echo fMessaging::retrieve('error'); ?>
-</div>
-<?php endif; ?>
-<?php if (fMessaging::check('success')): ?>
-<div class="alert alert-success">
-  <a class="close" data-dismiss="alert">&times;</a>
-  <strong>Well done!</strong> <?php echo fMessaging::retrieve('success'); ?>
-</div>
-<?php endif; ?>
-<?php if (fMessaging::check('info')): ?>
-<div class="alert alert-info">
-  <a class="close" data-dismiss="alert">&times;</a>
-  <strong>Heads up!</strong> <?php echo fMessaging::retrieve('info'); ?>
-</div>
-<?php endif; ?>
+  <div class="container">
+    <?php if (fMessaging::check('warning')): ?>
+      <div class="alert">
+        <a class="close" data-dismiss="alert">&times;</a>
+        <strong>Warning!</strong> <?php echo fMessaging::retrieve('warning'); ?>
+      </div>
+    <?php endif; ?>
+    <?php if (fMessaging::check('error')): ?>
+      <div class="alert alert-error">
+        <a class="close" data-dismiss="alert">&times;</a>
+        <strong>Oh snap!</strong> <?php echo fMessaging::retrieve('error'); ?>
+      </div>
+    <?php endif; ?>
+    <?php if (fMessaging::check('success')): ?>
+      <div class="alert alert-success">
+        <a class="close" data-dismiss="alert">&times;</a>
+        <strong>Well done!</strong> <?php echo fMessaging::retrieve('success'); ?>
+      </div>
+    <?php endif; ?>
+    <?php if (fMessaging::check('info')): ?>
+    <div class="alert alert-info">
+      <a class="close" data-dismiss="alert">&times;</a>
+      <strong>Heads up!</strong> <?php echo fMessaging::retrieve('info'); ?>
+    </div>
+    <?php endif; ?>

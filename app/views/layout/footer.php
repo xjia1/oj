@@ -1,5 +1,5 @@
-<div id="push"></div>
-</div> <!-- /container -->
+    <div id="push"></div>
+  </div> <!-- /container -->
 </div><!--wrap-->
 
 <div class="footer">
