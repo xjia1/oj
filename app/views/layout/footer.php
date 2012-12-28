@@ -38,6 +38,13 @@
 })();
 </script>
 <?php endif; ?>
+<script>
+  $('document').ready(function() {
+    if ($("[rel=tooltip]").length) {
+      $("[rel=tooltip]").tooltip();
+    }
+  });
+</script>
 <?php if (isset($javascripts)): ?>
   <?php foreach ($javascripts as $javascript): ?>
     <script src="<?php echo ASSET_JS; ?>/js/<?php echo $javascript; ?>.js"></script>
