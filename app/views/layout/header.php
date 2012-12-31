@@ -52,12 +52,25 @@
           <time>服务器时间：<?php echo new fTimestamp(); ?></time>
         </div>
       <?php else: ?>
-        <form action="<?php echo SITE_BASE; ?>/login" method="POST" class="form-inline pull-right" style="margin: 0">
-          <input type="text" class="input-small" placeholder="用户名" name="username" maxlength="80">
-          <input type="password" class="input-small" placeholder="密码" name="password" maxlength="80">
-          <button type="submit" class="btn btn-small" name="action" value="登录"><i class="icon-user"></i>登录</button><?php
-          ?><button type="submit" class="btn btn-small" name="action" value="注册"><i class="icon-user"></i>注册</button>
+        <div class="btn-group nav pull-right">
+          <a href="<?php echo SITE_BASE; ?>/login" class="btn btn-large" name="action" value="注册"><i class="icon-plus"></i>注册</button>
+  		    <a class="btn dropdown-toggle btn-middle" data-toggle="dropdown" href="#"><i class="icon-user"></i>
+            登录
+          </a>
+        <ul class="dropdown-menu">
+        <form action="<?php echo SITE_BASE; ?>/login" method="POST" class="form-inline " style="margin: 0">
+        <fieldset class='textbox' style="padding:10px">
+				<p>用户名</p>
+            <input style="margin-top: 8px" type="text" class="input-small" placeholder="用户名" name="username" maxlength="80">
+            <p>密码</p>
+            <input style="margin-top: 8px" type="password" class="input-small" placeholder="密码" name="password" maxlength="80">
+				<hr>
+            <button type="submit" class="btn btn-middle btn-primary" name="action" value="登录"><i class="icon-user icon-white"></i>登录</button><?php
+            ?>
+            </fieldset>
         </form>
+        </ul>
+        </div>
       <?php endif; ?>
       <div class="nav-collapse">
         <ul class="nav">
