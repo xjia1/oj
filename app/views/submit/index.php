@@ -15,14 +15,13 @@ include(__DIR__ . '/../layout/header.php');
     </div>
     <div class="control-group">
       <label class="control-label" for="language">语言</label>
-      <div class="controls">
-        <select class="input-medium" id="language" name="language">
-        <?php
-          foreach (static::$languages as $value => $text) {
-            fHTML::printOption($text, $value, $this->current_language);
-          }
-        ?>
-        </select>
+        <div class="controls">
+          <input type="hidden" id="language" name="language" value="" />
+          <div class="btn-group" data-toggle="buttons-radio" >
+            <?php foreach (static::$languages as $value => $text): ?>
+              <input type="button" class="btn btn-primary" value="<?php echo $text; ?>" onclick="$('#language').val('<?php echo $value; ?>')"></input>
+            <?php endforeach ; ?>
+          </div>
       </div>
     </div>
     <div class="control-group">
