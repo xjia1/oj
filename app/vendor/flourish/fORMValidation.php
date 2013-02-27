@@ -1194,6 +1194,9 @@ class fORMValidation
 	 */
 	static private function isNonBlankString($string)
 	{
+		if (is_array($string)) {
+			return TRUE;
+		}
 		return ((string) $string) !== '';
 	}
 	

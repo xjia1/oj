@@ -2828,7 +2828,7 @@ class fDatabase
 						$value_number++;
 					
 					// Here we put blank strings back into the SQL so they can be translated for Oracle
-					} elseif ($piece == '%s' && $value !== NULL && ((string) $value) == '') {
+					} elseif ($piece == '%s' && $value !== NULL && !is_array($value) && ((string) $value) == '') {
 						$new_sql .= "''";
 						$value_number++;
 					
