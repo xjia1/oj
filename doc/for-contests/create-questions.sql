@@ -1,3 +1,5 @@
+use online_judge;
+
 create table questions (
   id serial,
   username varchar(30) not null,

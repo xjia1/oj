@@ -1,3 +1,5 @@
+use online_judge;
+
 CREATE TABLE  `online_judge`.`registrations` (
 `username` VARCHAR( 30 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
 `report_id` BIGINT NOT NULL ,

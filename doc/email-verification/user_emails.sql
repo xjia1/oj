@@ -1,3 +1,5 @@
+use online_judge;
+
 -- phpMyAdmin SQL Dump
 -- version 3.4.10.1deb1
 -- http://www.phpmyadmin.net
