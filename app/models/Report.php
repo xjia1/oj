@@ -33,7 +33,7 @@ class Report extends fActiveRecord
   
   /**
    * (1) user_list 为空才开放注册
-   * (2) 注册截止比赛开始前五分钟
+   * (2) 注册截止比赛结束时
    * (3) 只能注册一次
    */
   public function isRegistrable()
@@ -41,7 +41,7 @@ class Report extends fActiveRecord
     if (strlen(trim($this->getUserList())) > 0) {
       return FALSE;
     }
-    if ($this->getStartDatetime()->lt(new fTimestamp('+5 min'))) {
+    if ($this->getEndDatetime()->lt(new fTimestamp())) {
       return FALSE;
     }
     if (Registration::has(fAuthorization::getUserToken(), $this->getId())) {
