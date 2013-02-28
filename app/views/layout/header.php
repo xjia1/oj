@@ -52,11 +52,11 @@
           <time>服务器时间：<?php echo new fTimestamp(); ?></time>
         </div>
       <?php else: ?>
+        <a class="btn btn-success pull-right" href="<?php echo SITE_BASE; ?>/signup">新用户注册</a>
         <form action="<?php echo SITE_BASE; ?>/login" method="POST" class="form-inline pull-right" style="margin: 0">
           <input type="text" class="input-small" placeholder="用户名" name="username" maxlength="80">
           <input type="password" class="input-small" placeholder="密码" name="password" maxlength="80">
-          <input type="submit" class="btn btn-primary" name="action" value="登录"><?php
-          ?><a class="btn btn-success" href="<?php echo SITE_BASE; ?>/login">注册</a>
+          <input type="submit" class="btn btn-primary" name="action" value="登录">
         </form>
       <?php endif; ?>
       <div class="nav-collapse">

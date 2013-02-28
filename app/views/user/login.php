@@ -3,7 +3,7 @@ $title = 'Sign In';
 include(__DIR__ . '/../layout/header.php');
 ?>
 <div class="page-header">
-  <h1>登录 / 注册</h1>
+  <h1>登录</h1>
 </div>
 <form action="<?php echo SITE_BASE; ?>/login" method="POST" class="form-horizontal">
   <fieldset>
@@ -23,7 +23,6 @@ include(__DIR__ . '/../layout/header.php');
     </div>
     <div class="form-actions">
       <input type="submit" class="btn btn-primary btn-large" name="action" value="登录">
-      <input type="submit" class="btn btn-success btn-large" name="action" value="注册">
     </div>
   </fieldset>
 </form>

@@ -26,6 +26,11 @@ $app->get('/email/vericode/:id/:vericode', function ($id, $vericode) {
   $controller->checkVericode($id, $vericode);
 });
 
+$app->get('/signup', function () {
+  $controller = new UserController();
+  $controller->showSignUpPage();
+});
+
 $app->get('/login', function () {
   $controller = new UserController();
   $controller->showLoginPage();

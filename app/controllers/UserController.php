@@ -22,6 +22,12 @@ class UserController extends ApplicationController
     $this->render('user/ranklist');
   }
   
+  public function showSignUpPage()
+  {
+    $this->cache_control('public', 300);
+    $this->render('user/signup');
+  }
+
   public function showLoginPage()
   {
     $this->cache_control('public', 300);
@@ -64,6 +70,19 @@ class UserController extends ApplicationController
         if (Util::contains('`~!@#$%^&*()-+=[]\\;\',/{}|:"<>?', $username) or preg_match('/\s/', $username)) {
           throw new fValidationException('Username is illegal.');
         }
+
+        $realname = trim(fRequest::get('realname', 'string'));
+        $gender = trim(fRequest::get('gender', 'string'));
+        $school = trim(fRequest::get('school', 'string'));
+        $major = trim(fRequest::get('major', 'string'));
+        $grade = trim(fRequest::get('grade', 'integer'));
+        $phone = trim(fRequest::get('phone', 'string'));
+        $qq = trim(fRequest::get('qq', 'string'));
+
+        if (strlen($realname) < 1) throw new fValidationException('请填写真实姓名');
+        if (strlen($gender) < 1) throw new fValidationException('请选择性别');
+        if (strlen($phone) < 1) throw new fValidationException('请填写手机号码');
+
         try {
           $user = new User($username);
           throw new fValidationException('User already exists.');
@@ -72,6 +91,22 @@ class UserController extends ApplicationController
           $user->setUsername($username);
           $user->setPassword($password_hash);
           $user->store();
+
+          try {
+            $profile = new Profile($username);
+          } catch (fNotFoundException $e) {
+            $profile = new Profile();
+            $profile->setUsername($username);
+          }
+          $profile->setRealname($realname);
+          $profile->setGender($gender);
+          $profile->setSchool($school);
+          $profile->setMajor($major);
+          $profile->setGrade($grade);
+          $profile->setPhoneNumber($phone);
+          $profile->setQq($qq);
+          $profile->store();
+
           fAuthorization::setUserToken($user->getUsername());
           fMessaging::create('success', 'Registered successfully.');
           Util::redirect('/email/verify');
