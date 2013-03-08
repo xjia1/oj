@@ -13,6 +13,6 @@ include(__DIR__ . '/../layout/header.php');
     </div>
   </aside>
 </div>
-<script type="text/javascript" src="http://download.acm-project.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <?php
 include(__DIR__ . '/../layout/footer.php');
