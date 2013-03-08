@@ -114,6 +114,9 @@
                   <li class="nav-header">Variables</li>
                   <li><a href="<?php echo SITE_BASE; ?>/dashboard#set_variable">Set Variable</a></li>
                   <li><a href="<?php echo SITE_BASE; ?>/dashboard#variables">View All Variables</a></li>
+                  <li class="divider"></li>
+                  <li class="nav-header">Users</li>
+                  <li><a href="<?php echo SITE_BASE; ?>/admin/user/categories">User Categories</a></li>
                 </ul>
               </li>
             <?php endif; ?>

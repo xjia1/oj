@@ -1,0 +1,12 @@
+#userlist th, #userlist td {
+	border: 1px solid #333;
+	padding: 10px;
+}
+
+#userlist td form {
+	display: inline;
+}
+
+#userlist tr:hover {
+	background: #eee;
+}

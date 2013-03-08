@@ -39,6 +39,38 @@ class DashboardController extends ApplicationController
     $this->nav_class = 'dashboard';
     $this->render('dashboard/index');
   }
+
+  /*
+    Users are manually categorized.
+    Category is stored in the `class_name` column of the `profiles` table.
+  */
+  public function adminUserCategories()
+  {
+    if (!User::can('manage-site')) {
+      fMessaging::create('error', 'You are not allowed to manage user categories.');
+      fURL::redirect(Util::getReferer());
+    }
+
+    $this->profiles = fRecordSet::build('Profile');
+
+    $this->nav_class = 'dashboard';
+    $this->render('dashboard/admin_user_categories');
+  }
+
+  public function postUserCategories()
+  {
+    if (!User::can('manage-site')) {
+      fMessaging::create('error', 'You are not allowed to manage user categories.');
+      fURL::redirect(Util::getReferer());
+    }
+
+    $class_name = fRequest::get('class_name');
+    $username = fRequest::get('username');
+    $profile = new Profile($username);
+    $profile->setClassName($class_name);
+    $profile->store();
+    Util::redirect('/admin/user/categories#' . $username);
+  }
   
   private function gitPullOriginMaster()
   { 

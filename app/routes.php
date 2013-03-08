@@ -139,6 +139,18 @@ $app->get('/dashboard', function () {
   $controller->index();
 });
 
+$app->get('/admin/user/categories', function () {
+  fAuthorization::requireLoggedIn();
+  $controller = new DashboardController();
+  $controller->adminUserCategories();
+});
+
+$app->post('/admin/user/categories', function () {
+  fAuthorization::requireLoggedIn();
+  $controller = new DashboardController();
+  $controller->postUserCategories();
+});
+
 $app->post('/dashboard/problems', function () {
   fAuthorization::requireLoggedIn();
   $controller = new DashboardController();
