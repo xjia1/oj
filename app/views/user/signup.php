@@ -52,14 +52,6 @@ include(__DIR__ . '/../layout/header.php');
         <input type="number" class="input-small" id="grade" name="grade" value="<?php echo date('Y'); ?>">
       </div>
     </div>
-<!--
-    <div class="control-group">
-      <label class="control-label" for="email">邮箱 (必填)</label>
-      <div class="controls">
-        <input type="email" class="input-xlarge" id="email" name="email" placeholder="邮箱">
-      </div>
-    </div>
--->
     <div class="control-group">
       <label class="control-label" for="phone">手机 (必填)</label>
       <div class="controls">

@@ -16,14 +16,20 @@ class Profile extends fActiveRecord
         self::$profile_cache[$profile->getUsername()] = array(
           'realname' => $profile->getRealname(),
           'class_name' => $profile->getClassName(),
-          'phone_number' => $profile->getPhoneNumber()
+          'phone_number' => $profile->getPhoneNumber(),
+          'gender' => $profile->getGender(),
+          'school' => $profile->getSchool(),
+          'major' => $profile->getMajor(),
+          'grade' => $profile->getGrade(),
+          'qq' => $profile->getQq()
         );
       }
     }
     if (array_key_exists($username, self::$profile_cache)) {
       return self::$profile_cache[$username];
     }
-    return array('realname' => '', 'class_name' => '', 'phone_number' => '');
+    return array('realname' => '', 'class_name' => '', 'phone_number' => '',
+      'gender' => '', 'school' => '', 'major' => '', 'grade' => '', 'qq' => '');
   }
   
   public static function fetchRealName($username)
@@ -42,5 +48,35 @@ class Profile extends fActiveRecord
   {
     $cached_profile = Profile::fetch($username);
     return $cached_profile['phone_number'];
+  }
+
+  public static function fetchGender($username)
+  {
+    $cached_profile = Profile::fetch($username);
+    return $cached_profile['gender'];
+  }
+
+  public static function fetchSchool($username)
+  {
+    $cached_profile = Profile::fetch($username);
+    return $cached_profile['school'];
+  }
+
+  public static function fetchMajor($username)
+  {
+    $cached_profile = Profile::fetch($username);
+    return $cached_profile['major'];
+  }
+
+  public static function fetchGrade($username)
+  {
+    $cached_profile = Profile::fetch($username);
+    return $cached_profile['grade'];
+  }
+
+  public static function fetchQQ($username)
+  {
+    $cached_profile = Profile::fetch($username);
+    return $cached_profile['qq'];
   }
 }

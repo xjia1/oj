@@ -8,24 +8,47 @@ include(__DIR__ . '/../layout/header.php');
 <form action="<?php echo SITE_BASE; ?>/change/info" method="POST" class="form-horizontal">
   <fieldset>
     <div class="control-group">
-      <label class="control-label" for="realname">姓名</label>
+      <label class="control-label" for="realname">姓名 (必填)</label>
       <div class="controls">
-        <input type="text" class="input-large" id="realname" name="realname" placeholder="姓名" value="<?php echo Profile::fetchRealName(fAuthorization::getUserToken()); ?>">
-        <p class="help-block">ACM队成员请在姓名后加星号“*”，比如“张三*”。</p>
+        <input type="text" class="input-medium" id="realname" name="realname" placeholder="姓名" value="<?php echo Profile::fetchRealName(fAuthorization::getUserToken()); ?>">
       </div>
     </div>
     <div class="control-group">
-      <label class="control-label" for="class_name">班级</label>
+      <label class="control-label">性别 (必填)</label>
       <div class="controls">
-        <input type="text" class="input-large" id="class_name" name="class_name" placeholder="班级" value="<?php echo Profile::fetchClassName(fAuthorization::getUserToken()); ?>">
-        <p class="help-block">比如“F0903028”。</p>
+        <?php $gender = Profile::fetchGender(fAuthorization::getUserToken()); ?>
+        <label style="display:inline"><input type="radio" name="gender" value="男"<?php if ($gender == '男') echo ' checked'; ?>> 男</label>
+        <label style="display:inline"><input type="radio" name="gender" value="女"<?php if ($gender == '女') echo ' checked'; ?>> 女</label>
       </div>
     </div>
     <div class="control-group">
-      <label class="control-label" for="phone_number">手机</label>
+      <label class="control-label" for="school">学校</label>
       <div class="controls">
-        <input type="text" class="input-large" id="phone_number" name="phone_number" placeholder="手机" value="<?php echo Profile::fetchPhoneNumber(fAuthorization::getUserToken()); ?>">
-        <p class="help-block">比如“15212345678”。</p>
+        <input type="text" class="input-xlarge" id="school" name="school" placeholder="学校" value="<?php echo Profile::fetchSchool(fAuthorization::getUserToken()); ?>">
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label" for="major">专业</label>
+      <div class="controls">
+        <input type="text" class="input-xlarge" id="major" name="major" placeholder="专业" value="<?php echo Profile::fetchMajor(fAuthorization::getUserToken()); ?>">
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label" for="grade">年级</label>
+      <div class="controls">
+        <input type="number" class="input-small" id="grade" name="grade" value="<?php echo Profile::fetchGrade(fAuthorization::getUserToken()); ?>">
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label" for="phone">手机 (必填)</label>
+      <div class="controls">
+        <input type="text" class="input-medium" id="phone" name="phone" placeholder="手机" value="<?php echo Profile::fetchPhoneNumber(fAuthorization::getUserToken()); ?>">
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label" for="qq">QQ</label>
+      <div class="controls">
+        <input type="text" class="input-medium" id="qq" name="qq" placeholder="QQ" value="<?php echo Profile::fetchQQ(fAuthorization::getUserToken()); ?>">
       </div>
     </div>
     <div class="form-actions">

@@ -6,7 +6,6 @@ class UserController extends ApplicationController
    */
   public function ranklist()
   {
-    $this->cache_control('private', 300);
     $this->page = fRequest::get('page', 'integer', 1);
     if ($this->page <= 0) $this->page = 1;
     
@@ -24,13 +23,11 @@ class UserController extends ApplicationController
   
   public function showSignUpPage()
   {
-    $this->cache_control('public', 300);
     $this->render('user/signup');
   }
 
   public function showLoginPage()
   {
-    $this->cache_control('public', 300);
     $this->render('user/login');
   }
   
@@ -75,7 +72,7 @@ class UserController extends ApplicationController
         $gender = trim(fRequest::get('gender', 'string'));
         $school = trim(fRequest::get('school', 'string'));
         $major = trim(fRequest::get('major', 'string'));
-        $grade = trim(fRequest::get('grade', 'integer'));
+        $grade = trim(fRequest::get('grade', 'integer', NULL));
         $phone = trim(fRequest::get('phone', 'string'));
         $qq = trim(fRequest::get('qq', 'string'));
 
@@ -131,17 +128,24 @@ class UserController extends ApplicationController
   
   public function changeInfo()
   {
-    $this->cache_control('private', 300);
     $this->render('user/change_info');
   }
   
   public function updateInfo()
   {
     try {
-      $realname = trim(fRequest::get('realname'));
-      $class_name = trim(fRequest::get('class_name'));
-      $phone_number = trim(fRequest::get('phone_number'));
-      
+      $realname = trim(fRequest::get('realname', 'string'));
+      $gender = trim(fRequest::get('gender', 'string'));
+      $school = trim(fRequest::get('school', 'string'));
+      $major = trim(fRequest::get('major', 'string'));
+      $grade = trim(fRequest::get('grade', 'integer', NULL));
+      $phone = trim(fRequest::get('phone', 'string'));
+      $qq = trim(fRequest::get('qq', 'string'));
+
+      if (strlen($realname) < 1) throw new fValidationException('请填写真实姓名');
+      if (strlen($gender) < 1) throw new fValidationException('请选择性别');
+      if (strlen($phone) < 1) throw new fValidationException('请填写手机号码');
+
       try {
         $profile = new Profile(fAuthorization::getUserToken());
       } catch (fNotFoundException $e) {
@@ -149,8 +153,12 @@ class UserController extends ApplicationController
         $profile->setUsername(fAuthorization::getUserToken());
       }
       $profile->setRealname($realname);
-      $profile->setClassName($class_name);
-      $profile->setPhoneNumber($phone_number);
+      $profile->setGender($gender);
+      $profile->setSchool($school);
+      $profile->setMajor($major);
+      $profile->setGrade($grade);
+      $profile->setPhoneNumber($phone);
+      $profile->setQq($qq);
       $profile->store();
       
       fMessaging::create('success', 'Information updated successfully.');
@@ -163,7 +171,6 @@ class UserController extends ApplicationController
   
   public function changePassword()
   {
-    $this->cache_control('private', 300);
     $this->render('user/change_password');
   }
   
@@ -200,7 +207,6 @@ class UserController extends ApplicationController
   
   public function emailVerify()
   {
-    $this->cache_control('private', 300);
     fMessaging::create('referer', '/email/verify', Util::getReferer());
     $this->render('user/email/verify');
   }
@@ -250,7 +256,6 @@ class UserController extends ApplicationController
   
   public function vericodeSent()
   {
-    $this->cache_control('private', 300);
     $this->render('user/email/vericode_sent');
   }
   
