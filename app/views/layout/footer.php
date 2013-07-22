@@ -5,10 +5,10 @@
 <div class="footer">
   <div class="container">
   	<hr>
-	Powered by <a href="http://php.net/">PHP Technologies</a> |
+	  Powered by <a href="http://php.net/">PHP Technologies</a> |
   	<a href="<?php echo SITE_BASE; ?>/page/contributors">Contributors</a>
   	<br>
-  	Copyright &copy; 2011-2012 <a href="http://acm.sjtu.edu.cn/">ACM Class</a>.
+  	Copyright &copy; 2011-<?php echo date('Y'); ?> <a href="http://acm.sjtu.edu.cn/">ACM Class</a>.
   	All rights reserved.
   	<br>
   	<?php profiler_dump(); ?>
