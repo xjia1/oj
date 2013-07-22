@@ -1,14 +1,20 @@
-<hr>
-<footer>
-  Powered by <a href="http://php.net/">PHP Technologies</a> |
-  <a href="<?php echo SITE_BASE; ?>/page/contributors">Contributors</a>
-  <br>
-  Copyright &copy; 2011-2012 <a href="http://acm.sjtu.edu.cn/">ACM Class</a>.
-  All rights reserved.
-  <br>
-  <?php profiler_dump(); ?>
-</footer>
+<div id="push"></div>
 </div> <!-- /container -->
+</div><!--wrap-->
+
+<div class="footer">
+  <div class="container">
+  	<hr>
+	Powered by <a href="http://php.net/">PHP Technologies</a> |
+  	<a href="<?php echo SITE_BASE; ?>/page/contributors">Contributors</a>
+  	<br>
+  	Copyright &copy; 2011-2012 <a href="http://acm.sjtu.edu.cn/">ACM Class</a>.
+  	All rights reserved.
+  	<br>
+  	<?php profiler_dump(); ?>
+  </div>
+</div>
+
 <script src="<?php echo ASSET_JS; ?>/js/jquery.min.js"></script>
 <script src="<?php echo ASSET_JS; ?>/js/bootstrap.min.js"></script>
 <script src="<?php echo ASSET_JS; ?>/js/prettify.js"></script>
