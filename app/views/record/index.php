@@ -35,10 +35,10 @@ include(__DIR__ . '/../layout/header.php');
 <table id="status" class="table table-bordered table-striped">
   <thead>
     <tr>
-      <th>运行编号</th>
+      <th>运行编号<a href="#" rel="tooltip" data-placement="top" title="点击编号置顶" class="icon-info-sign"></a></th>
       <th>提交者</th>
       <th class="what">题目编号</th>
-      <th>评测结果</th>
+      <th>评测结果<a href="#" rel="tooltip" data-placement="top" title="点击查看详细评测结果" class="icon-question-sign"></a></th>
       <?php if (fAuthorization::checkLoggedIn()): ?>
         <th>分数</th>
       <?php endif; ?>
@@ -56,7 +56,7 @@ include(__DIR__ . '/../layout/header.php');
         <td>
           <a href="<?php echo SITE_BASE; ?>/problem/<?php echo $r->getProblemId(); ?>"><?php echo $r->getProblemId(); ?></a>
           <?php if (fAuthorization::checkLoggedIn()): ?>
-            <a href="<?php echo SITE_BASE; ?>/submit?problem=<?php echo $r->getProblemId(); ?>" class="icon-repeat"></a>
+            <a href="<?php echo SITE_BASE; ?>/submit?problem=<?php echo $r->getProblemId(); ?>" rel="tooltip" data-placement="right" title="重新提交" class="icon-repeat"></a>
           <?php endif; ?>
         </td>
         <td>
