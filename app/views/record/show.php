@@ -31,7 +31,7 @@ include(__DIR__ . '/../layout/header.php');
       题目编号：
       <a href="<?php echo SITE_BASE; ?>/problem/<?php echo $this->record->getProblemId(); ?>">
         <?php echo $this->record->getProblemId(); ?></a>
-      <a href="<?php echo SITE_BASE; ?>/submit?problem=<?php echo $this->record->getProblemId(); ?>" class="icon-repeat"></a>
+        <a href="<?php echo SITE_BASE; ?>/submit?problem=<?php echo $this->record->getProblemId(); ?>" rel="tooltip" data-placement="right" title="重新提交" class="icon-repeat"></a>
     </li>
     <li>语言：<?php echo fHTML::encode($this->record->getLanguageName()); ?></li>
     <li>提交时间：<?php echo $this->record->getSubmitDatetime(); ?></li>
