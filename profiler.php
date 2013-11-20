@@ -30,7 +30,7 @@ function profiler_instrument_begin($inst_id)
   } else {
     $profiler_stats[$inst_id] = array(
       'time' => 0.0,
-      'last' => microtime(TRUE);
+      'last' => microtime(TRUE)
     );
   }
 }
