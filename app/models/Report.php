@@ -69,7 +69,12 @@ class Report extends fActiveRecord
     }
     return FALSE;
   }
-  
+
+  public function countRegistrants()
+  {
+    return count($this->getUsernames());
+  }
+
   /**
    * 如果 user_list 为空，则统计 registrations
    * 否则只统计 user_list
