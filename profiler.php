@@ -16,6 +16,12 @@ function profiler_log_sql($db, $statement, $query_time, $result)
   $profiler_stats['statements'][] = $statement;
 }
 
+function profiler_render_begin()
+{
+  global $profiler_stats;
+  $profiler_stats['render_time'] = microtime(TRUE);
+}
+
 function profiler_dump()
 {
   global $profiler_stats;
@@ -23,7 +29,8 @@ function profiler_dump()
   $query_num  = $profiler_stats['query_num'];
   $query_time = round($profiler_stats['query_time'], 6);
   $time_cost  = round(microtime(TRUE) - $time_start, 6);
-  echo "{$time_cost} sec - {$query_num} queries - {$query_time} sec @ " . INSTANCE_NAME;
+  $render_time = round(microtime(TRUE) - $profiler_stats['render_time'], 6);
+  echo "{$time_cost} sec - render ${render_time} sec - {$query_num} queries - {$query_time} sec @ " . INSTANCE_NAME;
   if (SQL_DEBUG) {
     echo "<pre>" . implode("\n", $profiler_stats['statements']) . "</pre>";
   }

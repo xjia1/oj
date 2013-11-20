@@ -22,6 +22,7 @@ class ApplicationController
       header_remove('Set-Cookie');
     }
     // then output page
+    profiler_render_begin();
     include(__DIR__ . '/../views/' . $name . '.php');
   }
   
