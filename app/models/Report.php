@@ -72,7 +72,10 @@ class Report extends fActiveRecord
 
   public function countRegistrants()
   {
-    return count($this->getUsernames());
+    profiler_instrument_begin('countRegistrants');
+    $result = count($this->getUsernames());
+    profiler_instrument_end('countRegistrants');
+    return $result;
   }
 
   /**

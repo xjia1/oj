@@ -61,7 +61,7 @@ function profiler_dump()
   $query_time = round($profiler_stats['query_time'], 4);
   $time_cost  = round(microtime(TRUE) - $time_start, 4);
   $render_time = round(microtime(TRUE) - $profiler_stats['render_time'], 4);
-  $instruments = profiler_instrument_read('fetchRealName');
+  $instruments = profiler_instrument_read('countRegistrants').' '.profiler_instrument_read('fetchRealName');
   echo "{$time_cost} - render ${render_time} - instru ${instruments} - {$query_num} queries - {$query_time} @ " . INSTANCE_NAME;
   if (SQL_DEBUG) {
     echo "<pre>" . implode("\n", $profiler_stats['statements']) . "</pre>";
