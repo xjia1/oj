@@ -36,7 +36,7 @@ include(__DIR__ . '/../layout/header.php');
         <td><?php echo $r->getStartDatetime(); ?></td>
         <td><?php echo $r->getEndDatetime(); ?></td>
         <td><?php echo $r->getDuration(); ?></td>
-        <td><?php echo count($r->getUsernames()); ?></td>
+        <td><?php echo $r->countRegistrants(); ?></td>
         <td><?php
           $this->report = $r;
           include(__DIR__ . '/_register_btn.php');
