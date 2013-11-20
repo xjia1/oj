@@ -3,8 +3,20 @@ class Profile extends fActiveRecord
 {
   protected function configure()
   {
+    fORM::registerHookCallback($this, 'post::store()', 'Profile::invalidateCache');
   }
-  
+
+  public static function invalidateCache($object, &$values, &$old_values, &$related_records, &$cache)
+  {
+    global $cache;
+    $cache->delete(static::buildRealNameCacheKey($values['username']));
+  }
+
+  private static function buildRealNameCacheKey($username)
+  {
+    return "Profile:realname:$username";
+  }
+
   private static $profile_cache = NULL;
   
   public static function fetch($username)
@@ -42,8 +54,15 @@ class Profile extends fActiveRecord
 
   public static function fetchRealName_($username)
   {
-    $cached_profile = Profile::fetch($username);
-    return $cached_profile['realname'];
+    global $cache;
+    $cache_key = static::buildRealNameCacheKey($username);
+    $cache_value = $cache->get($cache_key);
+    if ($cache_value === NULL) {
+      $php_cached_profile = Profile::fetch($username);
+      $cache_value = $php_cached_profile['realname'];
+      $cache->set($cache_key, $cache_value);
+    }
+    return $cache_value;
   }
   
   public static function fetchClassName($username)
