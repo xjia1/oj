@@ -70,12 +70,23 @@ class Report extends fActiveRecord
     return FALSE;
   }
 
+  public static function buildRegistrantsCountCacheKey($id)
+  {
+    return "Report:registrantsCount:$id";
+  }
+
   public function countRegistrants()
   {
     profiler_instrument_begin('countRegistrants');
-    $result = count($this->getUsernames());
+    global $cache;
+    $cache_key = static::buildRegistrantsCountCacheKey($this->getId());
+    $cache_value = $cache->get($cache_key);
+    if ($cache_value === NULL) {
+      $cache_value = count($this->getUsernames());
+      $cache->set($cache_key, $cache_value);
+    }
     profiler_instrument_end('countRegistrants');
-    return $result;
+    return $cache_value;
   }
 
   /**

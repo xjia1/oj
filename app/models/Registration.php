@@ -12,6 +12,9 @@ class Registration extends fActiveRecord
     
     $cache_key = static::buildCacheKey($values['username'], $values['report_id']);
     $cache->delete($cache_key);
+
+    $cache_key = Report::buildRegistrantsCountCacheKey($values['report_id']);
+    $cache->delete($cache_key);
   }
   
   private static function fetchAndCheck($username, $report_id)
