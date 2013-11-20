@@ -34,6 +34,14 @@ class Profile extends fActiveRecord
   
   public static function fetchRealName($username)
   {
+    profiler_instrument_begin('fetchRealName');
+    $result = Profile::fetchRealName_($username);
+    profiler_instrument_end('fetchRealName');
+    return $result;
+  }
+
+  public static function fetchRealName_($username)
+  {
     $cached_profile = Profile::fetch($username);
     return $cached_profile['realname'];
   }
