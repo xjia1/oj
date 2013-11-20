@@ -48,7 +48,9 @@ function profiler_instrument_end($inst_id)
 function profiler_instrument_read($inst_id)
 {
   global $profiler_stats;
-  return round($profiler_stats[$inst_id]['time'], 4);
+  if (array_key_exists($inst_id, $profiler_stats))
+    return round($profiler_stats[$inst_id]['time'], 4);
+  return '';
 }
 
 function profiler_dump()
