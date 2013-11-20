@@ -38,14 +38,6 @@ class Record extends fActiveRecord
   
   public function getTimeCost()
   {
-    profiler_instrument_begin('Record::getTimeCost');
-    $result = $this->getTimeCost_();
-    profiler_instrument_end('Record::getTimeCost');
-    return $result;
-  }
-
-  private function getTimeCost_()
-  {
     if (preg_match_all(self::$regexPattern, $this->getJudgeMessage(), $matches)) {
       return array_sum($matches['time']) . 'ms';
     }
@@ -53,14 +45,6 @@ class Record extends fActiveRecord
   }
   
   public function getMemoryCost()
-  {
-    profiler_instrument_begin('Record::getMemoryCost');
-    $result = $this->getMemoryCost_();
-    profiler_instrument_end('Record::getMemoryCost');
-    return $result;
-  }
-
-  private function getMemoryCost_()
   {
     if (preg_match_all(self::$regexPattern, $this->getJudgeMessage(), $matches)) {
       return array_sum($matches['memory']) . 'kb';
@@ -109,14 +93,6 @@ class Record extends fActiveRecord
   }
   
   public function getScore()
-  {
-    profiler_instrument_begin('Record::getScore');
-    $result = $this->getScore_();
-    profiler_instrument_end('Record::getScore');
-    return $result;
-  }
-
-  private function getScore_()
   {
     try {
       $manjudge_score = $this->getManjudgeScore();
