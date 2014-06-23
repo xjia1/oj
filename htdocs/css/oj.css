@@ -1,0 +1,8 @@
+.list_problems .th {
+  line-height: inherit;
+  display: block;
+}
+
+.list_problems .id {
+  display: block;
+}
