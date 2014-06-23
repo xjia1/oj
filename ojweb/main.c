@@ -3,6 +3,7 @@
 static void init_modules()
 {
     logger_init();
+    state_init();
     journal_init();
     http_server_init();
     output_buffer_init();

@@ -21,6 +21,8 @@ void logger(const char *file, int line, const char *level, const char *format, .
 
 void rtrim(char *s);
 
+void state_init(void);
+
 void journal_init(void);
 void journal_open(const char *filename, const char *mode);
 void journal_reopen(const char *filename, const char *mode);
