@@ -19,6 +19,8 @@ void logger(const char *file, int line, const char *level, const char *format, .
 #define ERROR(...) logger(__FILE__, __LINE__, "[ERROR]", __VA_ARGS__)
 #define FATAL(...) do { logger(__FILE__, __LINE__, "[FATAL]", __VA_ARGS__); exit(1); } while (0)
 
+void rtrim(char *s);
+
 void journal_init(void);
 void journal_open(const char *filename, const char *mode);
 void journal_reopen(const char *filename, const char *mode);
@@ -48,6 +50,9 @@ void http_server_close_connection(void);
 int file_exists(const char *filename);
 int file_get_size(const char *filename);
 char *file_get_contents(const char *filename);
+
+void conf_load(const char *filename);
+const char *conf_get(const char *name, const char *default_value);
 
 void output_buffer_init(void);
 void output_buffer_reset(void);
