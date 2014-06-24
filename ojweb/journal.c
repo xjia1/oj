@@ -41,6 +41,20 @@ int journal_read_uint8(uint8_t *u)
     return 0;
 }
 
+int journal_write_uint8(uint8_t u)
+{
+    size_t n;
+
+    n = fwrite(&u, sizeof(uint8_t), 1, journal);
+    if (n != 1)
+        return 1;
+
+    if (fflush(journal) != 0)
+        return 1;
+
+    return 0;
+}
+
 int journal_read_uint16(uint16_t *u)
 {
     int error;
@@ -55,6 +69,21 @@ int journal_read_uint16(uint16_t *u)
         return error;
 
     *u = (((uint16_t) u1) << 8) | ((uint16_t) u2);
+    return 0;
+}
+
+int journal_write_uint16(uint16_t u)
+{
+    int error;
+
+    error = journal_write_uint8(u / 256);
+    if (error)
+        return error;
+
+    error = journal_write_uint8(u % 256);
+    if (error)
+        return error;
+
     return 0;
 }
 

@@ -269,6 +269,11 @@ int http_request_method_is_GET()
     return Request.Method == GET;
 }
 
+int http_request_method_is_POST()
+{
+    return Request.Method == POST;
+}
+
 const char *http_request_path()
 {
     return Request.Path;

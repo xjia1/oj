@@ -18,11 +18,11 @@ struct Conf
 
 static struct Conf Conf;
 
-void conf_load(const char *filename)
+int conf_load(const char *filename)
 {
     FILE *f;
     if (!(f = fopen(filename, "r")))
-        FATAL("Unable to open conf %s", filename);
+        return 1;
 
     const int c1 = fgetc(f);
     const int c2 = fgetc(f);
@@ -52,6 +52,7 @@ void conf_load(const char *filename)
     }
 
     fclose(f);
+    return 0;
 }
 
 const char *conf_get(const char *name, const char *default_value)
