@@ -91,3 +91,18 @@ void state_set_problem_loaded(uint16_t problem_id)
 {
     State.Problems[problem_id].Is_Loaded = 1;
 }
+
+int state_is_problem_loaded(uint16_t problem_id)
+{
+    return State.Problems[problem_id].Is_Loaded;
+}
+
+const char *state_problem_title(uint16_t problem_id)
+{
+    return State.Problems[problem_id].Title;
+}
+
+const char *state_problem_description(uint16_t problem_id)
+{
+    return State.Problems[problem_id].Description;
+}
