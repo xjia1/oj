@@ -1,25 +1,49 @@
 #include "oj.h"
+#include "sundown/markdown.h"
+#include "sundown/html.h"
+#include "sundown/buffer.h"
 
-#define MAX_FILENAME_SIZE 512
-#define TMP_PATH ""
-#define PANDOC_PATH "/usr/local/bin/pandoc"
+#define READ_UNIT 1024
+#define OUTPUT_UNIT 64
 
 char *markdown(const char *filename)
 {
-    char tmp[L_tmpnam];
-    char tmpfn[MAX_FILENAME_SIZE];
-    char cmd[MAX_FILENAME_SIZE * 4];
+    int ret;
+    FILE *in;
+    char *result;
 
-    tmpnam(tmp);
-    sprintf(tmpfn, "%s%s", TMP_PATH, tmp);
+    struct buf *ib, *ob;
+    struct sd_callbacks callbacks;
+    struct html_renderopt options;
+    struct sd_markdown *markdown;
 
-    sprintf(cmd, "%s -f markdown_github -t html5 -o \"%s\" \"%s\"", PANDOC_PATH, tmpfn, filename);
-    if (system(NULL))
-        system(cmd);
-    else
-        FATAL("Unable to find command interpreter");
+    in = fopen(filename, "r");
+    if (!in)
+        return NULL;
 
-    char *html = file_get_contents(tmpfn);
-    remove(tmpfn);
-    return html;
+    ib = bufnew(READ_UNIT);
+    bufgrow(ib, READ_UNIT);
+    while ((ret = fread(ib->data + ib->size, 1, ib->asize - ib->size, in)) > 0) {
+        ib->size += ret;
+        bufgrow(ib, ib->size + READ_UNIT);
+    }
+
+    fclose(in);
+
+    ob = bufnew(OUTPUT_UNIT);
+
+    sdhtml_renderer(&callbacks, &options, 0);
+    markdown = sd_markdown_new(0, 16, &callbacks, &options);
+
+    sd_markdown_render(ob, ib->data, ib->size, markdown);
+    sd_markdown_free(markdown);
+
+    result = malloc(ob->size + 1);
+    memcpy(result, ob->data, ob->size);
+    result[ob->size] = '\0';
+
+    bufrelease(ib);
+    bufrelease(ob);
+
+    return result;
 }
