@@ -27,7 +27,7 @@ int file_exists(const char *filename);
 int file_get_size(const char *filename);
 char *file_get_contents(const char *filename);
 
-void sha1(const char *filename, char output[40]);
+int sha1(const char *filename, char output[40]);
 char *markdown(const char *filename);
 
 void state_init(void);

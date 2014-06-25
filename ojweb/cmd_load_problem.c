@@ -66,7 +66,11 @@ static int execute()
             return 1;
         }
         input_size = file_get_size(filename);
-        sha1(filename, input_hash);
+        if (sha1(filename, input_hash) != 0)
+        {
+            ERROR("Unable to calculate SHA-1 of %s", filename);
+            return 1;
+        }
 
         sprintf(filename, "/var/lib/sjtuoj/problems/%" PRIu16 "/data/%d.out", Problem_ID, i);
         if (!file_exists(filename))
@@ -75,7 +79,11 @@ static int execute()
             return 1;
         }
         answer_size = file_get_size(filename);
-        sha1(filename, answer_hash);
+        if (sha1(filename, answer_hash) != 0)
+        {
+            ERROR("Unable to calculate SHA-1 of %s", filename);
+            return 1;
+        }
 
         state_add_test_case(Problem_ID, score, time_limit, memory_limit, input_size, input_hash, answer_size, answer_hash);
     }
