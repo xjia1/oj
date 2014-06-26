@@ -66,7 +66,7 @@ static int execute()
             return 1;
         }
         input_size = file_get_size(filename);
-        if (sha1(filename, input_hash) != 0)
+        if (sha1_file(filename, input_hash) != 0)
         {
             ERROR("Unable to calculate SHA-1 of %s", filename);
             return 1;
@@ -79,7 +79,7 @@ static int execute()
             return 1;
         }
         answer_size = file_get_size(filename);
-        if (sha1(filename, answer_hash) != 0)
+        if (sha1_file(filename, answer_hash) != 0)
         {
             ERROR("Unable to calculate SHA-1 of %s", filename);
             return 1;

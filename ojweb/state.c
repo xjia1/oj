@@ -37,12 +37,27 @@ struct Problem
     uint8_t Is_Loaded;
 };
 
+struct Submit
+{
+    uint64_t ID;
+    char *Submit_User;
+    uint16_t Problem_ID;
+    char *Code;
+    char *Language;
+    uint64_t Submit_Time;
+    char *Submit_IP;
+    char Code_SHA1[40];
+};
+
 struct System_State
 {
     struct Problem Problems[MAX_PROBLEMS_NUM];
+
+    size_t Num_Submits;
+    struct Submit Submits[1000000];
 };
 
-struct System_State State;
+static struct System_State State;
 
 void state_init()
 {
@@ -61,7 +76,7 @@ void state_set_problem_title(uint16_t problem_id, const char *title)
     State.Problems[problem_id].Title = strdup(title);
 }
 
-void state_set_problem_max_code_size_bytes(uint16_t problem_id, int size)
+void state_set_problem_max_code_size_bytes(uint16_t problem_id, uint32_t size)
 {
     State.Problems[problem_id].Max_Code_Size_Bytes = size;
 }
@@ -103,4 +118,38 @@ const char *state_problem_title(uint16_t problem_id)
 const char *state_problem_description(uint16_t problem_id)
 {
     return State.Problems[problem_id].Description;
+}
+
+uint32_t state_problem_max_code_size_bytes(uint16_t problem_id)
+{
+    return State.Problems[problem_id].Max_Code_Size_Bytes;
+}
+
+uint64_t state_next_submit_id()
+{
+    uint64_t result = 0;
+    for (size_t i = 0; i < State.Num_Submits; i++)
+        if (State.Submits[i].ID > result)
+            result = State.Submits[i].ID;
+    return result + 1;
+}
+
+void state_add_submit(uint64_t id, const char *user, uint16_t problem_id, const char *code, const char *language, uint64_t submit_time, const char *submit_ip, char code_hash[40])
+{
+    const size_t i = State.Num_Submits;
+    State.Submits[i].ID = id;
+    State.Submits[i].Submit_User = strdup(user);
+    State.Submits[i].Problem_ID = problem_id;
+    State.Submits[i].Code = strdup(code);
+    State.Submits[i].Language = strdup(language);
+    State.Submits[i].Submit_Time = submit_time;
+    State.Submits[i].Submit_IP = strdup(submit_ip);
+    memcpy(State.Submits[i].Code_SHA1, code_hash, 40);
+    State.Num_Submits++;
+}
+
+void state_add_to_waiting_list(uint64_t id)
+{
+    /* TODO state_add_to_waiting_list */
+    (void)id;
 }

@@ -1,23 +1,28 @@
 #include "oj.h"
 #include "rfc3174/sha1.h"
 
-int sha1(const char *filename, char output[40])
+int sha1_file(const char *filename, char output[40])
 {
     char *content;
+    content = file_get_contents(filename);
+    if (!content)
+        return 1;
+    int error = sha1_str(content, output);
+    free(content);
+    return error;
+}
+
+int sha1_str(const char *content, char output[40])
+{
     SHA1Context sha;
     int error;
     uint8_t digest[20];
     int i;
     char hex[4];
 
-    content = file_get_contents(filename);
-    if (!content)
-        return 1;
-
     SHA1Reset(&sha);
 
-    error = SHA1Input(&sha, (uint8_t *) content, file_get_size(filename));
-    free(content);
+    error = SHA1Input(&sha, (uint8_t *) content, strlen(content));
     if (error)
         return 1;
 

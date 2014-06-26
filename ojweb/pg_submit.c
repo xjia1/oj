@@ -16,7 +16,7 @@ int pg_submit()
     print("<div class='row'>");
         print("<div class='large-3 columns'>");
             print("<label for='problem_id'>Problem ID</label>");
-            print("<input type='number' name='id' value='");
+            print("<input type='number' name='problem_id' value='");
             print(http_get_param("problem", ""));
             print("' id='problem_id'>");
         print("</div>");

@@ -17,3 +17,10 @@ int priv_read_problem(int problem_id)
     (void)problem_id;
     return 0;
 }
+
+int priv_submit(int problem_id)
+{
+    /* TODO priv_submit */
+    (void)problem_id;
+    return 0;
+}

@@ -274,6 +274,12 @@ int http_request_method_is_POST()
     return Request.Method == POST;
 }
 
+const char *http_request_ip()
+{
+    /* TODO http_request_ip */
+    return "127.0.0.1";
+}
+
 const char *http_request_path()
 {
     return Request.Path;
