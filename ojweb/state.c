@@ -58,8 +58,7 @@ void state_reset_problem(uint16_t problem_id)
 
 void state_set_problem_title(uint16_t problem_id, const char *title)
 {
-    State.Problems[problem_id].Title = malloc(strlen(title) + 1);
-    strcpy(State.Problems[problem_id].Title, title);
+    State.Problems[problem_id].Title = strdup(title);
 }
 
 void state_set_problem_max_code_size_bytes(uint16_t problem_id, int size)
@@ -83,8 +82,7 @@ void state_add_test_case(uint16_t problem_id, int score, int time_limit, int mem
 
 void state_set_problem_description(uint16_t problem_id, const char *html)
 {
-    State.Problems[problem_id].Description = malloc(strlen(html) + 1);
-    strcpy(State.Problems[problem_id].Description, html);
+    State.Problems[problem_id].Description = strdup(html);
 }
 
 void state_set_problem_loaded(uint16_t problem_id)
