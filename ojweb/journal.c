@@ -187,7 +187,7 @@ int journal_read_string(char **s)
     if (error)
         return error;
 
-    *s[len] = 0;
+    (*s)[len] = 0;
     return 0;
 }
 
