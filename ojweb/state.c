@@ -1,4 +1,5 @@
 #include "oj.h"
+#include "queue.h"
 
 #define MAX_PROBLEMS_NUM 10000
 #define MAX_TITLE_SIZE 256
@@ -55,6 +56,8 @@ struct System_State
 
     size_t Num_Submits;
     struct Submit Submits[1000000];
+
+    queue_t Waiting_List;
 };
 
 static struct System_State State;
@@ -62,6 +65,7 @@ static struct System_State State;
 void state_init()
 {
     memset(&State, 0, sizeof(State));
+    State.Waiting_List = queue_create();
 }
 
 void state_reset_problem(uint16_t problem_id)
@@ -150,6 +154,5 @@ void state_add_submit(uint64_t id, const char *user, uint16_t problem_id, const 
 
 void state_add_to_waiting_list(uint64_t id)
 {
-    /* TODO state_add_to_waiting_list */
-    (void)id;
+    queue_push(State.Waiting_List, id);
 }
