@@ -23,7 +23,7 @@ static void free_memory()
 static int execute()
 {
     state_add_submit(Submit_ID, Submit_User, Problem_ID, Code, Language, Submit_Time, Submit_IP, Code_SHA1);
-    state_add_to_waiting_list(Submit_ID);
+    state_add_to_waiting_list(Submit_ID, Submit_Time);
     INFO("Submit ID is %" PRIu64, Submit_ID);
     print("ok");
     return 0;

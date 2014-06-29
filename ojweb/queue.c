@@ -3,7 +3,7 @@
 
 struct node
 {
-    uint64_t value;
+    queue_element_t value;
     struct node *next;
 };
 
@@ -24,7 +24,7 @@ int queue_is_empty(queue_t q0)
     return q->head == NULL && q->tail == NULL;
 }
 
-void queue_push(queue_t q0, uint64_t x)
+void queue_push(queue_t q0, queue_element_t x)
 {
     struct node *n = malloc(sizeof(struct node));
     n->value = x;
@@ -42,7 +42,7 @@ void queue_push(queue_t q0, uint64_t x)
     }
 }
 
-uint64_t queue_pop(queue_t q0)
+queue_element_t queue_pop(queue_t q0)
 {
     struct queue *q = q0;
     if (queue_is_empty(q))
@@ -51,7 +51,7 @@ uint64_t queue_pop(queue_t q0)
     }
     else
     {
-        uint64_t result = q->head->value;
+        queue_element_t result = q->head->value;
         q->head = q->head->next;
         return result;
     }

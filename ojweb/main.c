@@ -19,6 +19,7 @@ static int process_request()
 
     if (cmd_submit() == 0) return 0;
     if (cmd_load_problem() == 0) return 0;
+    if (cmd_fetch_task() == 0) return 0;
 
     return 1;
 }
@@ -27,6 +28,7 @@ static int replay_a_command()
 {
     if (cmd_submit_replay() == 0) return 0;
     if (cmd_load_problem_replay() == 0) return 0;
+    if (cmd_fetch_task_replay() == 0) return 0;
     return 1;
 }
 

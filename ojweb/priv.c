@@ -24,3 +24,9 @@ int priv_submit(int problem_id)
     (void)problem_id;
     return 0;
 }
+
+int priv_fetch_task()
+{
+    /* TODO priv_fetch_task: check http_request_ip() */
+    return 0;
+}

@@ -50,6 +50,12 @@ struct Submit
     char Code_SHA1[40];
 };
 
+struct Judge_Queue_Node
+{
+    uint64_t Submit_ID;
+    uint64_t Enqueue_Time;
+};
+
 struct System_State
 {
     struct Problem Problems[MAX_PROBLEMS_NUM];
@@ -58,6 +64,7 @@ struct System_State
     struct Submit Submits[1000000];
 
     queue_t Waiting_List;
+    queue_t Running_List;
 };
 
 static struct System_State State;
@@ -66,6 +73,7 @@ void state_init()
 {
     memset(&State, 0, sizeof(State));
     State.Waiting_List = queue_create();
+    State.Running_List = queue_create();
 }
 
 void state_reset_problem(uint16_t problem_id)
@@ -152,7 +160,18 @@ void state_add_submit(uint64_t id, const char *user, uint16_t problem_id, const 
     State.Num_Submits++;
 }
 
-void state_add_to_waiting_list(uint64_t id)
+void state_add_to_waiting_list(uint64_t id, uint64_t time)
 {
-    queue_push(State.Waiting_List, id);
+    struct Judge_Queue_Node *node = malloc(sizeof(struct Judge_Queue_Node));
+    node->Submit_ID = id;
+    node->Enqueue_Time = time;
+    queue_push(State.Waiting_List, node);
+}
+
+uint64_t state_pop_waiting_list(uint64_t time)
+{
+    struct Judge_Queue_Node *node = queue_pop(State.Waiting_List);
+    node->Enqueue_Time = time;
+    queue_push(State.Running_List, node);
+    return node->Submit_ID;
 }

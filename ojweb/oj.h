@@ -47,7 +47,8 @@ const char *state_problem_description(uint16_t problem_id);
 uint32_t state_problem_max_code_size_bytes(uint16_t problem_id);
 uint64_t state_next_submit_id(void);
 void state_add_submit(uint64_t id, const char *user, uint16_t problem_id, const char *code, const char *language, uint64_t submit_time, const char *submit_ip, char code_hash[40]);
-void state_add_to_waiting_list(uint64_t id);
+void state_add_to_waiting_list(uint64_t id, uint64_t time);
+uint64_t state_pop_waiting_list(uint64_t time);
 
 void journal_init(void);
 void journal_open(const char *filename, const char *mode);
@@ -108,6 +109,7 @@ const char *current_user(void);
 int priv_load_problem(void);
 int priv_read_problem(int problem_id);
 int priv_submit(int problem_id);
+int priv_fetch_task(void);
 
 int language_is_supported(const char *lang);
 int language_is_allowed(const char *lang, uint16_t problem_id);
@@ -123,5 +125,8 @@ int cmd_submit_replay(void);
 
 int cmd_load_problem(void);
 int cmd_load_problem_replay(void);
+
+int cmd_fetch_task(void);
+int cmd_fetch_task_replay(void);
 
 void serve_static_files(const char *document_root);
