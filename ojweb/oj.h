@@ -110,6 +110,8 @@ int priv_load_problem(void);
 int priv_read_problem(int problem_id);
 int priv_submit(int problem_id);
 int priv_fetch_task(void);
+int priv_fetch_code(void);
+int priv_fetch_data(void);
 
 int language_is_supported(const char *lang);
 int language_is_allowed(const char *lang, uint16_t problem_id);
@@ -119,6 +121,8 @@ int pg_submit(void);
 
 int q_list_problems(void);
 int q_read_problem(void);
+int q_fetch_code(void);
+int q_fetch_data(void);
 
 int cmd_submit(void);
 int cmd_submit_replay(void);

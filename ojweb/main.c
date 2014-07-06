@@ -16,6 +16,8 @@ static int process_request()
 
     if (q_list_problems() == 0) return 0;
     if (q_read_problem() == 0) return 0;
+    if (q_fetch_code() == 0) return 0;
+    if (q_fetch_data() == 0) return 0;
 
     if (cmd_submit() == 0) return 0;
     if (cmd_load_problem() == 0) return 0;
