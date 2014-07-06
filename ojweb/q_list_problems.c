@@ -63,5 +63,5 @@ int q_list_problems()
     print("</div>");
     print_footer();
 
-    return 1;
+    return 0;
 }
