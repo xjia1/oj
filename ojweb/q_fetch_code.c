@@ -14,6 +14,16 @@ int q_fetch_code()
         return 0;
     }
 
-    /* TODO q_fetch_code */
+    const char *sha1 = strcut(http_request_path(), "/fetch/code/");
+    for (size_t i = 0; i < state_num_submits(); i++)
+    {
+        if (memcmp(sha1, state_submit_code_sha1_at(i), 40) == 0)
+        {
+            print(state_submit_code_at(i));
+            return 0;
+        }
+    }
+
+    /* TODO set status code 404 */
     return 0;
 }

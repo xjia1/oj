@@ -175,3 +175,18 @@ uint64_t state_pop_waiting_list(uint64_t time)
     queue_push(State.Running_List, node);
     return node->Submit_ID;
 }
+
+size_t state_num_submits()
+{
+    return State.Num_Submits;
+}
+
+const char *state_submit_code_at(size_t index)
+{
+    return State.Submits[index].Code;
+}
+
+const char *state_submit_code_sha1_at(size_t index)
+{
+    return State.Submits[index].Code_SHA1;
+}

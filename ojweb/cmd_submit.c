@@ -24,7 +24,7 @@ static int execute()
 {
     state_add_submit(Submit_ID, Submit_User, Problem_ID, Code, Language, Submit_Time, Submit_IP, Code_SHA1);
     state_add_to_waiting_list(Submit_ID, Submit_Time);
-    INFO("Submit ID is %" PRIu64, Submit_ID);
+    INFO("Submit ID is %" PRIu64 " and code SHA-1 is %s", Submit_ID, sha1_to_string(Code_SHA1));
     print("ok");
     return 0;
 }
