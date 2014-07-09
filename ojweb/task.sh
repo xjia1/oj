@@ -9,16 +9,6 @@ set -u
 # show (-x) or hide commands (+x)
 set +x
 
-# system-dependent configurations
-CAT="/usr/local/bin/gcat"
-CXX="/usr/bin/g++ -std=c++11 -O3"
-DIFF="/usr/bin/diff -q"
-GREP="/usr/local/bin/ggrep"
-RM="/usr/local/bin/grm"
-TIME="/usr/local/bin/time"
-TIMEOUT="/usr/local/bin/gtimeout -s 9"
-WGET="/usr/local/bin/wget"
-
 # web-dependent configurations
 OJ="http://localhost:9876"
 
