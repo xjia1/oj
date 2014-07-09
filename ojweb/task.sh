@@ -21,7 +21,7 @@ $RM -f a.out
 
 # compile the code
 set +e
-$TIMEOUT 10s $CXX $CODE 2>compile.log
+$TIMEOUT -s 9 10s $CXX -std=c++11 -O3 $CODE 2>compile.log
 RV=$?
 set -e
 
@@ -50,7 +50,7 @@ if [ ! -f $ANSWER ]; then $WGET "$OJ/fetch/data/$ANSWER"; fi
 
 # execute student program
 set +e
-$TIMEOUT $TIME_LIMIT $TIME -v -o time.log ./a.out <$INPUT 1>output 2>/dev/null
+$TIMEOUT -s 9 $TIME_LIMIT $TIME -v -o time.log ./a.out <$INPUT 1>output 2>/dev/null
 RV=$?
 set -e
 
@@ -70,7 +70,7 @@ elif [ ! -f output ]; then
 else
     # compare output to answer
     set +e
-    $DIFF -B --strip-trailing-cr output $ANSWER 1>/dev/null 2>&1
+    $DIFF -q -B --strip-trailing-cr output $ANSWER 1>/dev/null 2>&1
     RV=$?
     set -e
 
@@ -79,7 +79,7 @@ else
     else
         # compare again, ignore cases and whitespaces
         set +e
-        $DIFF -i -w -B --strip-trailing-cr output $ANSWER 1>/dev/null 2>&1
+        $DIFF -q -i -w -B --strip-trailing-cr output $ANSWER 1>/dev/null 2>&1
         RV=$?
         set -e
 

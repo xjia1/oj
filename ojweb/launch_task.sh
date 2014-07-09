@@ -11,12 +11,12 @@ set +x
 
 # system-dependent configurations
 export CAT="/usr/local/bin/gcat"
-export CXX="/usr/bin/g++ -std=c++11 -O3"
-export DIFF="/usr/bin/diff -q"
+export CXX="/usr/bin/g++"
+export DIFF="/usr/bin/diff"
 export GREP="/usr/local/bin/ggrep"
 export RM="/usr/local/bin/grm"
 export TIME="/usr/local/bin/time"
-export TIMEOUT="/usr/local/bin/gtimeout -s 9"
+export TIMEOUT="/usr/local/bin/gtimeout"
 export WGET="/usr/local/bin/wget"
 
 ./task.sh
