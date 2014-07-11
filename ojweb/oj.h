@@ -111,6 +111,9 @@ void print_current_year(void);
 void print_int(int i);
 void print_pagination(int curpage, int total, const char *prefix);
 void print_radio(const char *name, const char *value, const char *id, const char *label);
+void print_field(const char *type, const char *name, const char *label);
+void print_text_field(const char *name, const char *label);
+void print_password_field(const char *name, const char *label);
 
 const char *current_user(void);
 
@@ -126,6 +129,7 @@ int language_is_allowed(const char *lang, uint16_t problem_id);
 
 int pg_index(void);
 int pg_submit(void);
+int pg_sign_up(void);
 
 int q_list_problems(void);
 int q_read_problem(void);

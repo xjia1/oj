@@ -13,6 +13,7 @@ static int process_request()
 {
     if (pg_index() == 0) return 0;
     if (pg_submit() == 0) return 0;
+    if (pg_sign_up() == 0) return 0;
 
     if (q_list_problems() == 0) return 0;
     if (q_read_problem() == 0) return 0;
