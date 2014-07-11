@@ -40,7 +40,7 @@ int sha1_str(const char *content, char output[40])
     return 0;
 }
 
-const char *sha1_to_string(char hash[40])
+const char *sha1_to_string(const char hash[40])
 {
     static char buffer[41];
     memcpy(buffer, hash, 40);

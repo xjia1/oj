@@ -31,7 +31,7 @@ char *file_get_contents(const char *filename);
 
 int sha1_file(const char *filename, char output[40]);
 int sha1_str(const char *str, char output[40]);
-const char *sha1_to_string(char hash[40]);
+const char *sha1_to_string(const char hash[40]);
 
 char *markdown(const char *filename);
 
@@ -52,7 +52,11 @@ void state_add_to_waiting_list(uint64_t id, uint64_t time);
 uint64_t state_pop_waiting_list(uint64_t time);
 size_t state_num_submits(void);
 const char *state_submit_code_at(size_t index);
+const char *state_submit_language_at(size_t index);
 const char *state_submit_code_sha1_at(size_t index);
+size_t state_submit_index_of(uint64_t id);
+const char *state_submit_language(uint64_t id);
+const char *state_submit_code_sha1(uint64_t id);
 
 void journal_init(void);
 void journal_open(const char *filename, const char *mode);

@@ -2,9 +2,9 @@
 
 int language_is_supported(const char *lang)
 {
-    return strcmp(lang, "C") == 0
-        || strcmp(lang, "C++") == 0
-        || strcmp(lang, "Python") == 0;
+    return strcmp(lang, "c") == 0
+        || strcmp(lang, "cpp") == 0
+        || strcmp(lang, "py") == 0;
 }
 
 int language_is_allowed(const char *lang, uint16_t problem_id)

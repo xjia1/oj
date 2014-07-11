@@ -25,10 +25,11 @@ int pg_submit()
     print("<div class='row'>");
         print("<div class='large-6 columns'>");
             print("<label>Language</label>");
-            print_radio("language", "C", "language_c", "C");
-            print_radio("language", "C++", "language_cpp", "C++");
-            print_radio("language", "Java", "language_java", "Java");
-            print_radio("language", "Python", "language_python", "Python");
+            /* name, value, id, label */
+            print_radio("language", "c", "language_c", "C");
+            print_radio("language", "cpp", "language_cpp", "C++");
+            print_radio("language", "java", "language_java", "Java");
+            print_radio("language", "py", "language_py", "Python");
         print("</div>");
     print("</div>");
 

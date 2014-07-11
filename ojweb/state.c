@@ -44,7 +44,7 @@ struct Submit
     char *Submit_User;
     uint16_t Problem_ID;
     char *Code;
-    char *Language;
+    char *Language;  /* store language source file extension: c, cpp, py */
     uint64_t Submit_Time;
     char *Submit_IP;
     char Code_SHA1[40];
@@ -186,7 +186,30 @@ const char *state_submit_code_at(size_t index)
     return State.Submits[index].Code;
 }
 
+const char *state_submit_language_at(size_t index)
+{
+    return State.Submits[index].Language;
+}
+
 const char *state_submit_code_sha1_at(size_t index)
 {
     return State.Submits[index].Code_SHA1;
+}
+
+size_t state_submit_index_of(uint64_t id)
+{
+    for (size_t i = 0; i < State.Num_Submits; i++)
+        if (State.Submits[i].ID == id)
+            return i;
+    return -1;
+}
+
+const char *state_submit_language(uint64_t id)
+{
+    return state_submit_language_at(state_submit_index_of(id));
+}
+
+const char *state_submit_code_sha1(uint64_t id)
+{
+    return state_submit_code_sha1_at(state_submit_index_of(id));
 }
