@@ -11,7 +11,7 @@ int pg_sign_up()
     print_header("Sign Up");
     print("<div class='row'>");
     print("<div class='large-12 columns'>");
-    print("<form method='POST' action='/signup'>");
+    print("<form id='pg_sign_up' method='POST' action='/signup'>");
 
     print_text_field("username", "Username");
     print_password_field("password", "Password");
