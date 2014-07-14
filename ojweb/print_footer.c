@@ -25,6 +25,7 @@ void print_footer()
     print("<script>$(document).foundation();</script>");
     print("<script src='http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>");
     print("<script src='/js/b64sha1.js'></script>");
+    print("<script src='/js/oj.js'></script>");
     print("</body>");
     print("</html>");
 }
