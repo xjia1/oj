@@ -145,4 +145,7 @@ int cmd_load_problem_replay(void);
 int cmd_fetch_task(void);
 int cmd_fetch_task_replay(void);
 
+int cmd_sign_up(void);
+int cmd_sign_up_replay(void);
+
 void serve_static_files(const char *document_root);
