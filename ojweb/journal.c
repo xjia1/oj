@@ -32,6 +32,8 @@ long journal_tell()
 
 int journal_read(void *buffer, size_t len)
 {
+    if (len == 0)
+        return 0;
     size_t n = fread(buffer, len, 1, journal);
     if (n != 1)
         return 1;
@@ -40,6 +42,8 @@ int journal_read(void *buffer, size_t len)
 
 int journal_write(const void *data, size_t len)
 {
+    if (len == 0)
+        return 0;
     size_t n = fwrite(data, len, 1, journal);
     if (n != 1)
         return 1;
