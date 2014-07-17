@@ -60,6 +60,7 @@ int main()
     http_server_start();
     INFO("HTTP server started on port 9876");
 
+    signal(SIGPIPE, SIG_IGN);
     for (;;)
     {
         if (http_server_accept_a_request() == 0)
@@ -71,4 +72,5 @@ int main()
         }
         http_server_close_connection();
     }
+    return 0;
 }

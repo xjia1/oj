@@ -3,6 +3,7 @@
 #include <inttypes.h>
 #include <limits.h>
 #include <math.h>
+#include <signal.h>
 #include <stdarg.h>
 #include <stddef.h>
 #include <stdint.h>
