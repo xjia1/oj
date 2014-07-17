@@ -1,7 +1,7 @@
 TARGET = ojweb
 LIBS = -lm
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror -std=c99 -pedantic -Wmissing-prototypes -Wstrict-prototypes -Wold-style-definition -g -O3
+CC = clang
+CFLAGS = -std=gnu99 -Wall -Wextra -Werror -pedantic -Wmissing-prototypes -Wstrict-prototypes -Wold-style-definition -g -O3
 
 .PHONY: default all clean
 

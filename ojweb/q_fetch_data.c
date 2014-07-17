@@ -1,6 +1,6 @@
 #include "oj.h"
 
-int q_fetch_data()
+int q_fetch_data(void)
 {
     if (!http_request_method_is_GET())
         return 1;

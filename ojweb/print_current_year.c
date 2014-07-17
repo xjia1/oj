@@ -1,6 +1,6 @@
 #include "oj.h"
 
-void print_current_year()
+void print_current_year(void)
 {
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);

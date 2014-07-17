@@ -6,7 +6,7 @@
 #define COMMAND_ID 0x0101
 static uint16_t Problem_ID;
 
-static int execute()
+static int execute(void)
 {
     char filename[MAX_FILENAME_SIZE];
 
@@ -105,7 +105,7 @@ static int execute()
     return 0;
 }
 
-static void persist()
+static void persist(void)
 {
     if (journal_write_uint16(COMMAND_ID) != 0)
         FATAL("Unable to write command ID");
@@ -113,7 +113,7 @@ static void persist()
         FATAL("Unable to write problem ID");
 }
 
-int cmd_load_problem()
+int cmd_load_problem(void)
 {
     if (http_request_method_is_POST() && strcmp(http_request_path(), "/admin/loadproblem") == 0)
     {
@@ -125,7 +125,7 @@ int cmd_load_problem()
     return 1;
 }
 
-int cmd_load_problem_replay()
+int cmd_load_problem_replay(void)
 {
     if (journal_expect_uint16(COMMAND_ID) == 0)
     {
