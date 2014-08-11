@@ -9,7 +9,7 @@ include(__DIR__ . '/../layout/header.php');
     <input type="number" class="input-small search-query" placeholder="题目编号" name="problem" maxlength="10" value="<?php echo $this->problem_id; ?>">
     <select name="language" class="input-small search-query">
     <?php
-      $languages = array('语言', 'C++', 'C', 'Java');
+      $languages = array('语言', 'C++', 'C', 'Java', 'Python');
       foreach ($languages as $value => $text) {
         fHTML::printOption($text, $value, $this->language);
       }

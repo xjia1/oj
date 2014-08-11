@@ -14,7 +14,7 @@ class SubmitController extends ApplicationController
     $this->render('submit/index');
   }
   
-  public static $languages = array('C++', 'C', 'Java');
+  public static $languages = array('C++', 'C', 'Java', 'Python');
   
   public function submit($problem_id)
   {
