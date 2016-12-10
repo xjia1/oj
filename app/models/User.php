@@ -56,16 +56,16 @@ class User extends fActiveRecord
     }
     $email = UserEmail::fetch($username);
     if ($email === NULL) {
-      return FALSE;
+     return FALSE;
     }
-    return strlen($email) > 0;
+  return strlen($email) > 0;
   }
   
   public static function requireEmailVerified()
   {
     if (!fAuthorization::checkLoggedIn()) return;
     if (User::hasEmailVerified()) return;
-    fMessaging::create('warning', 'You are required to verify your email address before doing this action.');
+    fMessaging::create('warning', '请先验证你的邮箱地址.');
     Util::redirect('/email/verify');
   }
 }
