@@ -6,6 +6,11 @@ $app->get('/', function () {
   $controller->index();
 });
 
+$app->get('/profile',function () {
+    $controller = new ProfileController();
+    $controller->profile();
+});
+
 $app->get('/email/verify', function () {
   $controller = new UserController();
   $controller->emailVerify();
@@ -109,10 +114,10 @@ $app->get('/status', function () {
   $controller->index();
 });
 
-// $app->get('/ranklist', function () {
-//   $controller = new UserController();
-//   $controller->ranklist();
-// });
+ $app->get('/ranklist', function () {
+   $controller = new UserController();
+   $controller->ranklist();
+ });
 
 $app->get('/contests', function () {
   User::requireEmailVerified();
